@@ -3,6 +3,8 @@ CXX=g++
 AR=ar
 GUILE_INCLUDE=-I/usr/lib/guile/5.6.1/CORE 
 PERL_INCLUDE=-I/usr/lib/perl/5.8/CORE 
+PYTHON_INCLUDE=-I/usr/include/python2.1
+
 RANLIB=ranlib
 EXE=
 EXTRA_DIST=debian
