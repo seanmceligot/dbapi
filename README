@@ -1,0 +1,15 @@
+The following are some of the packages needed to compile this project on my debian system (www.debian.org):
+
+||/ Name           Version        Description
++++-==============-==============-============================================
+ii  g++-3.2        3.2.3-8        The GNU C++ compiler
+ii  dmalloc        5.2.1-3        Debug memory allocation library (non-threade
+ii  libdb4.0++-dev 4.0.14-1.3     Berkeley v4.0 Database Libraries for C++ [de
+ii  libgc-dev      6.2+6.3alpha2- Conservative garbage collector for C (develo
+ii  swig1.3        1.3.19-1.1     Generate scripting interfaces to C/C++ code
+ii  guile-1.6      1.6.4-4        The GNU extension language and Scheme interp
+ii  libguile-dev   1.4-25         Development headers and static library for l
+ii  libguile9      1.4-25         libraries for Guile1.4 (guile, guilereadline
+ii  libperl-dev    5.8.0-18       Perl library: development files.
+ii  python2.1-dev  2.1.3-20       Header files and a static library for Python
+ii  libgtk1.2-dev  1.2.10-16      Development files for the GIMP Toolkit

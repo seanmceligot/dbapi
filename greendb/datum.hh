@@ -1,0 +1,119 @@
+#ifndef __DATUM_HH
+#define __DATUM_HH
+
+#include <sstream>
+#include <iostream>
+#include <string>
+#include <exception>
+#include <ext/memory>
+#include <typeinfo>
+#include "traits.hh"
+#include <db_cxx.h>
+#include "greendb/memory.hh"
+
+class Datum:protected Dbt {
+  friend class GreenDb;
+  friend class Cursor;
+  bool _internal_allocated;
+public:
+  Datum (u_int32_t size);
+  Datum ();
+  Datum (void *ptr, u_int32_t size, u_int32_t allocated);
+  virtual ~Datum();
+  const void *const_ptr() const;
+  void *get_ptr();
+  void set_ptr(void* ptr);
+  u_int32_t get_size () const;
+  u_int32_t get_allocated () const;
+  void atleast_size ();
+  void atleast (size_t newsize);
+  //virtual const char * type_name () const = 0;
+  //virtual const char * repr () const = 0;
+  //virtual const char * str() const = 0;
+protected:
+  void set_internal_allocated();
+  u_int32_t get_internal_allocated();
+  void set_size (u_int32_t size);
+  void set_allocated (u_int32_t allocated);
+  void set_db_flags(u_int32_t flags);
+  void free_ptr();
+};
+
+template < typename T, typename Mem,typename DatumTraits = DatumTraits<T> >
+class DatumT: public Datum {
+  friend class GreenDb;
+  friend class Cursor;
+  public:
+    //DatumT (T *ptr, u_int32_t size, u_int32_t allocated):Datum(ptr, size,allocated) {
+    //}
+    DatumT ():Datum() {
+    }
+    DatumT (const T &ptr):Datum() {
+      set_ptr(new T(ptr));
+      set_internal_allocated();
+      u_int32_t size =DatumTraits::size_of(ptr);
+      set_size(size);
+      set_allocated(size);
+    }
+    const T& set_value(const T& newvalue) {
+      size_t size = DatumTraits::size_of(newvalue);
+      if (get_ptr()) {
+        T* ptr = (T*)get_ptr();
+        std::_Destroy<T>(ptr);
+        //greendb_free(ptr);
+        atleast(size);
+        std::_Construct<T>(ptr, newvalue);
+      } else {
+        atleast(size);
+        set_ptr( new T(newvalue) );
+      }
+      std::cout << "after set_value: " << repr () << std::endl;
+      return value();
+    }
+    const T& operator=(const T& newvalue) {
+      return set_value(newvalue);
+    }
+  const T& value() const {
+    const T* ptr = (T*)Dbt::get_data ();
+    return *ptr;
+  }
+  const char * type_name () const {
+     return typeid (*this).name ();
+  }
+  virtual ~DatumT () {
+    free_ptr();
+  }
+  const char * repr () const {
+    std::stringstream os;
+    if (const_ptr()) {
+      os << type_name()<<"("<< value() << ")";
+    } else {
+      os << type_name () << "(NULL, " << get_size() << "," << get_allocated() << ")";
+    }
+    return os.str ().c_str ();
+  }
+  const char* str () const {
+        std::stringstream os;
+        os << * get_ptr();
+        return os.str().c_str ();
+  }
+//protected:
+    /*
+  size_t size_of(const T& ptr) const {
+    return DatumTraits::size_of(ptr);
+  }
+     * void fromstr (const char *str) { std::basic_istrstream<const char*> 
+     * in (str); _ptr = Mem::newbuf (sizeof (T)); in >> *_ptr; } 
+     */ 
+    /*
+    void copy (T * ptr, size_t size) {
+      atleast (size);
+      memcpy (_ptr, ptr, size);
+      _size = size;
+    }*/
+  };
+
+typedef DatumT < int, Malloc> IntDatum;
+
+std::ostream & operator << (std::ostream & os, const Datum & datum);
+#endif

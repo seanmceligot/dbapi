@@ -1,0 +1,12 @@
+
+(define frame (gtk-frame-new ""))
+(gtk-widget-show frame)
+(gtk-box-pack-start vbox frame #t #t 0)
+
+(define cmd-entry (gtk-entry-new))
+(gtk-widget-show cmd-entry)
+(gtk-box-pack-start vbox cmd-entry #f #f 0)
+
+(define status-bar (gtk-statusbar-new))
+(gtk-widget-show status-bar)
+(gtk-box-pack-start vbox status-bar #f #f 0)

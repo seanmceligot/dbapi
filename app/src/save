@@ -1,0 +1,28 @@
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
+#include <gtk/gtk.h>
+
+#include "callbacks.h"
+#include "interface.h"
+#include "support.h"
+
+
+void
+on_quit_activate                       (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+
+}
+
+
+gboolean
+on_cmd_entry_key_release_event         (GtkWidget       *widget,
+                                        GdkEventKey     *event,
+                                        gpointer         user_data)
+{
+	gtk_signal_emit_stop_by_name(widget, "insert_text");
+  return FALSE;
+}
+
