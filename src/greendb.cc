@@ -83,7 +83,7 @@ GreenDb::open (int type, u_int32_t flags, int mode)
   debug << "opening " << _dbfile << ":" << _name << std::endl;
 	try {	
     DbTxn* txn = NULL;
-#if LIBDB_MAJOR > 3
+#if DB_VERSION_MAJOR > 3
   	Db::open (txn, _dbfile.c_str(), _name.c_str(), ltype, lflags, mode);
 #else
   	Db::open (_dbfile.c_str(), _name.c_str(), ltype, lflags, mode);

@@ -1,20 +1,28 @@
 prefix=/usr/local
-CXX=g++
-AR=ar
 GUILE_INCLUDE=-I/usr/lib/guile/5.6.1/CORE 
 PERL_INCLUDE=-I/usr/lib/perl/5.8/CORE 
-PYTHON_INCLUDE=-I/usr/include/python2.1
-PYTHON_INSTALL=/usr/lib/python2.1/site-packages
-RANLIB=ranlib
+
+PYTHON_INCLUDE=-I/usr/include/python2.3
+PYTHON=/usr/bin/python2.3
+PYTHON_INSTALL=/usr/lib/python2.3/site-packages
+
+RUBY_INCLUDE=-I/usr/lib/ruby/1.8/i386-linux
+RUBY=/usr/bin/ruby1.8
+RUBY_INSTALL=/usr/local/lib/site_ruby/1.8
+
+AR=ar
+CXXCOMPILE=${CXX} ${CXXFLAGS}
+CXXFLAGS=-ggdb
+#CXXFLAGS=-ggdb -Wall
+CXX=g++
+DEFINES=-DGC_OPERATOR_NEW_ARRAY
 EXE=
 EXTRA_DIST=debian
-#CXXFLAGS=-ggdb -Wall
-CXXFLAGS=-ggdb
-CXXCOMPILE=${CXX} ${CXXFLAGS}
 LIBS=-ldb_cxx
-DEFINES=-DGC_OPERATOR_NEW_ARRAY
+RANLIB=ranlib
+
+LIBTOOL_CLEAN=libtool --mode=clean rm -vf
 LIBTOOL_CXX=libtool --mode=compile ${CXXCOMPILE}
-LIBTOOL_LINK=libtool --mode=link ${CXXCOMPILE}
 LIBTOOL_INSTALL=libtool --mode=install install
-LIBTOOL_UNINSTALL=rm -vf
-LIBTOOL_CLEAN=rm -vf
+LIBTOOL_LINK=libtool --mode=link ${CXXCOMPILE}
+LIBTOOL_UNINSTALL=libtool --mode=uninstall rm -vf

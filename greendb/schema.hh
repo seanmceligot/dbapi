@@ -15,7 +15,7 @@ class Schema {
 	friend class Row;
 public:
 	void add_column(const char* colname, int type, bool index);
-	void add_columns(const char *cols[], int types[]);
+	void add_columns(const char *cols[], int types[], unsigned int length);
 	//void add_index(const char* colname, int type, bool index);
 	int get_type(int n) const;
 	int get_type(const char* colname) const;

@@ -22,13 +22,13 @@ Datum::Datum ():Dbt (),_internal_allocated(false) {
   //debug<<"Datum()"<<std::endl;
 }
 Datum::Datum (u_int32_t size):Dbt (),_internal_allocated(false) {
-  debug<<"Datum("<<size<<")"<<std::endl;
+  //debug<<"Datum("<<size<<")"<<std::endl;
   atleast(size);
 }
 Datum::Datum (void *ptr, u_int32_t size, u_int32_t allocated):Dbt (ptr, size),_internal_allocated(false) {
-  debug<<"Datum(";
+  //debug<<"Datum(";
   print_void(std::cerr, ptr, size);
-	debug<<")"<<std::endl;
+	//debug<<")"<<std::endl;
  set_ulen (allocated);
 }
 Datum::~Datum() {
@@ -37,7 +37,7 @@ Datum::~Datum() {
 }
 void Datum::free_ptr() {
   void* ptr = get_ptr();
-   debug<<ptr<<_internal_allocated<<std::endl;
+   //debug<<ptr<<_internal_allocated<<std::endl;
    if ( (ptr) && (_internal_allocated) ) {
        free(ptr);
    }
@@ -83,10 +83,10 @@ void Datum::atleast (size_t newsize) {
   if (get_allocated() < newsize) {
       if (get_ptr() == NULL) {
           _internal_allocated = true;
-          debug<<"atleast: "<<newsize<<std::endl;
+          //debug<<"atleast: "<<newsize<<std::endl;
           set_ptr( malloc(newsize) );
         } else {
-          debug<<"atleast: realloc "<<get_ptr()<<" "<<newsize<<std::endl;
+          //debug<<"atleast: realloc "<<get_ptr()<<" "<<newsize<<std::endl;
           set_ptr( realloc(get_ptr(), newsize) );
           _internal_allocated = true;
         }

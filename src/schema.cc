@@ -87,9 +87,8 @@
 	size_t Schema::size() const {
 		return _size;
 	}
-	void Schema::add_columns(const char *cols[], int types[]) {
-		int i = 0;
-    while (cols[i]) {
+	void Schema::add_columns(const char *cols[], int types[], unsigned int length) {
+		for (int i = 0;i < length;i++) {
 			const char* colname  = cols[i];
     	int type = types[i];
 			add_column(colname, type,false);

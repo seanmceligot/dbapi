@@ -115,6 +115,7 @@ private:
 	Schema();
 public:
 	void add_column(const char* colname, int type, bool index);
+	void add_columns(const char *cols[], int types[], unsigned int length);
 	%name(get_type_n) int get_type(int n) const;
 	int get_type(const char* colname) const;
 	int get_col_no(const char* colname) const;
