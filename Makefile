@@ -2,21 +2,19 @@ all: compile
 
 include config.mak
 
-compile: config.h
-	make -C src $@
-	make -C util $@
+subdirs=src util swig
+
+compile:
+	for d in ${subdirs};do make -C $$d $@;done
 
 install: 
-	make -C src $@
-	make -C util $@
+	for d in ${subdirs};do make -C $$d $@;done
 	
 uninstall:
-	make -C src $@
-	make -C util $@
+	for d in ${subdirs};do make -C $$d $@;done
 
 clean:
-	make -C src $@
-	make -C util $@
+	for d in ${subdirs};do make -C $$d $@;done
 	rm -vf config.h
 
 config.h: dbversion${EXE}
