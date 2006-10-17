@@ -1,11 +1,11 @@
 compile: greendb.la
 include ../../config.mak
 
-INCLUDES=-I../.. ${RUBY_INCLUDE}
+INCLUDES=-I../.. ${RUBY_INCLUDE} ${DB_INCLUDE}
 DEFINES=-DSWIG
 
 greendb.la: greendb_wrap.lo
-	${LIBTOOL_LINK} -module -o $@ $< -rpath ${RUBY_INSTALL} -lruby1.8 -lsupc++  -lpthread -ldl -lcrypt -lm -lc -ldb_cxx ../../src/libgreendb.la 
+	${LIBTOOL_LINK} -module -o $@ $< -rpath ${RUBY_INSTALL} -l${RUBY_LIB} -lsupc++  -lpthread -ldl -lcrypt -lm -lc -ldb_cxx ../../src/libgreendb.la 
 
 install:
 	${LIBTOOL_INSTALL} -c greendb.la ${RUBY_INSTALL}
@@ -20,5 +20,5 @@ greendb_wrap.cc: ../greendb.i
 	$(LIBTOOL_CXX) -c ${INCLUDES} ${DEFINES} $<
 
 clean:
-	$(LIBTOOL_CLEAN) *.o *_wrap.c *_wrap.cc *.so __db.* *.db *.so  *.lo *.la
+	$(LIBTOOL_CLEAN) *.o *_wrap.c *_wrap.cc *.so __db.* *.db *.so  *.lo *.la *.loT
 

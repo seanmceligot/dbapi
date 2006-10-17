@@ -30,7 +30,7 @@ public:
 class CursorRow : public Row {
 	Cursor* _cursor;
 public:
-	CursorRow(Table* table, size_t size, Cursor* cursor, const char* index, Datum* pk);
+	CursorRow(Table* table, size_t size, Cursor* cursor, Datum* pk);
 	Cursor* get_cursor();
 };
 

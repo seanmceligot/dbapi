@@ -14,13 +14,19 @@ class Schema {
 	friend class Table;
 	friend class Row;
 public:
-	void add_column(const char* colname, int type, bool index);
-	void add_columns(const char *cols[], int types[], unsigned int length);
+	void add_column(const char* colname, DataType type, bool index);
+	void add_columns(const char *cols[], DataType types[], unsigned int length);
 	//void add_index(const char* colname, int type, bool index);
-	int get_type(int n) const;
-	int get_type(const char* colname) const;
+	DataType get_type(int n) const;
+	const char* get_type_name(int n) const;
+	DataType get_type(const char* colname) const;
+	const char* get_type_name(const char* colname) const;
+	Datum* create_datum(const char* colname) const;
+	Datum* create_datum(int coln) const;
+	Datum* create_datum_for_type(int type) const;
 	int get_col_no(const char* colname) const;
 	const char* get_name(int n) const;
+	bool indexed(int colno) const;
 	size_t size() const;
   friend std::ostream & operator << (std::ostream & os, const Schema & schema);
 protected:

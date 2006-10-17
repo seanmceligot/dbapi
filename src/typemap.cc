@@ -1,6 +1,7 @@
 #include "greendb/typemap.hh"
 #include "greendb/memory.hh"
 #include "greendb/smart.hh"
+#include "greendb/datum.hh"
 #include <assert.h>
 
 TypeMap* TypeMap::_singleton = NULL;
@@ -66,7 +67,7 @@ void TypeMap::from_string(const std::type_info* ti, Datum* datum, const char* st
 	StringConvert* sc = _convert_map[ti];
 	assert(sc);
 	sc->from_string(str, datum->get_ptr());
-	debug<<"after fromstring: "<<*datum<<std::endl;
+	//rDebug("after fromstring: %s",datum->str());
 }
 size_t TypeMap::from_string_size(const std::type_info* ti, const char* str) {
 	StringConvert* sc = _convert_map[ti];
@@ -74,3 +75,27 @@ size_t TypeMap::from_string_size(const std::type_info* ti, const char* str) {
 	return sc->from_string_size(str);
 }
 
+DataType TypeMap::get_type_id(const char* type) {
+	if (strcmp("user", type) == 0) {
+		return TYPE_USER;
+	}
+	if (strcmp("string", type) == 0) {
+		return TYPE_STRING;
+	}
+	if (strcmp("int", type) == 0) {
+		return TYPE_INT;
+	}
+	return TYPE_UNDEFINED;
+}
+const char* TypeMap::get_type_name(int type) {
+	switch(type) {
+		case TYPE_USER:
+			return "user";		
+		case TYPE_STRING:
+			return "string";		
+		case TYPE_INT:
+			return "int";		
+		default:
+			return NULL;
+	}
+}

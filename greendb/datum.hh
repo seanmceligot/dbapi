@@ -10,6 +10,7 @@
 #include "traits.hh"
 #include <db_cxx.h>
 #include "greendb/memory.hh"
+#include "greendb/typemap.hh"
 
 class Datum:protected Dbt {
   friend class GreenDb;
@@ -30,6 +31,15 @@ public:
   //virtual const char * type_name () const = 0;
   //virtual const char * repr () const = 0;
   //virtual const char * str() const = 0;
+  virtual const char * repr() const {
+					return "Datum";
+	}
+  const char * str() const {
+					return "Datum";
+	}
+  const char * c_str() const {
+					return str();
+	}
 protected:
   void set_internal_allocated();
   u_int32_t get_internal_allocated();
@@ -83,19 +93,23 @@ class DatumT: public Datum {
   virtual ~DatumT () {
     free_ptr();
   }
-  const char * repr () const {
+  virtual const char * repr () const {
     std::stringstream os;
     if (const_ptr()) {
       os << type_name()<<"("<< value() << ")";
     } else {
       os << type_name () << "(NULL, " << get_size() << "," << get_allocated() << ")";
     }
-    return os.str ().c_str ();
+    return strdup(os.str ().c_str ());
   }
-  const char* str () const {
-        std::stringstream os;
-        os << * get_ptr();
-        return os.str().c_str ();
+  virtual const char* str () const {
+    std::stringstream os;
+    if (const_ptr()) {
+      os << value();
+    } else {
+      os << type_name () << "("<<get_size()<<","<< get_allocated()<<")";
+    }
+    return strdup(os.str ().c_str ());
   }
 //protected:
     /*
@@ -114,6 +128,7 @@ class DatumT: public Datum {
   };
 
 typedef DatumT < int, Malloc> IntDatum;
+typedef DatumT < DataType, Malloc> DataTypeDatum;
 
 std::ostream & operator << (std::ostream & os, const Datum & datum);
 #endif

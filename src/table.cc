@@ -3,6 +3,7 @@
 #include "greendb/strdatum.hh"
 #include "greendb/debug.hh"
 #include "greendb/schema.hh"
+#include "greendb/resultset.hh"
 #include <string>
 
 Table::Table (const char* name, GreenEnv & ge): _name(name), _ge (ge) {
@@ -18,8 +19,30 @@ CursorRow* Table::last(const char* colname) {
 	Datum pkval;
 	Cursor* cur = cursor(colname);
 	if (cur->last(*pkkey,pkval) == 0) {
-		CursorRow* row = new CursorRow(this, _schema->size(), cur, colname, pkkey); 
+		CursorRow* row = new CursorRow(this, _schema->size(), cur, pkkey); 
 		return row;
+	}
+	return NULL;
+}
+ResultSet* Table::find_all(const char* index, Datum* fk) {
+	Datum* pk = _schema->create_datum(0);
+  GreenDb *db = get_index(index);
+	Cursor* cur = db->cursor();
+	rDebug("find %s", db->name());
+	unsigned int column_count = _schema->size();
+	if (cur->find(*fk, *pk) == 0 ) {
+		CursorRow* row = new CursorRow(this, column_count, cur, pk); 
+		return new ResultSet(this, row, fk, pk, column_count);
+	}
+	return new ResultSet(this, NULL, fk, pk, column_count);
+}
+CursorRow* Table::next(Cursor* cur, Datum& fk, Datum* pk) {
+	int dberr = cur->next_dup(fk, *pk);
+	if (dberr == 0 ) {
+		CursorRow* row = new CursorRow(this, _schema->size(), cur, pk); 
+		return row;
+	} else {
+		_ge.err(dberr);
 	}
 	return NULL;
 }
@@ -28,30 +51,28 @@ CursorRow* Table::first(const char* colname) {
 	Datum pkval;
 	Cursor* cur = cursor(colname);
 	if (cur->next(*pkkey,pkval) == 0) {
-		CursorRow* row = new CursorRow(this, _schema->size(), cur, colname, pkkey); 
+		CursorRow* row = new CursorRow(this, _schema->size(), cur, pkkey); 
 		return row;
 	}
 	return NULL;
 }
 CursorRow* Table::next(CursorRow* row, const char* colname) {
 	Datum* pkkey = row->get_column(0);
-	debug<<"next after: "<<*pkkey<<std::endl;
 	Datum pkval;
 	Cursor* cur = row->get_cursor();
 	if (cur->next(*pkkey,pkval) == 0) {
-		debug<<"next is: "<<*pkkey<<std::endl;
-		CursorRow* row = new CursorRow(this, _schema->size(), cur, colname, pkkey); 
+		CursorRow* row = new CursorRow(this, _schema->size(), cur, pkkey); 
 		return row;
 	}
 	return NULL;
 }
 
 Row*
-Table::fetch(const char *iname, Datum& ikey) {
-  GreenDb *db = get_database (iname);
+Table::fetch(const char *colname, Datum& ikey) {
+  GreenDb *db = get_index(colname);
+	rDebug("fetch %s %s", db->name(), ikey.str());
   Datum* pk = new Datum ();
   if (db->fetch (ikey, *pk) == DB_NOTFOUND) {
-    debug << ikey << " not found" << std::endl;
 		free(pk);
     return NULL;
   }
@@ -64,7 +85,6 @@ Table::close () {
   for (StringDbMap::iterator it = _dbhash.begin (); it != _dbhash.end (); it++) {
     const char *colname = it->first;
     GreenDb *db = it->second;
-    debug << "close db:" << colname << " --> " << db << std::endl;
     db->close ();
     free (db);
   }
@@ -85,13 +105,19 @@ Table::save (Row * row) {
   Datum& pk = row->getpk ();
   for (size_t i = 0; i < row->size(); i++) {
     const char *colname = _schema->get_name(i);
+    bool indexed = _schema->indexed(i);
+		rDebug("save %s %s %d", _name.c_str(), colname, indexed);
     Datum *datum = row->get_existing_column(i);
 		if (datum) {
 	    GreenDb *db = get_database (colname);
 			char* str = row->to_string(colname);
-			debug<< "put " << colname << ":"<<pk<<"=" <<str << std::endl;
 			free(str);
 	    db->put (pk, *datum);
+		}
+		if (indexed) {
+			GreenDb* idb = get_index(colname, true);
+			rDebug("indexing... %s", colname);
+  		idb->put (*datum, pk);
 		}
   }
   GreenDb* tables = get_database("tables");
@@ -110,7 +136,6 @@ Cursor* Table::cursor(const char*name) {
 
 void Table::index (const char* iname, Datum& pk, Datum& index) {
   GreenDb *db = get_database (iname);
-  debug << "save " << iname << ":" << pk << ":" << index << std::endl;
   db->put (index, pk);
 }
 
@@ -124,16 +149,36 @@ Table::new_row() {
 }
 
 GreenDb *
+Table::get_index(const char *colname, bool create)
+{
+  GreenDb *db;
+	rDebug("get_index: %s %s _ix", _name.c_str(), colname);
+		std::string tablecolname (_name);
+    tablecolname.append ("_");
+    tablecolname.append (colname);
+    tablecolname.append ("_ix");
+	StringDbMap::iterator it = _dbhash.find(tablecolname.c_str());
+	if (it == _dbhash.end()) {
+		rDebug("get_index: %s %d", tablecolname.c_str(), create);
+    db = new GreenDb (&_ge, "tables.db", tablecolname.c_str ());
+    db->open_btree (create, true);
+		_dbhash[tablecolname.c_str()] = db;
+  } else {
+		rDebug("returning cached %s", tablecolname.c_str());
+		db = it->second;
+	}
+  return db;
+}
+
+GreenDb *
 Table::get_database (const char *colname, bool create)
 {
   GreenDb *db;
 	StringDbMap::iterator it = _dbhash.find(colname);
 	if (it == _dbhash.end()) {
-    debug << "table " << _name << std::endl;
 		std::string tablecolname (_name);
     tablecolname.append ("_");
     tablecolname.append (colname);
-    debug << "open " << tablecolname.c_str() << std::endl;
     db = new GreenDb (&_ge, "tables.db", tablecolname.c_str ());
     db->open_btree (create);
     _dbhash[colname] = db;

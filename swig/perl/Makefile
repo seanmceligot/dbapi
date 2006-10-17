@@ -1,7 +1,7 @@
 compile: libperlgreendb.la
 include ../../config.mak
 
-INCLUDES=-I../.. ${PERL_INCLUDE}
+INCLUDES=-I../.. ${PERL_INCLUDE} ${DB_INCLUDE}
 DEFINES=-DSWIG
 
 libperlgreendb.la: greendb_wrap.lo

@@ -27,21 +27,44 @@
  */
 	Schema::Schema (Table* table):_size(-1),_table(table) {
 	}
-	int Schema::get_type(int n) const {
+	const char* Schema::get_type_name(int n) const {
+		DataType type = get_type(n);
+		return TypeMap::get_type_map()->get_type_name(type);
+	}
+	DataType Schema::get_type(int n) const {
 		assert(n >= 0);
-		IntDatum type;
+		DataTypeDatum type;
 		IntDatum coln(n);
-		debug<<"get_type:"<<n<<std::endl;
 		GreenDb* db =_table->get_database("$schema_types");
 		assert(db != NULL);
 		if (db->fetch(coln,type) ==0) {
 			return type.value();
 		}
-		return TypeMap::UNDEFINED;
+		return TYPE_UNDEFINED;
 	}
-	int Schema::get_type(const char* colname) const {
+	DataType Schema::get_type(const char* colname) const {
 		int colno = get_col_no(colname);
 		return get_type(colno);
+	}
+	const char* Schema::get_type_name(const char* colname) const {
+		DataType type = get_type(colname);
+		return TypeMap::get_type_map()->get_type_name(type);
+	}
+	Datum* Schema::create_datum_for_type(int type) const {
+			switch(type) {
+							case TYPE_STRING:
+											return new StrDatum();
+							case TYPE_INT:
+											return new IntDatum();
+							default:
+										return NULL;
+			}
+	}
+	Datum* Schema::create_datum(const char* colname) const {
+			return create_datum_for_type(get_type(colname));
+	};
+	Datum* Schema::create_datum(int coln) const {
+			return create_datum_for_type(get_type(coln));
 	}
 	int Schema::get_col_no(const char* colname) const {
 		IntDatum pk;
@@ -59,15 +82,23 @@
 		_table->get_database("$schema_ix_name")->fetch(pk,name);
 		return name.value();
 	}
-	void Schema::add_column(const char* colname, int type, bool index) {
+	bool Schema::indexed(int colno) const {
+		IntDatum mkindex;
+		IntDatum pk(colno);
+		_table->get_database("$schema_ix_mkindex")->fetch(pk,mkindex);
+		return mkindex.value()==0?false:true;
+	}
+	void Schema::add_column(const char* colname, DataType type, bool index) {
 		int idx = _size;
 		_size++;
+		IntDatum mkindex(index?1:0);
 		IntDatum pk(idx);
 		StrDatum dat_name(colname);
 		_table->get_database("$schema_ix_name")->put(pk,dat_name);
 		IntDatum dat_type(type);
 		_table->get_database("$schema_types")->put(pk,dat_type);
 		_table->get_database("$schema_name_ix")->put(dat_name,pk);
+		_table->get_database("$schema_ix_mkindex")->put(pk,mkindex);
 	
 		StrDatum size_key("size");
 		IntDatum dat_sz(_size);
@@ -87,10 +118,10 @@
 	size_t Schema::size() const {
 		return _size;
 	}
-	void Schema::add_columns(const char *cols[], int types[], unsigned int length) {
+	void Schema::add_columns(const char *cols[], DataType types[], unsigned int length) {
 		for (int i = 0;i < length;i++) {
 			const char* colname  = cols[i];
-    	int type = types[i];
+			DataType type = types[i];
 			add_column(colname, type,false);
 			i++;
   	}
@@ -105,30 +136,10 @@ const std::type_info* Schema::get_typeid(const char* colname) {
 }
 const std::type_info* Schema::get_typeid_from_type(int coltype) {
 	switch(coltype) {
-		case TypeMap::STRING:
+		case TYPE_STRING:
 			return &(typeid(char*));
-		case TypeMap::WSTRING:
-			return &(typeid(wchar_t*));
-		case TypeMap::INT:
+		case TYPE_INT:
 			return &(typeid(int));
-		case TypeMap::SHORT:
-			return &(typeid(short));
-		case TypeMap::LONG:
-			return &(typeid(long));
-		case TypeMap::DOUBLE:
-			return &(typeid(double));
-		case TypeMap::UINT:
-			return &(typeid(unsigned int));
-		case TypeMap::USHORT:
-			return &(typeid(unsigned short));
-		case TypeMap::ULONG:
-			return &(typeid(unsigned long));
-		case TypeMap::CHAR:
-			return &(typeid(char));
-		case TypeMap::WCHAR:
-			return &(typeid(wchar_t));
-		case TypeMap::BOOL:
-			return &(typeid(bool));
 		default:
 			return NULL;
 	}

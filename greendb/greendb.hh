@@ -9,6 +9,7 @@
 
 //bool sleepywrap_getrec(GreenDb* db, DynamicDatum* key, DynamicDatum* value) throw(GreenException);
 //bool sleepywrap_getrec(GreenDb* db, StaticDatum* key, StaticDatum* value) throw(GreenException);
+class Cursor;
 
 class GreenDb:protected Db {
   const std::string _name;
@@ -22,14 +23,15 @@ public:
 	void open_queue(bool create=true);
 	void open_recno(bool create=true);
 	void open_hash(bool create=true);
-	void open_btree(bool create=true);
+	void open_btree(bool create=true, bool allow_dups=false);
   Cursor *cursor ();
-  void open (int type, u_int32_t flags, int mode);
+  void open (int type, u_int32_t flags,u_int32_t open_flags, int mode);
 //  void open (DBTYPE type = DB_BTREE, u_int32_t flags = DB_CREATE, int mode = 0644);
   const char *dbfile () const;
   const char *name () const;
   void put (Datum & key, Datum & val);
   int fetch (Datum & key, Datum & val);
+	void err(int dberr) { Db::err(dberr, "GreenDb");};
   void close ();
 };
 

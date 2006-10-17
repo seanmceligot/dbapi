@@ -399,7 +399,7 @@ sleepywrap_getrec_size (SleepyWrap * sw, const void *keybuf,
   data.flags = DB_DBT_USERMEM;
 
   dberr = sw->db->get (sw->db, sw->txn, &key, &data, 0);
-  if ((dberr == ENOMEM) || (dberr == 0)) {
+  if ((dberr == DB_BUFFER_SMALL) || (dberr == 0)) {
     *size = data.size;
     return 0;
   }
@@ -480,7 +480,7 @@ int dbt_needs_realloc(DBT dbt, int dberr) {
   			dbt->flags = DB_DBT_USERMEM;
 				return FALSE;
 		}
-    if (dberr == ENOMEM) {
+    if (dberr == DB_BUFFER_SMALL) {
       if (dbt->size > dbt->ulen) {
         // set key size
         dbt->ulen = *kalloc;
@@ -527,7 +527,7 @@ sleepywrap_cursor_get_flag (SleepyWrapCursor * sc,
     debug_dbt_str ("after get size key", sc->key);
     debug_dbt_str ("after get size data", sc->data);
 
-    if (dberr == ENOMEM) {
+    if (dberr == DB_BUFFER_SMALL) {
       if (sc->key.flags == DB_DBT_REALLOC) {
         // don't realloc a second time
         sc->key.ulen = sc->key.size;
@@ -551,7 +551,7 @@ sleepywrap_cursor_get_flag (SleepyWrapCursor * sc,
         }
       }
 		}
-  } while (dberr == ENOMEM);
+  } while (dberr == DB_BUFFER_SMALL);
 
   db_return_if_err (dberr);
 
@@ -617,7 +617,7 @@ sleepywrap_cursor_find(SleepyWrapCursor * sc,
     dberr = sc->cursor->c_get (sc->cursor, &sc->key, &sc->data, DB_SET);
     debug_dbt_str ("after find key", sc->key);
     debug_dbt_str ("after find data", sc->data);
-    if (dberr == ENOMEM) {
+    if (dberr == DB_BUFFER_SMALL) {
       if (sc->key.flags == DB_DBT_REALLOC) {
         // don't realloc a second time
         sc->key.ulen = sc->key.size;
@@ -641,9 +641,9 @@ sleepywrap_cursor_find(SleepyWrapCursor * sc,
         }
       }
 		}
-  } while (dberr == ENOMEM);
+  } while (dberr == DB_BUFFER_SMALL);
  
-  if (dberr == ENOMEM) {
+  if (dberr == DB_BUFFER_SMALL) {
 					dberr = 0;
 	}
   db_return_if_err (dberr);
@@ -716,7 +716,7 @@ sleepywrap_cursor_current(SleepyWrapCursor * sc,
     debug_dbt_str ("after get size key", sc->key);
     debug_dbt_str ("after get size data", sc->data);
 
-    if (dberr == ENOMEM) {
+    if (dberr == DB_BUFFER_SMALL) {
       if (sc->key.flags == DB_DBT_REALLOC) {
         // don't realloc a second time
         sc->key.ulen = sc->key.size;
@@ -740,7 +740,7 @@ sleepywrap_cursor_current(SleepyWrapCursor * sc,
         }
       }
 		}
-  } while (dberr == ENOMEM);
+  } while (dberr == DB_BUFFER_SMALL);
 
   db_return_if_err (dberr);
 

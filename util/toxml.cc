@@ -10,6 +10,9 @@
 
 int
 main (int argc, char **argv) {
+	RLogInit( argc, argv );
+  StdioNode stdLog(2,1|4 );
+	stdLog.subscribeTo( GetGlobalChannel("") );
 	static GreenEnv ge(".");
 	char* table_name = argv[1];
 	ge.open ();

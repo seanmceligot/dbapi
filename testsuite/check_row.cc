@@ -17,7 +17,7 @@
 static GreenEnv ge(".");
 Table* table;
 const char* colnames[] = {"userid","firstname", "lastname", NULL};
-int coltypes[] = {TypeMap::STRING, TypeMap::STRING, TypeMap::STRING, 0};
+int coltypes[] = {TYPE_STRING, TYPE_STRING, TYPE_STRING, 0};
 
 
 static void

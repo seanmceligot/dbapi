@@ -1,24 +1,36 @@
-# This file was created automatically by SWIG.
+# This file was created automatically by SWIG 1.3.29.
 # Don't modify this file, modify the SWIG interface instead.
 # This file is compatible with both classic and new-style classes.
 
 import _greendb
-
-def _swig_setattr(self,class_type,name,value):
+import new
+new_instancemethod = new.instancemethod
+def _swig_setattr_nondynamic(self,class_type,name,value,static=1):
+    if (name == "thisown"): return self.this.own(value)
     if (name == "this"):
-        if isinstance(value, class_type):
-            self.__dict__[name] = value.this
-            if hasattr(value,"thisown"): self.__dict__["thisown"] = value.thisown
-            del value.thisown
+        if type(value).__name__ == 'PySwigObject':
+            self.__dict__[name] = value
             return
     method = class_type.__swig_setmethods__.get(name,None)
     if method: return method(self,value)
-    self.__dict__[name] = value
+    if (not static) or hasattr(self,name):
+        self.__dict__[name] = value
+    else:
+        raise AttributeError("You cannot add attributes to %s" % self)
+
+def _swig_setattr(self,class_type,name,value):
+    return _swig_setattr_nondynamic(self,class_type,name,value,0)
 
 def _swig_getattr(self,class_type,name):
+    if (name == "thisown"): return self.this.own()
     method = class_type.__swig_getmethods__.get(name,None)
     if method: return method(self)
     raise AttributeError,name
+
+def _swig_repr(self):
+    try: strthis = "proxy of " + self.this.__repr__()
+    except: strthis = ""
+    return "<%s.%s; %s >" % (self.__class__.__module__, self.__class__.__name__, strthis,)
 
 import types
 try:
@@ -35,15 +47,13 @@ class GreenDb(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, GreenDb, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, GreenDb, name)
-    def __repr__(self):
-        return "<C GreenDb instance at %s>" % (self.this,)
-    def __init__(self, *args):
-        _swig_setattr(self, GreenDb, 'this', _greendb.new_GreenDb(*args))
-        _swig_setattr(self, GreenDb, 'thisown', 1)
-    def __del__(self, destroy=_greendb.delete_GreenDb):
-        try:
-            if self.thisown: destroy(self)
-        except: pass
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        this = _greendb.new_GreenDb(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _greendb.delete_GreenDb
+    __del__ = lambda self : None;
     def open(*args): return _greendb.GreenDb_open(*args)
     def open_unknown(*args): return _greendb.GreenDb_open_unknown(*args)
     def open_queue(*args): return _greendb.GreenDb_open_queue(*args)
@@ -56,60 +66,41 @@ class GreenDb(_object):
     def fetch(*args): return _greendb.GreenDb_fetch(*args)
     def cursor(*args): return _greendb.GreenDb_cursor(*args)
     def close(*args): return _greendb.GreenDb_close(*args)
-
-class GreenDbPtr(GreenDb):
-    def __init__(self, this):
-        _swig_setattr(self, GreenDb, 'this', this)
-        if not hasattr(self,"thisown"): _swig_setattr(self, GreenDb, 'thisown', 0)
-        _swig_setattr(self, GreenDb,self.__class__,GreenDb)
-_greendb.GreenDb_swigregister(GreenDbPtr)
+GreenDb_swigregister = _greendb.GreenDb_swigregister
+GreenDb_swigregister(GreenDb)
 
 class GreenEnv(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, GreenEnv, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, GreenEnv, name)
-    def __repr__(self):
-        return "<C GreenEnv instance at %s>" % (self.this,)
-    def __init__(self, *args):
-        _swig_setattr(self, GreenEnv, 'this', _greendb.new_GreenEnv(*args))
-        _swig_setattr(self, GreenEnv, 'thisown', 1)
-    def __del__(self, destroy=_greendb.delete_GreenEnv):
-        try:
-            if self.thisown: destroy(self)
-        except: pass
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        this = _greendb.new_GreenEnv(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _greendb.delete_GreenEnv
+    __del__ = lambda self : None;
     def open(*args): return _greendb.GreenEnv_open(*args)
     def close(*args): return _greendb.GreenEnv_close(*args)
     def home(*args): return _greendb.GreenEnv_home(*args)
-
-class GreenEnvPtr(GreenEnv):
-    def __init__(self, this):
-        _swig_setattr(self, GreenEnv, 'this', this)
-        if not hasattr(self,"thisown"): _swig_setattr(self, GreenEnv, 'thisown', 0)
-        _swig_setattr(self, GreenEnv,self.__class__,GreenEnv)
-_greendb.GreenEnv_swigregister(GreenEnvPtr)
+GreenEnv_swigregister = _greendb.GreenEnv_swigregister
+GreenEnv_swigregister(GreenEnv)
 
 class Datum(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Datum, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, Datum, name)
-    def __repr__(self):
-        return "<C Datum instance at %s>" % (self.this,)
-    def __init__(self, *args):
-        _swig_setattr(self, Datum, 'this', _greendb.new_Datum(*args))
-        _swig_setattr(self, Datum, 'thisown', 1)
-    def __del__(self, destroy=_greendb.delete_Datum):
-        try:
-            if self.thisown: destroy(self)
-        except: pass
-
-class DatumPtr(Datum):
-    def __init__(self, this):
-        _swig_setattr(self, Datum, 'this', this)
-        if not hasattr(self,"thisown"): _swig_setattr(self, Datum, 'thisown', 0)
-        _swig_setattr(self, Datum,self.__class__,Datum)
-_greendb.Datum_swigregister(DatumPtr)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        this = _greendb.new_Datum(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _greendb.delete_Datum
+    __del__ = lambda self : None;
+Datum_swigregister = _greendb.Datum_swigregister
+Datum_swigregister(Datum)
 
 class StrDatum(Datum):
     __swig_setmethods__ = {}
@@ -118,26 +109,19 @@ class StrDatum(Datum):
     __swig_getmethods__ = {}
     for _s in [Datum]: __swig_getmethods__.update(_s.__swig_getmethods__)
     __getattr__ = lambda self, name: _swig_getattr(self, StrDatum, name)
-    def __repr__(self):
-        return "<C StrDatum instance at %s>" % (self.this,)
-    def __init__(self, *args):
-        _swig_setattr(self, StrDatum, 'this', _greendb.new_StrDatum(*args))
-        _swig_setattr(self, StrDatum, 'thisown', 1)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        this = _greendb.new_StrDatum(*args)
+        try: self.this.append(this)
+        except: self.this = this
     def type_name(*args): return _greendb.StrDatum_type_name(*args)
-    def __del__(self, destroy=_greendb.delete_StrDatum):
-        try:
-            if self.thisown: destroy(self)
-        except: pass
+    __swig_destroy__ = _greendb.delete_StrDatum
+    __del__ = lambda self : None;
     def repr(*args): return _greendb.StrDatum_repr(*args)
     def value(*args): return _greendb.StrDatum_value(*args)
     def set_value(*args): return _greendb.StrDatum_set_value(*args)
-
-class StrDatumPtr(StrDatum):
-    def __init__(self, this):
-        _swig_setattr(self, StrDatum, 'this', this)
-        if not hasattr(self,"thisown"): _swig_setattr(self, StrDatum, 'thisown', 0)
-        _swig_setattr(self, StrDatum,self.__class__,StrDatum)
-_greendb.StrDatum_swigregister(StrDatumPtr)
+StrDatum_swigregister = _greendb.StrDatum_swigregister
+StrDatum_swigregister(StrDatum)
 
 class IntDatum(Datum):
     __swig_setmethods__ = {}
@@ -146,66 +130,49 @@ class IntDatum(Datum):
     __swig_getmethods__ = {}
     for _s in [Datum]: __swig_getmethods__.update(_s.__swig_getmethods__)
     __getattr__ = lambda self, name: _swig_getattr(self, IntDatum, name)
-    def __repr__(self):
-        return "<C IntDatum instance at %s>" % (self.this,)
-    def __init__(self, *args):
-        _swig_setattr(self, IntDatum, 'this', _greendb.new_IntDatum(*args))
-        _swig_setattr(self, IntDatum, 'thisown', 1)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        this = _greendb.new_IntDatum(*args)
+        try: self.this.append(this)
+        except: self.this = this
     def type_name(*args): return _greendb.IntDatum_type_name(*args)
-    def __del__(self, destroy=_greendb.delete_IntDatum):
-        try:
-            if self.thisown: destroy(self)
-        except: pass
+    __swig_destroy__ = _greendb.delete_IntDatum
+    __del__ = lambda self : None;
     def repr(*args): return _greendb.IntDatum_repr(*args)
     def value(*args): return _greendb.IntDatum_value(*args)
     def set_value(*args): return _greendb.IntDatum_set_value(*args)
-
-class IntDatumPtr(IntDatum):
-    def __init__(self, this):
-        _swig_setattr(self, IntDatum, 'this', this)
-        if not hasattr(self,"thisown"): _swig_setattr(self, IntDatum, 'thisown', 0)
-        _swig_setattr(self, IntDatum,self.__class__,IntDatum)
-_greendb.IntDatum_swigregister(IntDatumPtr)
+IntDatum_swigregister = _greendb.IntDatum_swigregister
+IntDatum_swigregister(IntDatum)
 
 class Cursor(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Cursor, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, Cursor, name)
-    def __init__(self): raise RuntimeError, "No constructor defined"
-    def __repr__(self):
-        return "<C Cursor instance at %s>" % (self.this,)
-    def __del__(self, destroy=_greendb.delete_Cursor):
-        try:
-            if self.thisown: destroy(self)
-        except: pass
+    def __init__(self): raise AttributeError, "No constructor defined"
+    __repr__ = _swig_repr
+    __swig_destroy__ = _greendb.delete_Cursor
+    __del__ = lambda self : None;
     def first(*args): return _greendb.Cursor_first(*args)
     def last(*args): return _greendb.Cursor_last(*args)
     def find(*args): return _greendb.Cursor_find(*args)
     def next(*args): return _greendb.Cursor_next(*args)
     def close(*args): return _greendb.Cursor_close(*args)
-
-class CursorPtr(Cursor):
-    def __init__(self, this):
-        _swig_setattr(self, Cursor, 'this', this)
-        if not hasattr(self,"thisown"): _swig_setattr(self, Cursor, 'thisown', 0)
-        _swig_setattr(self, Cursor,self.__class__,Cursor)
-_greendb.Cursor_swigregister(CursorPtr)
+Cursor_swigregister = _greendb.Cursor_swigregister
+Cursor_swigregister(Cursor)
 
 class Row(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Row, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, Row, name)
-    def __repr__(self):
-        return "<C Row instance at %s>" % (self.this,)
-    def __init__(self, *args):
-        _swig_setattr(self, Row, 'this', _greendb.new_Row(*args))
-        _swig_setattr(self, Row, 'thisown', 1)
-    def __del__(self, destroy=_greendb.delete_Row):
-        try:
-            if self.thisown: destroy(self)
-        except: pass
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        this = _greendb.new_Row(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _greendb.delete_Row
+    __del__ = lambda self : None;
     def close(*args): return _greendb.Row_close(*args)
     def getpk(*args): return _greendb.Row_getpk(*args)
     def set_n(*args): return _greendb.Row_set_n(*args)
@@ -219,30 +186,23 @@ class Row(_object):
     def get_col_no(*args): return _greendb.Row_get_col_no(*args)
     def get_existing_column(*args): return _greendb.Row_get_existing_column(*args)
     def size(*args): return _greendb.Row_size(*args)
-
-class RowPtr(Row):
-    def __init__(self, this):
-        _swig_setattr(self, Row, 'this', this)
-        if not hasattr(self,"thisown"): _swig_setattr(self, Row, 'thisown', 0)
-        _swig_setattr(self, Row,self.__class__,Row)
-_greendb.Row_swigregister(RowPtr)
+Row_swigregister = _greendb.Row_swigregister
+Row_swigregister(Row)
 
 class Table(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Table, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, Table, name)
-    def __repr__(self):
-        return "<C Table instance at %s>" % (self.this,)
-    def __init__(self, *args):
-        _swig_setattr(self, Table, 'this', _greendb.new_Table(*args))
-        _swig_setattr(self, Table, 'thisown', 1)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        this = _greendb.new_Table(*args)
+        try: self.this.append(this)
+        except: self.this = this
     def get_schema(*args): return _greendb.Table_get_schema(*args)
     def close(*args): return _greendb.Table_close(*args)
-    def __del__(self, destroy=_greendb.delete_Table):
-        try:
-            if self.thisown: destroy(self)
-        except: pass
+    __swig_destroy__ = _greendb.delete_Table
+    __del__ = lambda self : None;
     def get_name(*args): return _greendb.Table_get_name(*args)
     def save(*args): return _greendb.Table_save(*args)
     def index(*args): return _greendb.Table_index(*args)
@@ -253,22 +213,16 @@ class Table(_object):
     def last(*args): return _greendb.Table_last(*args)
     def next(*args): return _greendb.Table_next(*args)
     def get_col_name(*args): return _greendb.Table_get_col_name(*args)
-
-class TablePtr(Table):
-    def __init__(self, this):
-        _swig_setattr(self, Table, 'this', this)
-        if not hasattr(self,"thisown"): _swig_setattr(self, Table, 'thisown', 0)
-        _swig_setattr(self, Table,self.__class__,Table)
-_greendb.Table_swigregister(TablePtr)
+Table_swigregister = _greendb.Table_swigregister
+Table_swigregister(Table)
 
 class Schema(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Schema, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, Schema, name)
-    def __init__(self): raise RuntimeError, "No constructor defined"
-    def __repr__(self):
-        return "<C Schema instance at %s>" % (self.this,)
+    def __init__(self): raise AttributeError, "No constructor defined"
+    __repr__ = _swig_repr
     def add_column(*args): return _greendb.Schema_add_column(*args)
     def add_columns(*args): return _greendb.Schema_add_columns(*args)
     def get_type_n(*args): return _greendb.Schema_get_type_n(*args)
@@ -276,26 +230,18 @@ class Schema(_object):
     def get_col_no(*args): return _greendb.Schema_get_col_no(*args)
     def get_name(*args): return _greendb.Schema_get_name(*args)
     def size(*args): return _greendb.Schema_size(*args)
-    def __del__(self, destroy=_greendb.delete_Schema):
-        try:
-            if self.thisown: destroy(self)
-        except: pass
-
-class SchemaPtr(Schema):
-    def __init__(self, this):
-        _swig_setattr(self, Schema, 'this', this)
-        if not hasattr(self,"thisown"): _swig_setattr(self, Schema, 'thisown', 0)
-        _swig_setattr(self, Schema,self.__class__,Schema)
-_greendb.Schema_swigregister(SchemaPtr)
+    __swig_destroy__ = _greendb.delete_Schema
+    __del__ = lambda self : None;
+Schema_swigregister = _greendb.Schema_swigregister
+Schema_swigregister(Schema)
 
 class TypeMap(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, TypeMap, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, TypeMap, name)
-    def __init__(self): raise RuntimeError, "No constructor defined"
-    def __repr__(self):
-        return "<C TypeMap instance at %s>" % (self.this,)
+    def __init__(self): raise AttributeError, "No constructor defined"
+    __repr__ = _swig_repr
     __swig_getmethods__["get_type_map"] = lambda x: _greendb.TypeMap_get_type_map
     if _newclass:get_type_map = staticmethod(_greendb.TypeMap_get_type_map)
     UNDEFINED = _greendb.TypeMap_UNDEFINED
@@ -312,18 +258,10 @@ class TypeMap(_object):
     CHAR = _greendb.TypeMap_CHAR
     WCHAR = _greendb.TypeMap_WCHAR
     BOOL = _greendb.TypeMap_BOOL
-    def __del__(self, destroy=_greendb.delete_TypeMap):
-        try:
-            if self.thisown: destroy(self)
-        except: pass
-
-class TypeMapPtr(TypeMap):
-    def __init__(self, this):
-        _swig_setattr(self, TypeMap, 'this', this)
-        if not hasattr(self,"thisown"): _swig_setattr(self, TypeMap, 'thisown', 0)
-        _swig_setattr(self, TypeMap,self.__class__,TypeMap)
-_greendb.TypeMap_swigregister(TypeMapPtr)
-
+    __swig_destroy__ = _greendb.delete_TypeMap
+    __del__ = lambda self : None;
+TypeMap_swigregister = _greendb.TypeMap_swigregister
+TypeMap_swigregister(TypeMap)
 TypeMap_get_type_map = _greendb.TypeMap_get_type_map
 
 class CursorRow(Row):
@@ -333,22 +271,16 @@ class CursorRow(Row):
     __swig_getmethods__ = {}
     for _s in [Row]: __swig_getmethods__.update(_s.__swig_getmethods__)
     __getattr__ = lambda self, name: _swig_getattr(self, CursorRow, name)
-    def __repr__(self):
-        return "<C CursorRow instance at %s>" % (self.this,)
-    def __init__(self, *args):
-        _swig_setattr(self, CursorRow, 'this', _greendb.new_CursorRow(*args))
-        _swig_setattr(self, CursorRow, 'thisown', 1)
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        this = _greendb.new_CursorRow(*args)
+        try: self.this.append(this)
+        except: self.this = this
     def get_cursor(*args): return _greendb.CursorRow_get_cursor(*args)
-    def __del__(self, destroy=_greendb.delete_CursorRow):
-        try:
-            if self.thisown: destroy(self)
-        except: pass
+    __swig_destroy__ = _greendb.delete_CursorRow
+    __del__ = lambda self : None;
+CursorRow_swigregister = _greendb.CursorRow_swigregister
+CursorRow_swigregister(CursorRow)
 
-class CursorRowPtr(CursorRow):
-    def __init__(self, this):
-        _swig_setattr(self, CursorRow, 'this', this)
-        if not hasattr(self,"thisown"): _swig_setattr(self, CursorRow, 'thisown', 0)
-        _swig_setattr(self, CursorRow,self.__class__,CursorRow)
-_greendb.CursorRow_swigregister(CursorRowPtr)
 
 

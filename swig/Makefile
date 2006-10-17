@@ -2,7 +2,7 @@ all: compile
 
 include ../config.mak
 
-subdirs=python ruby
+subdirs=python ruby guile
 
 compile:
 	for d in ${subdirs};do make -C $$d $@;done
@@ -15,5 +15,4 @@ uninstall:
 
 clean:
 	for d in ${subdirs};do make -C $$d $@;done
-	rm -vf config.h
 

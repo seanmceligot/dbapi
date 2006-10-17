@@ -2,6 +2,10 @@
 #include "greendb/debug.hh"
 #include <errno.h>
 
+#if !defined(DB_BUFFER_SMALL)
+#define DB_BUFFER_SMALL ENOMEM
+#endif
+
 Cursor::Cursor (Dbc* dbc):_dbc (dbc) { };
 Cursor::~Cursor  () { 
 	close();
@@ -30,6 +34,11 @@ Cursor::next (Datum & key, Datum & val)
 {
   return _next (key, val, DB_NEXT);
 }
+int
+Cursor::next_dup (Datum & key, Datum & val)
+{
+  return _next (key, val, DB_NEXT_DUP);
+}
 void Cursor::close () {
 	if (_dbc) {
   	_dbc->close ();
@@ -40,32 +49,44 @@ void Cursor::close () {
 int
 Cursor::_next (Datum & key, Datum & val, u_int32_t flags)
 {
-  key.set_db_flags (DB_DBT_USERMEM);
-
-  if (val.get_data () == NULL) {
-    val.set_db_flags (DB_DBT_MALLOC);
-  } else {
-    val.set_db_flags (DB_DBT_USERMEM);
-  }
-	debug<<"cursor get "<<key<<std::endl;
+  if (flags != DB_NEXT) {
+					key.set_db_flags (DB_DBT_USERMEM);
+					if (val.get_data () == NULL) {
+						val.set_db_flags (DB_DBT_MALLOC);
+					} else {
+						val.set_db_flags (DB_DBT_USERMEM);
+					}
+	}
   int dberr;
 retry:
   // we loop 3 times if key and value both need allocating; more if data changes between loops
   try {
     dberr = _dbc->get (&key, &val, flags);
+  } catch (DbMemoryException & ex) {
+    	//rDebug( "DbMemoryException" );
+			key.atleast_size();
+      val.atleast_size();
+      goto retry;
   } catch (DbException & ex) {
-    if (ex.get_errno () == ENOMEM) {
-    	debug << "ENOMEM reallocating: " << std::endl;
+    if (ex.get_errno () == DB_BUFFER_SMALL) {
+    	//rDebug( "DB_BUFFER_SMALL reallocating: " );
 			key.atleast_size();
       val.atleast_size();
       goto retry;
     } else {
+     rDebug( "Unhandled DbException : %s " , ex.what () );
       throw;
     }
   }
+	//rDebug("%d dbc->get %s ",dberr, key.str(),val.str());
   if (dberr) {
-    debug << "returned: " << dberr <<std::endl;
+		if (dberr == DB_NOTFOUND) {
+    	rDebug( "key not found " , dberr );
+		} else {
+			rDebug( "unknown error %d" , dberr );
+		}
+		//_dbc->err(dberr, "dberr: ");
     return dberr;
   }
-  return 0;
+  return dberr;
 }

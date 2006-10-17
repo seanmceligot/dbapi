@@ -13,6 +13,7 @@ public:
   const char *home () const {
     return _home.c_str();
   }
+	void err(int dberr) { DbEnv::err(dberr, "GreenEnv");};
 };
 
 std::ostream & operator << (std::ostream & os, const GreenEnv & db);

@@ -13,12 +13,11 @@ def addrow(args):
   row = table.new_row()
   i = 0
   for val in args:
-    print i, ")", val
-    row.from_string_n(i, val)
+    colname = table.get_col_name(i);
+    print i,") ",colname,"=", val
+    row.from_string(colname, val)
     i = i + 1
-
   table.save(row)
-  row.close(row)
   table.close()
   env.close()
 

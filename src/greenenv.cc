@@ -9,7 +9,7 @@
 
 GreenEnv::GreenEnv (const char *home):DbEnv (0),_home(home)
 {
-  debug << "Env " << _home << std::endl;
+  //rDebug( "Env %s" , _home.c_str());
 }
 
 #define DEFAULT_OPEN_FLAGS DB_CREATE|DB_INIT_MPOOL
@@ -30,7 +30,7 @@ void
     int
       patch;
     version (&major, &minor, &patch);
-    debug << "db version: " << major << minor << patch << std::endl;
+    rDebug( "db version: %d %d %d" , major, minor , patch );
   }
   if (home) {
 		// create home

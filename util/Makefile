@@ -1,31 +1,38 @@
 
-compile: desc${EXE} mktable${EXE} addrow${EXE} list${EXE} toxml${EXE}
+compile: desc${EXE} mktable${EXE} addrow${EXE} list${EXE} toxml${EXE} test${EXE}
 
 include ../config.mak
 
-addrow${EXE}: addrow.lo 
+addrow${EXE}: addrow.lo ../src/libgreendb.la
 	${LIBTOOL_LINK} -o $@ ${LIBS} addrow.o  ../src/libgreendb.la 
 
-list${EXE}: list.lo 
+list${EXE}: list.lo ../src/libgreendb.la
 	${LIBTOOL_LINK} -o $@ ${LIBS} list.o  ../src/libgreendb.la 
 
-toxml${EXE}: toxml.lo 
+toxml${EXE}: toxml.lo ../src/libgreendb.la
 	${LIBTOOL_LINK} -o $@ ${LIBS} toxml.o  ../src/libgreendb.la 
 
-mktable${EXE}: mktable.lo 
+mktable${EXE}: mktable.lo ../src/libgreendb.la
 	${LIBTOOL_LINK} -o $@ ${LIBS} mktable.o  ../src/libgreendb.la 
 
-desc${EXE}: desc.lo 
+desc${EXE}: desc.lo ../src/libgreendb.la
 	${LIBTOOL_LINK} -o $@ ${LIBS} desc.o  ../src/libgreendb.la 
+
+test${EXE}: test.lo ../src/libgreendb.la
+	${LIBTOOL_LINK} -o $@ ${LIBS} test.o  ../src/libgreendb.la 
 
 %.lo: %.cc
 	$(LIBTOOL_CXX) ${INCLUDES}  -c $<
 
 DISTCLEANFILES = .deps/*.P
-INCLUDES=-I.. -I../greendb
+INCLUDES=-I.. -I../greendb ${DB_INCLUDE}
 
 clean:
-	rm -vrf .libs *.o *.exe *.log __db.* *.lo *.db
+	rm -vrf .libs *.o *.exe *.log *.lo desc${EXE} mktable${EXE} addrow${EXE} list${EXE} toxml${EXE} test${EXE}
+
+
+clear:
+	rm -vrf tables.db __db.*
 
 install: desc${EXE} mktable${EXE} addrow${EXE} list${EXE} toxml${EXE}
 	${LIBTOOL_INSTALL} -c desc${EXE} ${prefix}/bin/

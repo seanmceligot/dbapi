@@ -343,6 +343,11 @@ SELF is of type <Schema *>, COLNAME is a string, TYPE is of type <integer>, INDE
 
 Returns unspecified.
 
+(Schema-add-columns self cols types length)
+SELF is of type <Schema *>, COLS is of type <char const *[]>, TYPES is of type <int []>, LENGTH is of type <integer>.
+
+Returns unspecified.
+
 (Schema-get-type-n self n)
 SELF is of type <Schema const *>, N is of type <integer>.
 

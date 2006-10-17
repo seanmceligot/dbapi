@@ -8,7 +8,7 @@ public:
 	SmartString(char* str):_str(str) {
 	}
 	~SmartString() {
-			debug<<"~SmartString"<<std::endl;
+			rDebug("~SmartString");
 			greendb_free(_str);
 	}
 	operator const char*() {

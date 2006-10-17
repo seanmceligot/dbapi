@@ -3,7 +3,7 @@ all: greendb.so
 #LIBS=-L../src -lgreendb -lgcc -lstdc++ greendb_wrap.o 
 #LIBS=-ldb_cxx ../src/*.o greendb_wrap.o 
 BASEDIR=../..
-INCLUDES=${BASEDIR}
+INCLUDES=${BASEDIR} ${DB_INCLUDE}
 LIBS=${BASEDIR}/src/*.o /usr/lib/libdb_cxx-4.0.a
 #DEFINES=-Dbool=char -DSWIG
 DEFINES=-DSWIG

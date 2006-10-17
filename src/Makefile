@@ -3,9 +3,9 @@ compile: libgreendb.la
 
 include ../config.mak
 
-INCLUDES=-I.. -I../greendb
+INCLUDES=-I.. -I../greendb ${DB_INCLUDE}
 
-OBJECTS=debug.lo typemap.lo datum.lo greenenv.lo greendb.lo cursor.lo row.lo table.lo schema.lo memory.lo xml.lo
+OBJECTS=debug.lo typemap.lo datum.lo greenenv.lo greendb.lo cursor.lo row.lo table.lo schema.lo memory.lo xml.lo resultset.lo
 
 libgreendb.la: $(OBJECTS)
 	${LIBTOOL_LINK} -o $@ ${OBJECTS} -rpath ${prefix}/lib -lm 
@@ -14,7 +14,7 @@ libgreendb.la: $(OBJECTS)
 #	$(RANLIB) libgreendb.a
 
 clean:
-	rm -rvf *.o *.lo *.a .libs
+	rm -rvf *.o *.lo *.a .libs *.la
 
 %.lo: %.cc
 	$(LIBTOOL_CXX) ${INCLUDES}  -c $<

@@ -7,7 +7,8 @@
 #include <string>
 #include <sstream>
 #include <map>
-#include "greendb/datum.hh"
+//#include "greendb/datum.hh"
+class Datum;
 
 template <class T>
 void to_string_t(void* ptr,std::string& str) {
@@ -49,6 +50,14 @@ public:
 	}
 };
 
+typedef enum DataType { 
+TYPE_UNDEFINED,
+TYPE_USER,
+TYPE_STRING,
+TYPE_INT,
+TYPE_END
+} DataType;
+
 class TypeMap {
 private:
 	TypeMap();
@@ -61,23 +70,11 @@ public:
 	char* to_string(const std::type_info* ti, Datum* datum);
 	void from_string(const std::type_info*, Datum* datum, const char* str);
 	size_t from_string_size(const std::type_info* ti, const char* str);
-	enum { 
-		UNDEFINED,
-		USER,
-		STRING,
-		WSTRING,
-		INT,
-		SHORT,
-		LONG,
-		DOUBLE,
-		UINT,
-		USHORT,
-		ULONG,
-		CHAR,
-		WCHAR,
-		BOOL,
-		END
-	};
+
+	// convert typename to type id. 
+	// ex: string -> STRING
+	DataType get_type_id(const char* type);
+	const char* get_type_name(int type);
 };
 
 

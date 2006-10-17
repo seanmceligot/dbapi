@@ -18,7 +18,7 @@ public:
   int first (Datum & key, Datum & val);
   int find (Datum & key, Datum & val);
   int next (Datum & key, Datum & val);
-  int next_exact(Datum & key, Datum & val);
+  int next_dup(Datum & key, Datum & val);
   void close ();
 };
 

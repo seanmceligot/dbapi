@@ -2,7 +2,7 @@ all: compile
 
 include config.mak
 
-subdirs=src util swig
+subdirs=src util
 
 compile:
 	for d in ${subdirs};do make -C $$d $@;done
@@ -15,11 +15,11 @@ uninstall:
 
 clean:
 	for d in ${subdirs};do make -C $$d $@;done
-	rm -vf config.h
+	rm -vf config.h dbversion${EXE}
 
 config.h: dbversion${EXE}
 	./dbversion > config.h
 
 dbversion${EXE}: dbversion.cc
-	${CXX} -ldb_cxx -o $@ $<	
+	${CXX} ${DB_INCLUDE} -ldb_cxx -o $@ $<	
 
