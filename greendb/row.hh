@@ -18,6 +18,8 @@ public:
   Datum& getpk ();
   void set (int index, Datum & newDatum);
   bool set (const char *colname, Datum & newDatum);
+  bool set_int (const char *colname, int value);
+  bool set_string (const char *colname, const char* value);
 	void from_string(int index, const char* s);
 	void from_string(const char* colname, const char* s);
 	char* to_string(int index);

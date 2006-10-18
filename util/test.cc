@@ -78,36 +78,27 @@ main (int argc, char **argv) {
 			}
 			{
 							Row* row = table.new_row();
-							row->set("id", id );
-							id=n++;
-							name = "Mary";
-							age=18;
-							row->set("name", name );
-							row->set("age", age);
+							row->set_int("id", n++ );
+							row->set_string("name", "Mary");
+							row->set_int("age", 18);
 							table.save(row);
 			}
 			{
 							Row* row = table.new_row();
-							row->set("id", id );
-							id=n++;
-							name = "Luke";
-							rDebug("Luke size %d allocated %d", name.get_size(), name.get_allocated());
-							age=23;
-							row->set("name", name );
-							row->set("age", age);
+							row->set_int("id", n++ );
+							row->set_string("name", "Luke");
+							row->set_int("age", 23);
 							table.save(row);
 			}
-		/*	{
-							Row* row = table.new_row();
-							row->get_column("id".set_value(n++);
-							//table.save(row);
-			}*/
 
 	}
-	Row* row = table.new_row();
-  IntDatum* ddd= (IntDatum*)row->get_column("id");
-	rDebug("get_column %s", ddd->repr());
-
+	{
+					Row* row = table.new_row();
+					Datum* ddd= row->get_column("id");
+					rDebug("Datum->repr %s", ddd->repr());
+  				IntDatum* idd = dynamic_cast<IntDatum*>(ddd);
+					rDebug("IntDatum->repr %s", idd->repr());
+	}
 	{ 
 		rDebug("fetch by primary key 2");
 		IntDatum key(2);

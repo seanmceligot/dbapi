@@ -2,6 +2,8 @@
 #include "greendb/schema.hh"
 #include "greendb/typemap.hh"
 #include "greendb/debug.hh"
+#include "greendb/datum.hh"
+#include "greendb/strdatum.hh"
 #include <assert.h>
 
 Row::Row (Table * table, size_t size):_size (size), _table (table)  {
@@ -41,6 +43,30 @@ int Row::get_col_no(const char* colname) {
 		Schema* schema = _table->get_schema();
 		assert (schema != NULL);
 	return schema->get_col_no(colname);
+}
+bool Row::set_int (const char *colname, int value) {
+	int idx = get_col_no(colname);
+	Schema* schema = _table->get_schema();
+	Datum* datum = schema->create_datum(idx);
+  IntDatum* id = dynamic_cast<IntDatum*>(datum);
+	if (id == NULL) {
+			free(datum);
+			return false;
+	}
+	id->set_value(value);
+	set(idx, *id);
+}
+bool Row::set_string (const char *colname, const char* value) {
+	int idx = get_col_no(colname);
+	Schema* schema = _table->get_schema();
+	Datum* datum = schema->create_datum(idx);
+  StrDatum* id = dynamic_cast<StrDatum*>(datum);
+	if (id == NULL) {
+			free(datum);
+			return false;
+	}
+	id->set_value(value);
+	set(idx, *id);
 }
 bool
 Row::set (const char *colname, Datum & newDatum)
