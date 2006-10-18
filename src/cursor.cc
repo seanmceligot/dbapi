@@ -79,14 +79,8 @@ retry:
     }
   }
 	//rDebug("%d dbc->get %s ",dberr, key.str(),val.str());
-  if (dberr) {
-		if (dberr == DB_NOTFOUND) {
-    	rDebug( "key not found " , dberr );
-		} else {
-			rDebug( "unknown error %d" , dberr );
-		}
-		//_dbc->err(dberr, "dberr: ");
-    return dberr;
-  }
+	if (dberr && (dberr != DB_NOTFOUND)) {
+		rDebug( "unknown error %d" , dberr );
+	}
   return dberr;
 }

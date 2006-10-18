@@ -53,9 +53,9 @@
 	Datum* Schema::create_datum_for_type(int type) const {
 			switch(type) {
 							case TYPE_STRING:
-											return new StrDatum();
+											return new StrDatum("");
 							case TYPE_INT:
-											return new IntDatum();
+											return new IntDatum(0);
 							default:
 										return NULL;
 			}
@@ -108,7 +108,7 @@
 		if (_size == -1) {
 			StrDatum size_key("size");
 			IntDatum dat_sz;
-			if (_table->get_database("$schema_meta")->fetch(size_key,dat_sz) == 0) {
+			if (_table->get_database("$schema_meta", false)->fetch(size_key,dat_sz) == 0) {
 				_size = dat_sz.value();
 			} else {
 				_size = 0;

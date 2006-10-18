@@ -28,7 +28,7 @@ ResultSet* Table::find_all(const char* index, Datum* fk) {
 	Datum* pk = _schema->create_datum(0);
   GreenDb *db = get_index(index);
 	Cursor* cur = db->cursor();
-	rDebug("find %s", db->name());
+	//rDebug("find %s", db->name());
 	unsigned int column_count = _schema->size();
 	if (cur->find(*fk, *pk) == 0 ) {
 		CursorRow* row = new CursorRow(this, column_count, cur, pk); 
@@ -70,12 +70,13 @@ CursorRow* Table::next(CursorRow* row, const char* colname) {
 Row*
 Table::fetch(const char *colname, Datum& ikey) {
   GreenDb *db = get_index(colname);
-	rDebug("fetch %s %s", db->name(), ikey.str());
-  Datum* pk = new Datum ();
-  if (db->fetch (ikey, *pk) == DB_NOTFOUND) {
+	//rDebug("fetch %s %s", db->name(), ikey.str());
+  Datum* pk = _schema->create_datum(0);
+  if (db->fetch (ikey, *pk) != 0) {
 		free(pk);
     return NULL;
   }
+	rDebug("found pk %s", pk->str());
 	Row* row = new Row(this, _schema->size());
 	row->set(0,*pk);
   return row;
@@ -106,7 +107,7 @@ Table::save (Row * row) {
   for (size_t i = 0; i < row->size(); i++) {
     const char *colname = _schema->get_name(i);
     bool indexed = _schema->indexed(i);
-		rDebug("save %s %s %d", _name.c_str(), colname, indexed);
+		//rDebug("save %s %s %d", _name.c_str(), colname, indexed);
     Datum *datum = row->get_existing_column(i);
 		if (datum) {
 	    GreenDb *db = get_database (colname);
@@ -116,7 +117,7 @@ Table::save (Row * row) {
 		}
 		if (indexed) {
 			GreenDb* idb = get_index(colname, true);
-			rDebug("indexing... %s", colname);
+			//rDebug("indexing... %s", colname);
   		idb->put (*datum, pk);
 		}
   }
@@ -152,19 +153,19 @@ GreenDb *
 Table::get_index(const char *colname, bool create)
 {
   GreenDb *db;
-	rDebug("get_index: %s %s _ix", _name.c_str(), colname);
+	//rDebug("get_index: %s %s _ix", _name.c_str(), colname);
 		std::string tablecolname (_name);
     tablecolname.append ("_");
     tablecolname.append (colname);
     tablecolname.append ("_ix");
 	StringDbMap::iterator it = _dbhash.find(tablecolname.c_str());
 	if (it == _dbhash.end()) {
-		rDebug("get_index: %s %d", tablecolname.c_str(), create);
+		//rDebug("get_index: %s %d", tablecolname.c_str(), create);
     db = new GreenDb (&_ge, "tables.db", tablecolname.c_str ());
     db->open_btree (create, true);
 		_dbhash[tablecolname.c_str()] = db;
   } else {
-		rDebug("returning cached %s", tablecolname.c_str());
+		//rDebug("returning cached %s", tablecolname.c_str());
 		db = it->second;
 	}
   return db;

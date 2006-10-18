@@ -13,7 +13,9 @@ class Datum;
 template <class T>
 void to_string_t(void* ptr,std::string& str) {
   std::stringstream stream;
-	stream << *(T*)ptr;
+	if (ptr != NULL) {
+		stream << *(T*)ptr;
+	}
   str = stream.str ();
 }
 

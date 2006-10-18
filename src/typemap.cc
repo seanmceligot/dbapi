@@ -13,7 +13,11 @@ void charp_to_string(void* ptr,std::string& str) {
   //std::stringstream stream;
 	//stream << (const char*)ptr;
   //str = stream.str ();
-	str = (const char*)ptr;
+	if (ptr == NULL) {
+			str ="";
+	} else {
+		str = (const char*)ptr;
+	}
 }
 
 void from_string_charp(const char* s, void* ptr) {

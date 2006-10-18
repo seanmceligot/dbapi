@@ -163,11 +163,10 @@ retry:
     }
   }
 	//rDebug("%d Db->get %s %s ",dberr, key.str(),val.str());
-  if (dberr) {
+	if (dberr && (dberr != DB_NOTFOUND)) {
 	  Db::err(dberr, "dberr: ");
-    return dberr;
   }
-  return 0;
+  return dberr;
 }
 
 std::ostream & operator << (std::ostream & os, const GreenDb & db)

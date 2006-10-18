@@ -34,10 +34,10 @@ public:
   virtual const char * repr() const {
 					return "Datum";
 	}
-  const char * str() const {
+  virtual const char * str() const {
 					return "Datum";
 	}
-  const char * c_str() const {
+  virtual const char * c_str() const {
 					return str();
 	}
 protected:
@@ -72,6 +72,7 @@ class DatumT: public Datum {
         std::_Destroy<T>(ptr);
         //greendb_free(ptr);
         atleast(size);
+				set_size(size);
         std::_Construct<T>(ptr, newvalue);
       } else {
         atleast(size);

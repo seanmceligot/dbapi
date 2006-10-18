@@ -32,7 +32,9 @@ bool ResultSet::next() {
 		_row = new CursorRow(_table, _column_count, cursor, _pk); 
 		return true;
 	} else {
-		rError("next_dup %d", dberr);
+		if (dberr != DB_NOTFOUND) {
+						rError("next_dup %d", dberr);
+		}
 		return false;
 	}
 }

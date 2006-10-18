@@ -41,9 +41,73 @@ main (int argc, char **argv) {
 	rDebug("test");
 	static GreenEnv ge(".");
 	rDebug("greenenv: %s", ge.home());
-	char* table_name = argv[1];
+	char* table_name = "people";
 	ge.open ();
 	Table table (table_name, ge);
+	Schema* schema = table.get_schema();
+	IntDatum* ii = new IntDatum(99);
+	rDebug(ii->repr());
+	rDebug(ii->str());
+	Datum* dd = ii;
+	rDebug(dd->repr());
+	rDebug(dd->str());
+	if (!table.exists()) {
+			schema->add_column("id", TYPE_INT , 1);
+			schema->add_column("name", TYPE_STRING , 1);
+			schema->add_column("age", TYPE_INT , 1);
+			int n=1;
+			IntDatum id(n++);
+			StrDatum name("Mathew");
+			IntDatum age(18);
+			{
+							Row* row = table.new_row();
+							row->set("id", id );
+							row->set("name", name );
+							row->set("age", age);
+							table.save(row);
+			}
+			{
+							Row* row = table.new_row();
+							row->set("id", id );
+							id=n++;
+							name = "Thomas";
+							age=23;
+							row->set("name", name );
+							row->set("age", age);
+							table.save(row);
+			}
+			{
+							Row* row = table.new_row();
+							row->set("id", id );
+							id=n++;
+							name = "Mary";
+							age=18;
+							row->set("name", name );
+							row->set("age", age);
+							table.save(row);
+			}
+			{
+							Row* row = table.new_row();
+							row->set("id", id );
+							id=n++;
+							name = "Luke";
+							rDebug("Luke size %d allocated %d", name.get_size(), name.get_allocated());
+							age=23;
+							row->set("name", name );
+							row->set("age", age);
+							table.save(row);
+			}
+		/*	{
+							Row* row = table.new_row();
+							row->get_column("id".set_value(n++);
+							//table.save(row);
+			}*/
+
+	}
+	Row* row = table.new_row();
+  IntDatum* ddd= (IntDatum*)row->get_column("id");
+	rDebug("get_column %s", ddd->repr());
+
 	{ 
 		rDebug("fetch by primary key 2");
 		IntDatum key(2);
@@ -53,9 +117,10 @@ main (int argc, char **argv) {
 		row->close();
 	}
 	{ // fetch by name
-		rDebug("fetch by foreign key name Bob");
-		StrDatum key("Bob");
+		rDebug("fetch by foreign key name Luke");
+		StrDatum key("Luke");
 		Row * row = table.fetch("name",key);
+		assert(row != NULL);
 		print_row(row);
 		print_person(row);
 		row->close();

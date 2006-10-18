@@ -21,8 +21,6 @@ class BasicStrDatum: public Datum {
   BasicStrDatum (const CharT* s):Datum() {
 		size_t length = Traits::length(s);
 		size_t size= (length+1)*(sizeof(CharT));
-		//std::cout <<"size: "<<size<<std::endl;
-		//std::cout <<"length: "<<length<<std::endl;
 		CharT* ptr = (CharT*)malloc(size);
 		set_ptr(Traits::copy(ptr,s,size));
 		set_internal_allocated();
@@ -34,7 +32,7 @@ class BasicStrDatum: public Datum {
 		size_t size= (length+1)*(sizeof(CharT));
 		if (get_ptr()) {
 			atleast(size);
-      std::cout << "newvalue =: " << newvalue << std::endl;
+			set_size(size);
       CharT* ptr = (CharT*)get_ptr();
 			Traits::copy(ptr, newvalue, length+1);
 		} else {
@@ -42,7 +40,6 @@ class BasicStrDatum: public Datum {
       CharT* ptr = (CharT*)get_ptr();
 			set_value(Traits::copy(ptr,newvalue,length+1));
 		}
-    std::cout << "after =: " << repr () << std::endl;
 		return value();
 	}
 	const CharT* operator=(const CharT* newvalue) {

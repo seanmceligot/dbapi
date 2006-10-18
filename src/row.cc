@@ -62,6 +62,7 @@ Datum *
 Row::get_column (const char *colname)
 {
 	int idx = get_col_no(colname);
+	rDebug("get_column[%d]", idx);
 	if (idx < 0) {
 			return NULL;
 	}
@@ -69,15 +70,14 @@ Row::get_column (const char *colname)
   if (!val) {
     GreenDb *db = _table->get_database (colname);
 		Datum* pk = _colDatum[0];
-		if (pk == NULL) {
-			return NULL;
-		}
+		rDebug("pk %p", pk);
 		val =_table->get_schema()->create_datum(colname);
-    if (db->fetch (*pk, *val) == DB_NOTFOUND) {
-      return NULL;
-    }
+		if (pk != NULL) {
+    	db->fetch (*pk, *val);
+		}
 		_colDatum[idx] = val;
   }
+	rDebug("got_column %s", val->repr());
   return val;
 }
 
