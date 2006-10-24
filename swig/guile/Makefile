@@ -6,7 +6,7 @@ INCLUDES=-I../.. ${GUILE_INCLUDE} ${DB_INCLUDE}
 DEFINES=-DSWIG
 
 libguilegreendb.la: greendb_wrap.lo
-	${LIBTOOL_LINK} -o $@ $< -rpath ${prefix}/lib -lm -ldb_cxx ../../src/libgreendb.la 
+	${LIBTOOL_LINK} -o $@ $< -rpath ${prefix}/lib -lm -ldb_cxx -lrlog ../../src/libgreendb.la 
 
 install:
 	${LIBTOOL_INSTALL} -c libguilegreendb.la ${prefix}/lib/
