@@ -1,1 +1,2 @@
-RUBY=ruby -I .libs 
+RUBY=/usr/bin/ruby
+$RUBY -I .libs  $*

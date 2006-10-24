@@ -54,12 +54,12 @@ class GreenDb(_object):
         except: self.this = this
     __swig_destroy__ = _greendb.delete_GreenDb
     __del__ = lambda self : None;
-    def open(*args): return _greendb.GreenDb_open(*args)
     def open_unknown(*args): return _greendb.GreenDb_open_unknown(*args)
     def open_queue(*args): return _greendb.GreenDb_open_queue(*args)
     def open_recno(*args): return _greendb.GreenDb_open_recno(*args)
     def open_hash(*args): return _greendb.GreenDb_open_hash(*args)
     def open_btree(*args): return _greendb.GreenDb_open_btree(*args)
+    def open(*args): return _greendb.GreenDb_open(*args)
     def dbfile(*args): return _greendb.GreenDb_dbfile(*args)
     def name(*args): return _greendb.GreenDb_name(*args)
     def put(*args): return _greendb.GreenDb_put(*args)
@@ -175,13 +175,9 @@ class Row(_object):
     __del__ = lambda self : None;
     def close(*args): return _greendb.Row_close(*args)
     def getpk(*args): return _greendb.Row_getpk(*args)
-    def set_n(*args): return _greendb.Row_set_n(*args)
     def set(*args): return _greendb.Row_set(*args)
-    def from_string_n(*args): return _greendb.Row_from_string_n(*args)
     def from_string(*args): return _greendb.Row_from_string(*args)
-    def to_string_n(*args): return _greendb.Row_to_string_n(*args)
     def to_string(*args): return _greendb.Row_to_string(*args)
-    def get_column_n(*args): return _greendb.Row_get_column_n(*args)
     def get_column(*args): return _greendb.Row_get_column(*args)
     def get_col_no(*args): return _greendb.Row_get_col_no(*args)
     def get_existing_column(*args): return _greendb.Row_get_existing_column(*args)
@@ -203,16 +199,19 @@ class Table(_object):
     def close(*args): return _greendb.Table_close(*args)
     __swig_destroy__ = _greendb.delete_Table
     __del__ = lambda self : None;
-    def get_name(*args): return _greendb.Table_get_name(*args)
     def save(*args): return _greendb.Table_save(*args)
-    def index(*args): return _greendb.Table_index(*args)
     def fetch(*args): return _greendb.Table_fetch(*args)
     def new_row(*args): return _greendb.Table_new_row(*args)
-    def cursor(*args): return _greendb.Table_cursor(*args)
+    def get_database(*args): return _greendb.Table_get_database(*args)
+    def get_index(*args): return _greendb.Table_get_index(*args)
     def first(*args): return _greendb.Table_first(*args)
     def last(*args): return _greendb.Table_last(*args)
+    def cursor(*args): return _greendb.Table_cursor(*args)
+    def find_all(*args): return _greendb.Table_find_all(*args)
     def next(*args): return _greendb.Table_next(*args)
     def get_col_name(*args): return _greendb.Table_get_col_name(*args)
+    def get_name(*args): return _greendb.Table_get_name(*args)
+    def exists(*args): return _greendb.Table_exists(*args)
 Table_swigregister = _greendb.Table_swigregister
 Table_swigregister(Table)
 
@@ -225,7 +224,6 @@ class Schema(_object):
     __repr__ = _swig_repr
     def add_column(*args): return _greendb.Schema_add_column(*args)
     def add_columns(*args): return _greendb.Schema_add_columns(*args)
-    def get_type_n(*args): return _greendb.Schema_get_type_n(*args)
     def get_type(*args): return _greendb.Schema_get_type(*args)
     def get_col_no(*args): return _greendb.Schema_get_col_no(*args)
     def get_name(*args): return _greendb.Schema_get_name(*args)
@@ -244,26 +242,23 @@ class TypeMap(_object):
     __repr__ = _swig_repr
     __swig_getmethods__["get_type_map"] = lambda x: _greendb.TypeMap_get_type_map
     if _newclass:get_type_map = staticmethod(_greendb.TypeMap_get_type_map)
-    UNDEFINED = _greendb.TypeMap_UNDEFINED
-    USER = _greendb.TypeMap_USER
-    STRING = _greendb.TypeMap_STRING
-    WSTRING = _greendb.TypeMap_WSTRING
-    INT = _greendb.TypeMap_INT
-    SHORT = _greendb.TypeMap_SHORT
-    LONG = _greendb.TypeMap_LONG
-    DOUBLE = _greendb.TypeMap_DOUBLE
-    UINT = _greendb.TypeMap_UINT
-    USHORT = _greendb.TypeMap_USHORT
-    ULONG = _greendb.TypeMap_ULONG
-    CHAR = _greendb.TypeMap_CHAR
-    WCHAR = _greendb.TypeMap_WCHAR
-    BOOL = _greendb.TypeMap_BOOL
+    def add_string_convert(*args): return _greendb.TypeMap_add_string_convert(*args)
+    def to_string(*args): return _greendb.TypeMap_to_string(*args)
+    def from_string(*args): return _greendb.TypeMap_from_string(*args)
+    def from_string_size(*args): return _greendb.TypeMap_from_string_size(*args)
+    def get_type_id(*args): return _greendb.TypeMap_get_type_id(*args)
+    def get_type_name(*args): return _greendb.TypeMap_get_type_name(*args)
     __swig_destroy__ = _greendb.delete_TypeMap
     __del__ = lambda self : None;
 TypeMap_swigregister = _greendb.TypeMap_swigregister
 TypeMap_swigregister(TypeMap)
 TypeMap_get_type_map = _greendb.TypeMap_get_type_map
 
+TYPE_UNDEFINED = _greendb.TYPE_UNDEFINED
+TYPE_USER = _greendb.TYPE_USER
+TYPE_STRING = _greendb.TYPE_STRING
+TYPE_INT = _greendb.TYPE_INT
+TYPE_END = _greendb.TYPE_END
 class CursorRow(Row):
     __swig_setmethods__ = {}
     for _s in [Row]: __swig_setmethods__.update(_s.__swig_setmethods__)

@@ -21,12 +21,12 @@ class GreenDb {
 public:
   GreenDb (GreenEnv * env, const char *dbfile, const char *name);
   ~GreenDb ();
-  void open (int type, int flags, int mode);
 	void open_unknown();
 	void open_queue();
 	void open_recno();
 	void open_hash();
 	void open_btree();
+  void open (int type, unsigned int flags,unsigned int open_flags, int mode);
   const char *dbfile () const;
   const char *name () const;
   void put (Datum & key, Datum & val);
@@ -81,13 +81,13 @@ public:
 	~Row ();
   void close ();
   Datum& getpk ();
-  %name(set_n) void set (int index, Datum & newDatum);
+  %rename(set_n) set(int , Datum &);
   bool set (const char *colname, Datum & newDatum);
-	%name(from_string_n) void from_string(int index, const char* s);
+	%rename(from_string_n) from_string(int index, const char* s);
 	void from_string(const char* colname, const char* s);
-	%name(to_string_n) char* to_string(int index);
+	%rename(to_string_n) to_string(int index);
 	char* to_string(const char* colname);
-	%name(get_column_n) Datum * get_column (int idx);
+	%rename(get_column_n) get_column (int idx);
   Datum *get_column (const char *colname);
 	int get_col_no(const char* colname);
   Datum * get_existing_column (int index);
@@ -99,25 +99,30 @@ public:
 	Schema *get_schema ();
   void close ();
   ~Table ();
-	const char* get_name() const;
   void save (Row * row);
-  void index (const char *iname, Datum & pk, Datum & index);
   Row *fetch (const char *iname, Datum & ikey);
   Row *new_row();
-	Cursor* cursor(const char* name);
+  GreenDb *get_database (const char *colname);
+	// get index for column name
+  GreenDb *get_index(const char *colname);
   CursorRow* first(const char* colname);
   CursorRow* last(const char* colname);
   CursorRow* next (CursorRow* row, const char* colname);
+	Cursor* cursor(const char* name);
+  ResultSet* find_all(const char* index, Datum* fk);
+	CursorRow* next(Cursor* cur, Datum& fk, Datum* pkholder);
 	const char* get_col_name(int colno) const;
+	const char* get_name() const;
+  bool exists();
 };
 class Schema {
 private:
 	Schema();
 public:
-	void add_column(const char* colname, int type, bool index);
-	void add_columns(const char *cols[], int types[], unsigned int length);
-	%name(get_type_n) int get_type(int n) const;
-	int get_type(const char* colname) const;
+	void add_column(const char* colname, DataType type, bool index);
+	void add_columns(const char *cols[], DataType types[], unsigned int length);
+	%rename(get_type_n) get_type(int n) const;
+	DataType get_type(const char* colname) const;
 	int get_col_no(const char* colname) const;
 	const char* get_name(int n) const;
 	size_t size() const;
@@ -128,27 +133,27 @@ private:
 	TypeMap();
 public:
 	static TypeMap* get_type_map();
-	enum { 
-		UNDEFINED,
-		USER,
-		STRING,
-		WSTRING,
-		INT,
-		SHORT,
-		LONG,
-		DOUBLE,
-		UINT,
-		USHORT,
-		ULONG,
-		CHAR,
-		WCHAR,
-		BOOL
-	};
+	void add_string_convert(const std::type_info* ti, StringConvert* sc);
+	char* to_string(const std::type_info* ti, Datum* datum);
+	void from_string(const std::type_info*, Datum* datum, const char* str);
+	size_t from_string_size(const std::type_info* ti, const char* str);
 
+	// convert typename to type id. 
+	// ex: string -> STRING
+	DataType get_type_id(const char* type);
+	const char* get_type_name(int type);
 };
+
+typedef enum DataType { 
+TYPE_UNDEFINED,
+TYPE_USER,
+TYPE_STRING,
+TYPE_INT,
+TYPE_END
+} DataType;
 
 class CursorRow : public Row {
 public:
-	CursorRow(Table* table, size_t size, Cursor* cursor, const char* index, Datum* pk);
+	CursorRow(Table* table, size_t size, Cursor* cursor, Datum* pk);
 	Cursor* get_cursor();
 };

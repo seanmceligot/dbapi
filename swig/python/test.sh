@@ -2,7 +2,7 @@
 rm -vf __db.* *.db
 PYTHONPATH=.libs
 export PYTHONPATH
-PYTHON=python
+PYTHON="libtool --mode=execute python"
 $PYTHON mktable.py testtable 2 strcol 4 intcol 2> test.log
 $PYTHON desc.py testtable 2>>test.log
 $PYTHON addrow.py testtable one 1 2>>test.log
