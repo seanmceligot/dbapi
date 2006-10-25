@@ -36,9 +36,11 @@ class BasicStrDatum: public Datum {
       CharT* ptr = (CharT*)get_ptr();
 			Traits::copy(ptr, newvalue, length+1);
 		} else {
-			atleast(size);
-      CharT* ptr = (CharT*)get_ptr();
-			set_value(Traits::copy(ptr,newvalue,length+1));
+			CharT* ptr = (CharT*)malloc(size);
+			set_ptr(Traits::copy(ptr,newvalue,size));
+			set_internal_allocated();
+			set_size(size);
+			set_allocated(size);
 		}
 		return value();
 	}
@@ -62,14 +64,19 @@ class BasicStrDatum: public Datum {
       }
 			set_ptr(NULL);
     }
-  const char* repr () const {
+  virtual const char* repr () const {
     std::stringstream os;
 		if (const_ptr()) {
       os << type_name()<<"("<< value() << ")";
 		} else {
       os << type_name () << "(NULL, " << get_size() << "," << get_allocated() << ")";
 		}
-    return os.str ().c_str ();
+    return strdup(os.str ().c_str ());
+  }
+  virtual const char* str () const {
+    std::stringstream os;
+		os << value();
+    return strdup(os.str ().c_str ());
   }
 	/*
   std::ostream & operator << (std::ostream & os) {
