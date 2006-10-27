@@ -1,2 +1,2 @@
-RUBY=/usr/bin/ruby
-$RUBY -I .libs  $*
+#! /bin/sh
+libtool --mode=execute ruby -I . -I .libs/ test.rb

@@ -10,11 +10,10 @@
 #include "greendb/resultset.hh"
 #include <malloc.h>
 #include <assert.h>
-#include "mcheck.h"
 void print_row(Row* row) {
     for (size_t i = 0; i < row->size(); i++) {
-      Datum* val = row->get_column(i);
-      assert(val);
+      //Datum* val = row->get_column(i);
+      //assert(val);
       std::cout<<row->to_string(i);
       if (i+1 < row->size()) {
         std::cout<<", ";
@@ -24,19 +23,14 @@ void print_row(Row* row) {
 }
 void print_person(Row* row) {
   IntDatum* id = (IntDatum*)row->get_column("id");
-  rDebug("id: %d", id->value());
+  fprintf(stdout, "id: %d", id->value());
   StrDatum* name = (StrDatum*)row->get_column("name");
-  rDebug("name: %s", name->value());
+  fprintf(stdout, "name: %s", name->value());
   IntDatum* age = (IntDatum*)row->get_column("age");
-  rDebug("age: %d", age->value());
+  fprintf(stdout, "age: %d", age->value());
 }
 int
 main (int argc, char **argv) {
-  mtrace();
-  RLogInit( argc, argv );
-  StdioNode stdLog(2,1|4 );
-  stdLog.subscribeTo( GetGlobalChannel("") );
-
   rDebug("test");
   static GreenEnv ge(".");
   rDebug("greenenv: %s", ge.home());
@@ -116,7 +110,7 @@ main (int argc, char **argv) {
     rDebug("IntDatum->str %s", idd->str());
     //18
     StrDatum* named = dynamic_cast<StrDatum*>(row->get_column("name"));
-    named->set_value("Budda");
+    named->set_value("James");
     rDebug("StrDatum->repr %s", named->repr());
     //13BasicStrDatumIcSt11char_traitsIcESaIcEE(Budda)
     rDebug("StrDatum->str %s", named->str());

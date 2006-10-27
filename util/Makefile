@@ -31,7 +31,7 @@ clean:
 	rm -vrf .libs *.o *.exe *.log *.lo desc${EXE} mktable${EXE} addrow${EXE} list${EXE} toxml${EXE} test${EXE}
 
 
-clear:
+wipe:
 	rm -vrf tables.db __db.*
 
 install: desc${EXE} mktable${EXE} addrow${EXE} list${EXE} toxml${EXE}

@@ -176,6 +176,8 @@ class Row(_object):
     def close(*args): return _greendb.Row_close(*args)
     def getpk(*args): return _greendb.Row_getpk(*args)
     def set(*args): return _greendb.Row_set(*args)
+    def set_int(*args): return _greendb.Row_set_int(*args)
+    def set_string(*args): return _greendb.Row_set_string(*args)
     def from_string(*args): return _greendb.Row_from_string(*args)
     def to_string(*args): return _greendb.Row_to_string(*args)
     def get_column(*args): return _greendb.Row_get_column(*args)

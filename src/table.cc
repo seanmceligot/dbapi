@@ -114,12 +114,14 @@ Table::save (Row * row) {
 			char* str = row->to_string(colname);
 			free(str);
 	    db->put (pk, *datum);
-		}
-		if (indexed) {
-			GreenDb* idb = get_index(colname, true);
-			//rDebug("indexing... %s", colname);
-  		idb->put (*datum, pk);
-		}
+      if (indexed) {
+        GreenDb* idb = get_index(colname, true);
+        //rDebug("indexing... %s", colname);
+        idb->put (*datum, pk);
+      }
+		} else {
+      rDebug("Table.save column not found %d", i);
+    }
   }
   GreenDb* tables = get_database("tables");
 	StrDatum table_name_key(_name.c_str());
@@ -128,7 +130,6 @@ Table::save (Row * row) {
     StrDatum tables_db("tables_db");
     tables->put(table_name_key, tables_db);
   }
-
 }
 Cursor* Table::cursor(const char*name) {
   GreenDb *db = get_database (name);

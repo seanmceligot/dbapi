@@ -45,6 +45,9 @@ public:
 };
 
 class Datum {
+  public:
+  const char * repr();
+  const char * str();
 };
 
 class StrDatum: public Datum {
@@ -55,6 +58,8 @@ class StrDatum: public Datum {
 	  const char * repr () const;
 	  const char* value();
 		char* set_value(char* newvalue);
+  const char * repr();
+  const char * str();
 };
 class IntDatum: public Datum {
   public:
@@ -64,6 +69,8 @@ class IntDatum: public Datum {
 	  const char * repr () const;
 	  const int value();
 		int set_value(int newvalue);
+  const char * repr();
+  const char * str();
 };
 class Cursor {
   Cursor ();
@@ -75,19 +82,25 @@ public:
   int next (Datum & key, Datum & val);
   void close ();
 };
+%rename(to_string_n) to_string(int);
+%rename(set_n) set(int, Datum*);
+%rename(from_string_n) from_string(int, const char*);
+%rename(get_column_n) get_column(int);
 class Row {
 public:
   Row (Table * table, size_t size);
 	~Row ();
   void close ();
   Datum& getpk ();
-  %rename(set_n) set(int , Datum &);
+  void set (int , Datum &);
   bool set (const char *colname, Datum & newDatum);
-	%rename(from_string_n) from_string(int index, const char* s);
+  bool set_int (const char *colname, int value);
+  bool set_string (const char *colname, const char* value);
+	void from_string(int index, const char* s);
 	void from_string(const char* colname, const char* s);
-	%rename(to_string_n) to_string(int index);
+	char* to_string(int);
 	char* to_string(const char* colname);
-	%rename(get_column_n) get_column (int idx);
+	Datum* get_column (int idx);
   Datum *get_column (const char *colname);
 	int get_col_no(const char* colname);
   Datum * get_existing_column (int index);

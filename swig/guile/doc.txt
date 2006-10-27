@@ -218,6 +218,16 @@ SELF is of type <Row *>, COLNAME is a string, NEWDATUM is of type <Datum &>.
 
 Returns <boolean>.
 
+(Row-set-int self colname value)
+SELF is of type <Row *>, COLNAME is a string, VALUE is of type <integer>.
+
+Returns <boolean>.
+
+(Row-set-string self colname value)
+SELF is of type <Row *>, COLNAME is a string, VALUE is a string.
+
+Returns <boolean>.
+
 (Row-from-string self colname s)
 SELF is of type <Row *>, COLNAME is a string, S is a string.
 

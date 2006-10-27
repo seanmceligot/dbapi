@@ -5,7 +5,7 @@ INCLUDES=-I../.. ${RUBY_INCLUDE} ${DB_INCLUDE}
 DEFINES=-DSWIG
 
 greendb.la: greendb_wrap.lo
-	${LIBTOOL_LINK} -module -o $@ $< -rpath ${RUBY_INSTALL} -l${RUBY_LIB} -lsupc++  -lpthread -ldl -lcrypt -lm -lc -ldb_cxx ../../src/libgreendb.la 
+	${LIBTOOL_LINK} -module -o $@ $< -rpath ${RUBY_INSTALL} -l${RUBY_LIB} -lsupc++  -lpthread -lrlog -ldl -lcrypt -lm -lc -ldb_cxx ../../src/libgreendb.la 
 
 install:
 	${LIBTOOL_INSTALL} -c greendb.la ${RUBY_INSTALL}
@@ -22,3 +22,11 @@ greendb_wrap.cc: ../greendb.i
 clean:
 	$(LIBTOOL_CLEAN) *.o *_wrap.c *_wrap.cc *.so __db.* *.db *.so  *.lo *.la *.loT
 
+test:
+	sh test.sh
+
+debug:
+				libtool --mode=execute gdb --args ruby -I .libs test.rb
+
+wipe:
+	rm -vrf tables.db __db.*

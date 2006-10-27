@@ -2346,6 +2346,77 @@ _wrap_Row_set (SCM s_0, SCM s_1, SCM s_2)
 
 
 static SCM
+_wrap_Row_set_int (SCM s_0, SCM s_1, SCM s_2)
+{
+#define FUNC_NAME "Row-set-int"
+  Row *arg1 = (Row *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  bool result;
+  int must_free2 = 0 ;
+  SCM gswig_result;
+  int gswig_list_p = 0;
+  
+  {
+    arg1 = (Row *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_Row, 1, 0);
+  }
+  {
+    arg2 = SWIG_scm2str(s_1);
+    must_free2 = 1;
+  }
+  {
+    arg3 = scm_num2int(s_2, SCM_ARG1, FUNC_NAME);
+  }
+  result = (bool)(arg1)->set_int((char const *)arg2,arg3);
+  {
+    gswig_result = SCM_BOOL(result);
+  }
+  
+  if (must_free2 && arg2) SWIG_free(arg2);
+  
+  return gswig_result;
+#undef FUNC_NAME
+}
+
+
+static SCM
+_wrap_Row_set_string (SCM s_0, SCM s_1, SCM s_2)
+{
+#define FUNC_NAME "Row-set-string"
+  Row *arg1 = (Row *) 0 ;
+  char *arg2 = (char *) 0 ;
+  char *arg3 = (char *) 0 ;
+  bool result;
+  int must_free2 = 0 ;
+  int must_free3 = 0 ;
+  SCM gswig_result;
+  int gswig_list_p = 0;
+  
+  {
+    arg1 = (Row *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_Row, 1, 0);
+  }
+  {
+    arg2 = SWIG_scm2str(s_1);
+    must_free2 = 1;
+  }
+  {
+    arg3 = SWIG_scm2str(s_2);
+    must_free3 = 1;
+  }
+  result = (bool)(arg1)->set_string((char const *)arg2,(char const *)arg3);
+  {
+    gswig_result = SCM_BOOL(result);
+  }
+  
+  if (must_free2 && arg2) SWIG_free(arg2);
+  if (must_free3 && arg3) SWIG_free(arg3);
+  
+  return gswig_result;
+#undef FUNC_NAME
+}
+
+
+static SCM
 _wrap_Row_from_string (SCM s_0, SCM s_1, SCM s_2)
 {
 #define FUNC_NAME "Row-from-string"
@@ -4055,6 +4126,8 @@ SWIG_init(void)
   scm_c_define_gsubr("Row-close", 1, 0, 0, (swig_guile_proc) _wrap_Row_close);
   scm_c_define_gsubr("Row-getpk", 1, 0, 0, (swig_guile_proc) _wrap_Row_getpk);
   scm_c_define_gsubr("Row-set", 3, 0, 0, (swig_guile_proc) _wrap_Row_set);
+  scm_c_define_gsubr("Row-set-int", 3, 0, 0, (swig_guile_proc) _wrap_Row_set_int);
+  scm_c_define_gsubr("Row-set-string", 3, 0, 0, (swig_guile_proc) _wrap_Row_set_string);
   scm_c_define_gsubr("Row-from-string", 3, 0, 0, (swig_guile_proc) _wrap_Row_from_string);
   scm_c_define_gsubr("Row-to-string", 2, 0, 0, (swig_guile_proc) _wrap_Row_to_string);
   scm_c_define_gsubr("Row-get-column", 2, 0, 0, (swig_guile_proc) _wrap_Row_get_column);
