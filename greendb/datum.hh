@@ -29,7 +29,6 @@ public:
   void atleast_size ();
   void atleast (size_t newsize);
   //virtual const char * type_name () const = 0;
-  //virtual const char * repr () const = 0;
   //virtual const char * str() const = 0;
 /**
  * caller must free pointer

@@ -163,10 +163,17 @@ retry:
     }
   }
 	//g_message("%d Db->get %s %s ",dberr, key.str(),val.str());
-	if (dberr && (dberr != DB_NOTFOUND)) {
+  if (dberr == 0) {
+  } else if (dberr == DB_NOTFOUND) {
+  } else {
 	  Db::err(dberr, "dberr: ");
   }
-  g_message("%d fetch %s %s = %s", dberr, name(), key.to_string(), val.to_string());
+	if (dberr && (dberr != DB_NOTFOUND)) {
+     g_message("fetch %s %s = DB_NOTFOUND", dberr, name(), key.to_string());
+  }
+  if (dberr == 0) {
+     g_message("%d fetch %s %s = %s", dberr, name(), key.to_string(), val.to_string());
+  }
   return dberr;
 }
 

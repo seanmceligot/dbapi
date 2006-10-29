@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <assert.h>
 
-
 Datum::Datum (DataType type):Dbt (),_type(type), _internal_allocated(false) {
 }
 Datum::Datum (DataType type, u_int32_t size):Dbt (),_type(type), _internal_allocated(false) {
@@ -73,7 +72,7 @@ void Datum::atleast (size_t newsize) {
     }
 }
 char * Datum::repr() const{
-   return this->to_string();
+   return g_strdup_printf("Datum::new_%s(%s)", TypeMap::get_type_map()->get_type_name(_type), this->to_string());
 }
 char * Datum::str() const{
    return to_string();
@@ -113,38 +112,36 @@ Datum* Datum::set_string(const char* newvalue){
     return this;
 }
 int Datum::get_int() const {
+  g_return_val_if_fail(const_ptr() != NULL, 0);
   return *((int*)const_ptr());
 }
 const char* Datum::get_string() const{
   return (const char*)const_ptr();
 }
 void Datum::from_string(const char* value){
-			switch(_type) {
-							case TYPE_STRING:
-											set_string(value);
-                      break;
-							case TYPE_INT:
-											set_int(atoi(value));
-                      break;
-							default:
-										g_message("unknown type, cannot set from string");
-			}
+  g_return_if_fail(value != NULL);
+  switch(_type) {
+    case TYPE_STRING:
+       set_string(value);
+       break;
+    case TYPE_INT:
+       set_int(atoi(value));
+       break;
+    default:
+      g_message("unknown type, cannot set from string");
+  }
 }
 /**
  * caller must free pointer
  */
 char* Datum::to_string() const {
-			if (const_ptr() == NULL) {
-				return NULL;
-			}
-			switch(_type) {
-							case TYPE_STRING:
-											return strdup(get_string());
-							case TYPE_INT:
-                      char* str = new char[15];
-                      sprintf(str, "%d", get_int());
-											return str;
-			}
-    g_message("unknown type, cannot get to string");
-    return NULL;
+  g_return_val_if_fail(const_ptr() != NULL, 0);
+  switch(_type) {
+    case TYPE_STRING:
+      return strdup(get_string());
+    case TYPE_INT:
+      return g_strdup_printf("%d", get_int());
+  }
+  g_message("unknown type, cannot get to string");
+  return NULL;
 }

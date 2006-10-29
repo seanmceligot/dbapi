@@ -93,7 +93,7 @@ main (int argc, char **argv) {
                  row->set("id", id );
                  name.set_string("Thomas");
                  row->set("name", name );
-                 age=23;
+                 age.set_int(23);
                  row->set("age", age);
                  table.save(row);
               }
