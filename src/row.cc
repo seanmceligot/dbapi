@@ -7,7 +7,9 @@
 #include <assert.h>
 
 Row::Row (Table * table, size_t size):_size (size), _table (table)  {
+	g_message("new Row(%s,size=%d)", table->get_name(), size);
 	_colDatum = new Datum*[size];
+  Schema* schema = table->get_schema();
 	for (size_t i = 0; i < size;i++) {
 		_colDatum[i] = NULL;
 	}
@@ -27,16 +29,20 @@ size_t Row::size() {
 void
 Row::close ()
 {
-  //delete[] _colDatum;
+	g_message("Row.close");
+	/*for (size_t i = 0; i < _size;i++) {
+		free(_colDatum[i]);
+	}
+  delete[] _colDatum;*/
 }
 
 void
 Row::set (int idx, Datum & newDatum)
 {
   Datum *datum = _colDatum[idx];
-  if (datum) {
+  /*if (datum) {
     free (datum);
-  }
+  }*/
   _colDatum[idx] = &newDatum;
 }
 int Row::get_col_no(const char* colname) {
@@ -48,25 +54,15 @@ bool Row::set_int (const char *colname, int value) {
 	int idx = get_col_no(colname);
 	Schema* schema = _table->get_schema();
 	Datum* datum = schema->create_datum(idx);
-  IntDatum* id = dynamic_cast<IntDatum*>(datum);
-	if (id == NULL) {
-			free(datum);
-			return false;
-	}
-	id->set_value(value);
-	set(idx, *id);
+	datum->set_int(value);
+	set(idx, *datum);
 }
 bool Row::set_string (const char *colname, const char* value) {
 	int idx = get_col_no(colname);
 	Schema* schema = _table->get_schema();
 	Datum* datum = schema->create_datum(idx);
-  StrDatum* id = dynamic_cast<StrDatum*>(datum);
-	if (id == NULL) {
-			free(datum);
-			return false;
-	}
-	id->set_value(value);
-	set(idx, *id);
+	datum->set_string(value);
+	set(idx, *datum);
 }
 bool
 Row::set (const char *colname, Datum & newDatum)
@@ -88,28 +84,28 @@ Datum *
 Row::get_column (const char *colname)
 {
 	int idx = get_col_no(colname);
-	rDebug("get_column[%d]", idx);
+	g_message("get_column[%s %d]", colname, idx);
 	if (idx < 0) {
 			return NULL;
 	}
-  Datum *val = get_existing_column (idx);
-  if (!val) {
-    GreenDb *db = _table->get_database (colname);
-		Datum* pk = _colDatum[0];
-		rDebug("pk %p", pk);
-		val =_table->get_schema()->create_datum(colname);
-		if (pk != NULL) {
-    	db->fetch (*pk, *val);
-		}
-		_colDatum[idx] = val;
-  }
-	rDebug("got_column %s", val->repr());
+  Datum *val = get_existing_column(idx);
+	if (val == NULL) {
+		val = _table->get_schema()->create_datum(idx);
+	}
+  GreenDb *db = _table->get_database (colname);
+	Datum* pk = _colDatum[0];
+	g_message("pk %s", pk->to_string());
+	if (pk != NULL) {
+   	db->fetch (*pk, *val);
+	}
+	g_message("fetched colum %s", val->repr());
   return val;
 }
 
 Datum *
 Row::get_existing_column (int idx) {
-	return _colDatum[idx];
+	Datum* col=_colDatum[idx];
+	return col;
 }
 void Row::from_string(const char* colname, const char* s) {
 	int idx = get_col_no(colname);
@@ -120,33 +116,53 @@ void Row::from_string(int idx, const char* s) {
 	const std::type_info* ti = schema->get_typeid(idx);
 	Datum* datum = get_existing_column(idx);
 	if (!datum) {
-		datum = new Datum();
+		datum = schema->create_datum(idx);
 		set(idx, *datum);
 	}
 	datum->atleast(TypeMap::get_type_map()->from_string_size(ti, s));
 	TypeMap::get_type_map()->from_string(ti, datum, s);
 }
+/**
+ * caller must free
+ * see Datum.to_string
+ */
 char* Row::to_string(int idx) {
-	Schema* schema = _table->get_schema();
-	const std::type_info* ti = schema->get_typeid(idx);
 	Datum* datum = get_column(idx);
 	if (datum == NULL) {
-    return "NULL";
+    return NULL;
   }
-	return TypeMap::get_type_map()->to_string(ti,datum);
+	return datum->to_string();
 }
+/**
+ * caller must free
+ * see Datum.to_string
+ */
 char* Row::to_string(const char* colname) {
-	Schema* schema = _table->get_schema();
-	const std::type_info* ti = schema->get_typeid(colname);
 	Datum* datum = get_column(colname);
-	assert(datum != NULL);
-	char* str = TypeMap::get_type_map()->to_string(ti,datum);
-  return str;
+	if (datum == NULL) {
+    return NULL;
+  }
+	return datum->to_string();
+}
+int Row::get_int (const char *colname) {
+	Datum* datum = get_column(colname);
+	if (datum == NULL) {
+    return 0;
+  }
+	return datum->get_int();
+}
+
+const char* Row::get_string (const char *colname) {
+	Datum* datum = get_column(colname);
+	if (datum == NULL) {
+    return NULL;
+  }
+	return datum->get_string();
 }
 
 CursorRow::CursorRow(Table* table, size_t size, Cursor* cursor, Datum* pk) :
 	Row(table, size), _cursor(cursor) {
-	rDebug("CursorRow table %p, size %d, cursor %p, ok %s", table, size, cursor, pk->repr());
+	g_message("CursorRow table %p, size %d, cursor %p, ok %s", table, size, cursor, pk->repr());
 	set(0, *pk);
 }
 

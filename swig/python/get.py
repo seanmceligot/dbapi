@@ -3,7 +3,7 @@ import sys
 
 def get(env, table_name):
     
-    table = greendb.Table("testtable", env)
+    table = greendb.Table("people", env)
     schema = table.get_schema()
     print table.get_name()
     pk = schema.get_name(0)

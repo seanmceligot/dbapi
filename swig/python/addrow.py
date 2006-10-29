@@ -9,7 +9,7 @@ def addrow(args):
   env = greendb.GreenEnv(".")
   env.open()
   
-  table = greendb.Table("testtable", env)
+  table = greendb.Table("people", env)
   row = table.new_row()
   i = 0
   for val in args:

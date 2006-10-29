@@ -53,9 +53,9 @@
 	Datum* Schema::create_datum_for_type(int type) const {
 			switch(type) {
 							case TYPE_STRING:
-											return new StrDatum("");
+											return new Datum(TYPE_STRING);
 							case TYPE_INT:
-											return new IntDatum(0);
+											return new Datum(TYPE_INT);
 							default:
 										return NULL;
 			}

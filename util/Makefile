@@ -25,7 +25,7 @@ test${EXE}: test.lo ../src/libgreendb.la
 	$(LIBTOOL_CXX) ${INCLUDES}  -c $<
 
 DISTCLEANFILES = .deps/*.P
-INCLUDES=-I.. -I../greendb ${DB_INCLUDE}
+INCLUDES=-I.. -I../greendb ${ALL_INCLUDES}
 
 clean:
 	rm -vrf .libs *.o *.exe *.log *.lo desc${EXE} mktable${EXE} addrow${EXE} list${EXE} toxml${EXE} test${EXE}
@@ -47,3 +47,4 @@ uninstall:
 	${LIBTOOL_UNINSTTALL} ${prefix}/bin/addrow${EXE}
 	${LIBTOOL_UNINSTTALL} ${prefix}/bin/list${EXE}
 	${LIBTOOL_UNINSTTALL} ${prefix}/bin/toxml${EXE}
+

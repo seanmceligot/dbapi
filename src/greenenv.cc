@@ -10,14 +10,9 @@
 
 GreenEnv::GreenEnv (const char *home):DbEnv (0),_home(home)
 {
-  //rDebug( "Env %s" , _home.c_str());
+  //g_message( "Env %s" , _home.c_str());
 	// TODO: only run once
   mtrace();
-	char** argv= new char*[0];
-	int argc = 0;
-  RLogInit(argc, argv);
-  StdioNode stdLog(2,1|4 );
-  stdLog.subscribeTo( GetGlobalChannel("") );
 }
 
 #define DEFAULT_OPEN_FLAGS DB_CREATE|DB_INIT_MPOOL
@@ -38,7 +33,7 @@ void
     int
       patch;
     version (&major, &minor, &patch);
-    rDebug( "db version: %d %d %d" , major, minor , patch );
+    g_message( "db version: %d %d %d" , major, minor , patch );
   }
   if (home) {
 		// create home

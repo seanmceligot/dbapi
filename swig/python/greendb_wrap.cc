@@ -3474,11 +3474,206 @@ SWIGINTERN PyObject *GreenEnv_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObj
 
 SWIGINTERN PyObject *_wrap_new_Datum(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
+  DataType arg1 ;
   Datum *result = 0 ;
+  int val1 ;
+  int ecode1 = 0 ;
+  PyObject * obj0 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)":new_Datum")) SWIG_fail;
-  result = (Datum *)new Datum();
+  if (!PyArg_ParseTuple(args,(char *)"O:new_Datum",&obj0)) SWIG_fail;
+  ecode1 = SWIG_AsVal_int(obj0, &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_Datum" "', argument " "1"" of type '" "DataType""'");
+  } 
+  arg1 = static_cast< DataType >(val1);
+  result = (Datum *)new Datum(arg1);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Datum, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Datum_repr(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Datum *arg1 = (Datum *) 0 ;
+  char *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Datum_repr",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Datum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Datum_repr" "', argument " "1"" of type '" "Datum *""'"); 
+  }
+  arg1 = reinterpret_cast< Datum * >(argp1);
+  result = (char *)(arg1)->repr();
+  resultobj = SWIG_FromCharPtr(result);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Datum_set_int(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Datum *arg1 = (Datum *) 0 ;
+  int arg2 ;
+  Datum *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Datum_set_int",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Datum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Datum_set_int" "', argument " "1"" of type '" "Datum *""'"); 
+  }
+  arg1 = reinterpret_cast< Datum * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Datum_set_int" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  result = (Datum *)(arg1)->set_int(arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Datum, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Datum_set_string(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Datum *arg1 = (Datum *) 0 ;
+  char *arg2 = (char *) 0 ;
+  Datum *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Datum_set_string",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Datum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Datum_set_string" "', argument " "1"" of type '" "Datum *""'"); 
+  }
+  arg1 = reinterpret_cast< Datum * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Datum_set_string" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = buf2;
+  result = (Datum *)(arg1)->set_string((char const *)arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Datum, 0 |  0 );
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Datum_get_int(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Datum *arg1 = (Datum *) 0 ;
+  int result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Datum_get_int",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Datum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Datum_get_int" "', argument " "1"" of type '" "Datum *""'"); 
+  }
+  arg1 = reinterpret_cast< Datum * >(argp1);
+  result = (int)(arg1)->get_int();
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Datum_get_string(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Datum *arg1 = (Datum *) 0 ;
+  char *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Datum_get_string",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Datum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Datum_get_string" "', argument " "1"" of type '" "Datum *""'"); 
+  }
+  arg1 = reinterpret_cast< Datum * >(argp1);
+  result = (char *)(arg1)->get_string();
+  resultobj = SWIG_FromCharPtr(result);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Datum_from_string(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Datum *arg1 = (Datum *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Datum_from_string",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Datum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Datum_from_string" "', argument " "1"" of type '" "Datum *""'"); 
+  }
+  arg1 = reinterpret_cast< Datum * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Datum_from_string" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = buf2;
+  (arg1)->from_string((char const *)arg2);
+  resultobj = SWIG_Py_Void();
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Datum_to_string(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Datum *arg1 = (Datum *) 0 ;
+  char *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Datum_to_string",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Datum, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Datum_to_string" "', argument " "1"" of type '" "Datum *""'"); 
+  }
+  arg1 = reinterpret_cast< Datum * >(argp1);
+  result = (char *)(arg1)->to_string();
+  resultobj = SWIG_FromCharPtr(result);
   return resultobj;
 fail:
   return NULL;
@@ -3539,28 +3734,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_StrDatum_type_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  StrDatum *arg1 = (StrDatum *) 0 ;
-  char *result = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:StrDatum_type_name",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_StrDatum, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StrDatum_type_name" "', argument " "1"" of type '" "StrDatum const *""'"); 
-  }
-  arg1 = reinterpret_cast< StrDatum * >(argp1);
-  result = (char *)((StrDatum const *)arg1)->type_name();
-  resultobj = SWIG_FromCharPtr(result);
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_delete_StrDatum(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   StrDatum *arg1 = (StrDatum *) 0 ;
@@ -3577,28 +3750,6 @@ SWIGINTERN PyObject *_wrap_delete_StrDatum(PyObject *SWIGUNUSEDPARM(self), PyObj
   delete arg1;
   
   resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_StrDatum_repr(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  StrDatum *arg1 = (StrDatum *) 0 ;
-  char *result = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:StrDatum_repr",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_StrDatum, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StrDatum_repr" "', argument " "1"" of type '" "StrDatum const *""'"); 
-  }
-  arg1 = reinterpret_cast< StrDatum * >(argp1);
-  result = (char *)((StrDatum const *)arg1)->repr();
-  resultobj = SWIG_FromCharPtr(result);
   return resultobj;
 fail:
   return NULL;
@@ -3623,40 +3774,6 @@ SWIGINTERN PyObject *_wrap_StrDatum_value(PyObject *SWIGUNUSEDPARM(self), PyObje
   resultobj = SWIG_FromCharPtr(result);
   return resultobj;
 fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_StrDatum_set_value(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  StrDatum *arg1 = (StrDatum *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *result = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 ;
-  char *buf2 = 0 ;
-  int alloc2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:StrDatum_set_value",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_StrDatum, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StrDatum_set_value" "', argument " "1"" of type '" "StrDatum *""'"); 
-  }
-  arg1 = reinterpret_cast< StrDatum * >(argp1);
-  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "StrDatum_set_value" "', argument " "2"" of type '" "char *""'");
-  }
-  arg2 = buf2;
-  result = (char *)(arg1)->set_value(arg2);
-  resultobj = SWIG_FromCharPtr(result);
-  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
-  return resultobj;
-fail:
-  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
   return NULL;
 }
 
@@ -3690,72 +3807,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IntDatum_type_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IntDatum *arg1 = (IntDatum *) 0 ;
-  char *result = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IntDatum_type_name",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IntDatum, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntDatum_type_name" "', argument " "1"" of type '" "IntDatum const *""'"); 
-  }
-  arg1 = reinterpret_cast< IntDatum * >(argp1);
-  result = (char *)((IntDatum const *)arg1)->type_name();
-  resultobj = SWIG_FromCharPtr(result);
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_IntDatum(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IntDatum *arg1 = (IntDatum *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:delete_IntDatum",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IntDatum, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IntDatum" "', argument " "1"" of type '" "IntDatum *""'"); 
-  }
-  arg1 = reinterpret_cast< IntDatum * >(argp1);
-  delete arg1;
-  
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IntDatum_repr(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IntDatum *arg1 = (IntDatum *) 0 ;
-  char *result = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IntDatum_repr",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IntDatum, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntDatum_repr" "', argument " "1"" of type '" "IntDatum const *""'"); 
-  }
-  arg1 = reinterpret_cast< IntDatum * >(argp1);
-  result = (char *)((IntDatum const *)arg1)->repr();
-  resultobj = SWIG_FromCharPtr(result);
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_IntDatum_value(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IntDatum *arg1 = (IntDatum *) 0 ;
@@ -3778,31 +3829,22 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IntDatum_set_value(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_delete_IntDatum(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IntDatum *arg1 = (IntDatum *) 0 ;
-  int arg2 ;
-  int result;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:IntDatum_set_value",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IntDatum, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_IntDatum",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IntDatum, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntDatum_set_value" "', argument " "1"" of type '" "IntDatum *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IntDatum" "', argument " "1"" of type '" "IntDatum *""'"); 
   }
   arg1 = reinterpret_cast< IntDatum * >(argp1);
-  ecode2 = SWIG_AsVal_int(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IntDatum_set_value" "', argument " "2"" of type '" "int""'");
-  } 
-  arg2 = static_cast< int >(val2);
-  result = (int)(arg1)->set_value(arg2);
-  resultobj = SWIG_From_int(static_cast< int >(result));
+  delete arg1;
+  
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -4149,7 +4191,49 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Row_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Row_set__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Row *arg1 = (Row *) 0 ;
+  int arg2 ;
+  Datum *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:Row_set",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Row, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Row_set" "', argument " "1"" of type '" "Row *""'"); 
+  }
+  arg1 = reinterpret_cast< Row * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Row_set" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_Datum,  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Row_set" "', argument " "3"" of type '" "Datum &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Row_set" "', argument " "3"" of type '" "Datum &""'"); 
+  }
+  arg3 = reinterpret_cast< Datum * >(argp3);
+  (arg1)->set(arg2,*arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Row_set__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Row *arg1 = (Row *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -4191,6 +4275,61 @@ SWIGINTERN PyObject *_wrap_Row_set(PyObject *SWIGUNUSEDPARM(self), PyObject *arg
   return resultobj;
 fail:
   if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Row_set(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[4];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = PyObject_Length(args);
+  for (ii = 0; (ii < argc) && (ii < 3); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Row, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_int(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_Datum, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_Row_set__SWIG_0(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Row, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsCharPtrAndSize(argv[1], 0, NULL, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        void *vptr = 0;
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_Datum, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_Row_set__SWIG_1(self, args);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"No matching function for overloaded 'Row_set'");
   return NULL;
 }
 
@@ -4284,6 +4423,116 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Row_get_int(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Row *arg1 = (Row *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Row_get_int",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Row, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Row_get_int" "', argument " "1"" of type '" "Row *""'"); 
+  }
+  arg1 = reinterpret_cast< Row * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Row_get_int" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = buf2;
+  result = (int)(arg1)->get_int((char const *)arg2);
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Row_get_string(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Row *arg1 = (Row *) 0 ;
+  char *arg2 = (char *) 0 ;
+  char *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Row_get_string",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Row, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Row_get_string" "', argument " "1"" of type '" "Row *""'"); 
+  }
+  arg1 = reinterpret_cast< Row * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Row_get_string" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = buf2;
+  result = (char *)(arg1)->get_string((char const *)arg2);
+  resultobj = SWIG_FromCharPtr(result);
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Row_from_string_n(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Row *arg1 = (Row *) 0 ;
+  int arg2 ;
+  char *arg3 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  int res3 ;
+  char *buf3 = 0 ;
+  int alloc3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:Row_from_string_n",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Row, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Row_from_string_n" "', argument " "1"" of type '" "Row *""'"); 
+  }
+  arg1 = reinterpret_cast< Row * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Row_from_string_n" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  res3 = SWIG_AsCharPtrAndSize(obj2, &buf3, NULL, &alloc3);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Row_from_string_n" "', argument " "3"" of type '" "char const *""'");
+  }
+  arg3 = buf3;
+  (arg1)->from_string(arg2,(char const *)arg3);
+  resultobj = SWIG_Py_Void();
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return resultobj;
+fail:
+  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_Row_from_string(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Row *arg1 = (Row *) 0 ;
@@ -4329,6 +4578,37 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Row_to_string_n(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Row *arg1 = (Row *) 0 ;
+  int arg2 ;
+  char *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Row_to_string_n",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Row, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Row_to_string_n" "', argument " "1"" of type '" "Row *""'"); 
+  }
+  arg1 = reinterpret_cast< Row * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Row_to_string_n" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  result = (char *)(arg1)->to_string(arg2);
+  resultobj = SWIG_FromCharPtr(result);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_Row_to_string(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Row *arg1 = (Row *) 0 ;
@@ -4359,6 +4639,37 @@ SWIGINTERN PyObject *_wrap_Row_to_string(PyObject *SWIGUNUSEDPARM(self), PyObjec
   return resultobj;
 fail:
   if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Row_get_column_n(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Row *arg1 = (Row *) 0 ;
+  int arg2 ;
+  Datum *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Row_get_column_n",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Row, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Row_get_column_n" "', argument " "1"" of type '" "Row *""'"); 
+  }
+  arg1 = reinterpret_cast< Row * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Row_get_column_n" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  result = (Datum *)(arg1)->get_column(arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Datum, 0 |  0 );
+  return resultobj;
+fail:
   return NULL;
 }
 
@@ -5239,6 +5550,37 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Schema_get_type_n(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Schema *arg1 = (Schema *) 0 ;
+  int arg2 ;
+  DataType result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Schema_get_type_n",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Schema, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Schema_get_type_n" "', argument " "1"" of type '" "Schema *""'"); 
+  }
+  arg1 = reinterpret_cast< Schema * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Schema_get_type_n" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  result = (DataType)(arg1)->get_type(arg2);
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_Schema_get_type(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Schema *arg1 = (Schema *) 0 ;
@@ -5255,7 +5597,7 @@ SWIGINTERN PyObject *_wrap_Schema_get_type(PyObject *SWIGUNUSEDPARM(self), PyObj
   if (!PyArg_ParseTuple(args,(char *)"OO:Schema_get_type",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Schema, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Schema_get_type" "', argument " "1"" of type '" "Schema const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Schema_get_type" "', argument " "1"" of type '" "Schema *""'"); 
   }
   arg1 = reinterpret_cast< Schema * >(argp1);
   res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
@@ -5263,7 +5605,7 @@ SWIGINTERN PyObject *_wrap_Schema_get_type(PyObject *SWIGUNUSEDPARM(self), PyObj
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Schema_get_type" "', argument " "2"" of type '" "char const *""'");
   }
   arg2 = buf2;
-  result = (DataType)((Schema const *)arg1)->get_type((char const *)arg2);
+  result = (DataType)(arg1)->get_type((char const *)arg2);
   resultobj = SWIG_From_int(static_cast< int >(result));
   if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
   return resultobj;
@@ -5289,7 +5631,7 @@ SWIGINTERN PyObject *_wrap_Schema_get_col_no(PyObject *SWIGUNUSEDPARM(self), PyO
   if (!PyArg_ParseTuple(args,(char *)"OO:Schema_get_col_no",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Schema, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Schema_get_col_no" "', argument " "1"" of type '" "Schema const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Schema_get_col_no" "', argument " "1"" of type '" "Schema *""'"); 
   }
   arg1 = reinterpret_cast< Schema * >(argp1);
   res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
@@ -5297,7 +5639,7 @@ SWIGINTERN PyObject *_wrap_Schema_get_col_no(PyObject *SWIGUNUSEDPARM(self), PyO
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Schema_get_col_no" "', argument " "2"" of type '" "char const *""'");
   }
   arg2 = buf2;
-  result = (int)((Schema const *)arg1)->get_col_no((char const *)arg2);
+  result = (int)(arg1)->get_col_no((char const *)arg2);
   resultobj = SWIG_From_int(static_cast< int >(result));
   if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
   return resultobj;
@@ -5322,7 +5664,7 @@ SWIGINTERN PyObject *_wrap_Schema_get_name(PyObject *SWIGUNUSEDPARM(self), PyObj
   if (!PyArg_ParseTuple(args,(char *)"OO:Schema_get_name",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Schema, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Schema_get_name" "', argument " "1"" of type '" "Schema const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Schema_get_name" "', argument " "1"" of type '" "Schema *""'"); 
   }
   arg1 = reinterpret_cast< Schema * >(argp1);
   ecode2 = SWIG_AsVal_int(obj1, &val2);
@@ -5330,7 +5672,7 @@ SWIGINTERN PyObject *_wrap_Schema_get_name(PyObject *SWIGUNUSEDPARM(self), PyObj
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Schema_get_name" "', argument " "2"" of type '" "int""'");
   } 
   arg2 = static_cast< int >(val2);
-  result = (char *)((Schema const *)arg1)->get_name(arg2);
+  result = (char *)(arg1)->get_name(arg2);
   resultobj = SWIG_FromCharPtr(result);
   return resultobj;
 fail:
@@ -5792,21 +6134,22 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"GreenEnv_home", _wrap_GreenEnv_home, METH_VARARGS, NULL},
 	 { (char *)"GreenEnv_swigregister", GreenEnv_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_Datum", _wrap_new_Datum, METH_VARARGS, NULL},
+	 { (char *)"Datum_repr", _wrap_Datum_repr, METH_VARARGS, NULL},
+	 { (char *)"Datum_set_int", _wrap_Datum_set_int, METH_VARARGS, NULL},
+	 { (char *)"Datum_set_string", _wrap_Datum_set_string, METH_VARARGS, NULL},
+	 { (char *)"Datum_get_int", _wrap_Datum_get_int, METH_VARARGS, NULL},
+	 { (char *)"Datum_get_string", _wrap_Datum_get_string, METH_VARARGS, NULL},
+	 { (char *)"Datum_from_string", _wrap_Datum_from_string, METH_VARARGS, NULL},
+	 { (char *)"Datum_to_string", _wrap_Datum_to_string, METH_VARARGS, NULL},
 	 { (char *)"delete_Datum", _wrap_delete_Datum, METH_VARARGS, NULL},
 	 { (char *)"Datum_swigregister", Datum_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_StrDatum", _wrap_new_StrDatum, METH_VARARGS, NULL},
-	 { (char *)"StrDatum_type_name", _wrap_StrDatum_type_name, METH_VARARGS, NULL},
 	 { (char *)"delete_StrDatum", _wrap_delete_StrDatum, METH_VARARGS, NULL},
-	 { (char *)"StrDatum_repr", _wrap_StrDatum_repr, METH_VARARGS, NULL},
 	 { (char *)"StrDatum_value", _wrap_StrDatum_value, METH_VARARGS, NULL},
-	 { (char *)"StrDatum_set_value", _wrap_StrDatum_set_value, METH_VARARGS, NULL},
 	 { (char *)"StrDatum_swigregister", StrDatum_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_IntDatum", _wrap_new_IntDatum, METH_VARARGS, NULL},
-	 { (char *)"IntDatum_type_name", _wrap_IntDatum_type_name, METH_VARARGS, NULL},
-	 { (char *)"delete_IntDatum", _wrap_delete_IntDatum, METH_VARARGS, NULL},
-	 { (char *)"IntDatum_repr", _wrap_IntDatum_repr, METH_VARARGS, NULL},
 	 { (char *)"IntDatum_value", _wrap_IntDatum_value, METH_VARARGS, NULL},
-	 { (char *)"IntDatum_set_value", _wrap_IntDatum_set_value, METH_VARARGS, NULL},
+	 { (char *)"delete_IntDatum", _wrap_delete_IntDatum, METH_VARARGS, NULL},
 	 { (char *)"IntDatum_swigregister", IntDatum_swigregister, METH_VARARGS, NULL},
 	 { (char *)"delete_Cursor", _wrap_delete_Cursor, METH_VARARGS, NULL},
 	 { (char *)"Cursor_first", _wrap_Cursor_first, METH_VARARGS, NULL},
@@ -5822,8 +6165,13 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"Row_set", _wrap_Row_set, METH_VARARGS, NULL},
 	 { (char *)"Row_set_int", _wrap_Row_set_int, METH_VARARGS, NULL},
 	 { (char *)"Row_set_string", _wrap_Row_set_string, METH_VARARGS, NULL},
+	 { (char *)"Row_get_int", _wrap_Row_get_int, METH_VARARGS, NULL},
+	 { (char *)"Row_get_string", _wrap_Row_get_string, METH_VARARGS, NULL},
+	 { (char *)"Row_from_string_n", _wrap_Row_from_string_n, METH_VARARGS, NULL},
 	 { (char *)"Row_from_string", _wrap_Row_from_string, METH_VARARGS, NULL},
+	 { (char *)"Row_to_string_n", _wrap_Row_to_string_n, METH_VARARGS, NULL},
 	 { (char *)"Row_to_string", _wrap_Row_to_string, METH_VARARGS, NULL},
+	 { (char *)"Row_get_column_n", _wrap_Row_get_column_n, METH_VARARGS, NULL},
 	 { (char *)"Row_get_column", _wrap_Row_get_column, METH_VARARGS, NULL},
 	 { (char *)"Row_get_col_no", _wrap_Row_get_col_no, METH_VARARGS, NULL},
 	 { (char *)"Row_get_existing_column", _wrap_Row_get_existing_column, METH_VARARGS, NULL},
@@ -5849,6 +6197,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"Table_swigregister", Table_swigregister, METH_VARARGS, NULL},
 	 { (char *)"Schema_add_column", _wrap_Schema_add_column, METH_VARARGS, NULL},
 	 { (char *)"Schema_add_columns", _wrap_Schema_add_columns, METH_VARARGS, NULL},
+	 { (char *)"Schema_get_type_n", _wrap_Schema_get_type_n, METH_VARARGS, NULL},
 	 { (char *)"Schema_get_type", _wrap_Schema_get_type, METH_VARARGS, NULL},
 	 { (char *)"Schema_get_col_no", _wrap_Schema_get_col_no, METH_VARARGS, NULL},
 	 { (char *)"Schema_get_name", _wrap_Schema_get_name, METH_VARARGS, NULL},

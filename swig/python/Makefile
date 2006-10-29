@@ -2,12 +2,12 @@ dllprefix=_
 compile: ${dllprefix}greendb.la
 include ../../config.mak
 
-INCLUDES=-I../.. ${PYTHON_INCLUDE} ${DB_INCLUDE}
+INCLUDES=-I../.. ${PYTHON_INCLUDE} ${ALL_INCLUDES}
 DEFINES=-DSWIG 
 
 
 ${dllprefix}greendb.la: greendb_wrap.lo 
-	${LIBTOOL_LINK} -module -o $@ $< -rpath ${PYTHON_INSTALL} -lm -ldb_cxx -lrlog ../../src/libgreendb.la 
+	${LIBTOOL_LINK} -module -o $@ $< -rpath ${PYTHON_INSTALL} ${LIBS} ../../src/libgreendb.la 
 
 install: 
 	${LIBTOOL_INSTALL} -c ${dllprefix}greendb.la *.py ${PYTHON_INSTALL}

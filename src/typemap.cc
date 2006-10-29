@@ -71,7 +71,7 @@ void TypeMap::from_string(const std::type_info* ti, Datum* datum, const char* st
 	StringConvert* sc = _convert_map[ti];
 	assert(sc);
 	sc->from_string(str, datum->get_ptr());
-	//rDebug("after fromstring: %s",datum->str());
+	//g_message("after fromstring: %s",datum->str());
 }
 size_t TypeMap::from_string_size(const std::type_info* ti, const char* str) {
 	StringConvert* sc = _convert_map[ti];

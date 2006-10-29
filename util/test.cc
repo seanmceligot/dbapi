@@ -31,9 +31,8 @@ void print_person(Row* row) {
 }
 int
 main (int argc, char **argv) {
-  rDebug("test");
   static GreenEnv ge(".");
-  rDebug("greenenv: %s", ge.home());
+  g_message("greenenv: %s", ge.home());
   // open people database
   char* table_name = "people";
   ge.open ();
@@ -43,11 +42,11 @@ main (int argc, char **argv) {
 
   // testing int datatype (not connected to any table)
   IntDatum* ii = new IntDatum(99);
-  rDebug(ii->repr());
-  rDebug(ii->str());
+  g_message(ii->repr());
+  g_message(ii->str());
   Datum* dd = ii;
-  rDebug(dd->repr());
-  rDebug(dd->str());
+  g_message(dd->repr());
+  g_message(dd->str());
 
   // create and fill database if it doesn't already exist
   if (!table.exists()) {
@@ -58,26 +57,11 @@ main (int argc, char **argv) {
 
       // create datums for columns -- these are reusable
       int n=1;
-      IntDatum id(n++);
-      StrDatum name("Mathew");
-      IntDatum age(18);
       {
-         // create a row
          Row* row = table.new_row();
-         row->set("id", id );
-         row->set("name", name );
-         row->set("age", age);
-         table.save(row);
-      }
-      {
-         // set columns and add another row
-         Row* row = table.new_row();
-         row->set("id", id );
-         id=n++;
-         name = "Thomas";
-         age=23;
-         row->set("name", name );
-         row->set("age", age);
+         row->set_int("id", n++ );
+         row->set_string("name", "Luke");
+         row->set_int("age", 23);
          table.save(row);
       }
       {
@@ -89,54 +73,58 @@ main (int argc, char **argv) {
          table.save(row);
       }
       {
-         Row* row = table.new_row();
-         row->set_int("id", n++ );
-         row->set_string("name", "Luke");
-         row->set_int("age", 23);
-         table.save(row);
+         // demonstrate datum reuse
+         IntDatum id(n++);
+         StrDatum name("Mathew");
+         g_message("name %s", name.to_string());
+         IntDatum age(18);
+         {
+                 // create a row
+                 Row* row = table.new_row();
+                 row->set("id", id );
+                 row->set("name", name );
+                 row->set("age", age);
+                 table.save(row);
+              }
+              {
+                 // set columns and add another row
+                 Row* row = table.new_row();
+                 id.set_int(n++);
+                 row->set("id", id );
+                 name.set_string("Thomas");
+                 row->set("name", name );
+                 age=23;
+                 row->set("age", age);
+                 table.save(row);
+              }
       }
 
   }
-  {
-    //  test 
-    Row* row = table.new_row();
-    Datum* ddd= row->get_column("id");
-    rDebug("Datum->repr %s", ddd->repr());
-    // id is an int column on the people table
-    IntDatum* idd = dynamic_cast<IntDatum*>(ddd);
-    *idd = 18;
-    rDebug("IntDatum->repr %s", idd->repr());
-    //6DatumTIi6Malloc11DatumTraitsIiEE(18)
-    rDebug("IntDatum->str %s", idd->str());
-    //18
-    StrDatum* named = dynamic_cast<StrDatum*>(row->get_column("name"));
-    named->set_value("James");
-    rDebug("StrDatum->repr %s", named->repr());
-    //13BasicStrDatumIcSt11char_traitsIcESaIcEE(Budda)
-    rDebug("StrDatum->str %s", named->str());
-    //Budda
-  }
   { 
-    rDebug("fetch by primary key 2");
+    g_message("fetch by primary key 2");
     IntDatum key(2);
     Row * row = table.fetch("id",key);
+		fflush(stdout);
+    assert(row != NULL);
+		assert(strcmp(row->get_string("name"), "Mary")==0);
     print_row(row);
     // 2, Thomas, 23
     print_person(row);
     row->close();
   }
   { // fetch by name
-    rDebug("fetch by foreign key name Luke");
+    g_message("fetch by foreign key name Luke");
     StrDatum key("Luke");
     Row * row = table.fetch("name",key);
     assert(row != NULL);
+		assert(strcmp(row->get_string("name"), "Luke")==0);
     print_row(row);
     // 4, Luke, 23
     print_person(row);
     row->close();
   }
   { 
-    rDebug("fetch by foreign key age 18");
+    g_message("fetch by foreign key age 18");
     IntDatum key(18);  
     {
     Row * row = table.fetch("age",key);
@@ -147,7 +135,7 @@ main (int argc, char **argv) {
     }
   } 
   { 
-    rDebug("fetch all by foreign key");
+    g_message("fetch all by foreign key");
     IntDatum key(18);  
     ResultSet* rs = table.find_all("age", &key);
     while(rs->has_row()) {

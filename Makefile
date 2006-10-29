@@ -2,7 +2,7 @@ all: compile
 
 include config.mak
 
-subdirs=src util
+subdirs=src util swig
 
 compile:
 	for d in ${subdirs};do make -C $$d $@;done

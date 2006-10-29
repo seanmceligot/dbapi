@@ -1716,17 +1716,197 @@ _wrap_GreenEnv_home (SCM s_0)
 
 
 static SCM
-_wrap_new_Datum ()
+_wrap_new_Datum (SCM s_0)
 {
 #define FUNC_NAME "new-Datum"
+  DataType arg1 ;
   Datum *result = 0 ;
   SCM gswig_result;
   int gswig_list_p = 0;
   
-  result = (Datum *)new Datum();
+  {
+    arg1 = (DataType) scm_num2int(s_0, SCM_ARG1, FUNC_NAME); 
+  }
+  result = (Datum *)new Datum(arg1);
   {
     gswig_result = SWIG_NewPointerObj (result, SWIGTYPE_p_Datum, 1);
   }
+  
+  return gswig_result;
+#undef FUNC_NAME
+}
+
+
+static SCM
+_wrap_Datum_repr (SCM s_0)
+{
+#define FUNC_NAME "Datum-repr"
+  Datum *arg1 = (Datum *) 0 ;
+  char *result = 0 ;
+  SCM gswig_result;
+  int gswig_list_p = 0;
+  
+  {
+    arg1 = (Datum *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_Datum, 1, 0);
+  }
+  result = (char *)(arg1)->repr();
+  {
+    gswig_result = scm_makfrom0str(result);
+  }
+  
+  
+  return gswig_result;
+#undef FUNC_NAME
+}
+
+
+static SCM
+_wrap_Datum_set_int (SCM s_0, SCM s_1)
+{
+#define FUNC_NAME "Datum-set-int"
+  Datum *arg1 = (Datum *) 0 ;
+  int arg2 ;
+  Datum *result = 0 ;
+  SCM gswig_result;
+  int gswig_list_p = 0;
+  
+  {
+    arg1 = (Datum *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_Datum, 1, 0);
+  }
+  {
+    arg2 = scm_num2int(s_1, SCM_ARG1, FUNC_NAME);
+  }
+  result = (Datum *)(arg1)->set_int(arg2);
+  {
+    gswig_result = SWIG_NewPointerObj (result, SWIGTYPE_p_Datum, 0);
+  }
+  
+  
+  return gswig_result;
+#undef FUNC_NAME
+}
+
+
+static SCM
+_wrap_Datum_set_string (SCM s_0, SCM s_1)
+{
+#define FUNC_NAME "Datum-set-string"
+  Datum *arg1 = (Datum *) 0 ;
+  char *arg2 = (char *) 0 ;
+  Datum *result = 0 ;
+  int must_free2 = 0 ;
+  SCM gswig_result;
+  int gswig_list_p = 0;
+  
+  {
+    arg1 = (Datum *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_Datum, 1, 0);
+  }
+  {
+    arg2 = SWIG_scm2str(s_1);
+    must_free2 = 1;
+  }
+  result = (Datum *)(arg1)->set_string((char const *)arg2);
+  {
+    gswig_result = SWIG_NewPointerObj (result, SWIGTYPE_p_Datum, 0);
+  }
+  
+  if (must_free2 && arg2) SWIG_free(arg2);
+  
+  return gswig_result;
+#undef FUNC_NAME
+}
+
+
+static SCM
+_wrap_Datum_get_int (SCM s_0)
+{
+#define FUNC_NAME "Datum-get-int"
+  Datum *arg1 = (Datum *) 0 ;
+  int result;
+  SCM gswig_result;
+  int gswig_list_p = 0;
+  
+  {
+    arg1 = (Datum *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_Datum, 1, 0);
+  }
+  result = (int)(arg1)->get_int();
+  {
+    gswig_result = scm_long2num(result);
+  }
+  
+  
+  return gswig_result;
+#undef FUNC_NAME
+}
+
+
+static SCM
+_wrap_Datum_get_string (SCM s_0)
+{
+#define FUNC_NAME "Datum-get-string"
+  Datum *arg1 = (Datum *) 0 ;
+  char *result = 0 ;
+  SCM gswig_result;
+  int gswig_list_p = 0;
+  
+  {
+    arg1 = (Datum *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_Datum, 1, 0);
+  }
+  result = (char *)(arg1)->get_string();
+  {
+    gswig_result = scm_makfrom0str(result);
+  }
+  
+  
+  return gswig_result;
+#undef FUNC_NAME
+}
+
+
+static SCM
+_wrap_Datum_from_string (SCM s_0, SCM s_1)
+{
+#define FUNC_NAME "Datum-from-string"
+  Datum *arg1 = (Datum *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int must_free2 = 0 ;
+  SCM gswig_result;
+  int gswig_list_p = 0;
+  
+  {
+    arg1 = (Datum *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_Datum, 1, 0);
+  }
+  {
+    arg2 = SWIG_scm2str(s_1);
+    must_free2 = 1;
+  }
+  (arg1)->from_string((char const *)arg2);
+  gswig_result = SCM_UNSPECIFIED;
+  
+  if (must_free2 && arg2) SWIG_free(arg2);
+  
+  return gswig_result;
+#undef FUNC_NAME
+}
+
+
+static SCM
+_wrap_Datum_to_string (SCM s_0)
+{
+#define FUNC_NAME "Datum-to-string"
+  Datum *arg1 = (Datum *) 0 ;
+  char *result = 0 ;
+  SCM gswig_result;
+  int gswig_list_p = 0;
+  
+  {
+    arg1 = (Datum *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_Datum, 1, 0);
+  }
+  result = (char *)(arg1)->to_string();
+  {
+    gswig_result = scm_makfrom0str(result);
+  }
+  
   
   return gswig_result;
 #undef FUNC_NAME
@@ -1781,29 +1961,6 @@ _wrap_new_StrDatum (SCM s_0)
 
 
 static SCM
-_wrap_StrDatum_type_name (SCM s_0)
-{
-#define FUNC_NAME "StrDatum-type-name"
-  StrDatum *arg1 = (StrDatum *) 0 ;
-  char *result = 0 ;
-  SCM gswig_result;
-  int gswig_list_p = 0;
-  
-  {
-    arg1 = (StrDatum *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_StrDatum, 1, 0);
-  }
-  result = (char *)((StrDatum const *)arg1)->type_name();
-  {
-    gswig_result = scm_makfrom0str(result);
-  }
-  
-  
-  return gswig_result;
-#undef FUNC_NAME
-}
-
-
-static SCM
 _wrap_delete_StrDatum (SCM s_0)
 {
 #define FUNC_NAME "delete-StrDatum"
@@ -1819,29 +1976,6 @@ _wrap_delete_StrDatum (SCM s_0)
   gswig_result = SCM_UNSPECIFIED;
   
   SWIG_Guile_MarkPointerDestroyed(s_0);
-  
-  return gswig_result;
-#undef FUNC_NAME
-}
-
-
-static SCM
-_wrap_StrDatum_repr (SCM s_0)
-{
-#define FUNC_NAME "StrDatum-repr"
-  StrDatum *arg1 = (StrDatum *) 0 ;
-  char *result = 0 ;
-  SCM gswig_result;
-  int gswig_list_p = 0;
-  
-  {
-    arg1 = (StrDatum *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_StrDatum, 1, 0);
-  }
-  result = (char *)((StrDatum const *)arg1)->repr();
-  {
-    gswig_result = scm_makfrom0str(result);
-  }
-  
   
   return gswig_result;
 #undef FUNC_NAME
@@ -1872,36 +2006,6 @@ _wrap_StrDatum_value (SCM s_0)
 
 
 static SCM
-_wrap_StrDatum_set_value (SCM s_0, SCM s_1)
-{
-#define FUNC_NAME "StrDatum-set-value"
-  StrDatum *arg1 = (StrDatum *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *result = 0 ;
-  int must_free2 = 0 ;
-  SCM gswig_result;
-  int gswig_list_p = 0;
-  
-  {
-    arg1 = (StrDatum *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_StrDatum, 1, 0);
-  }
-  {
-    arg2 = SWIG_scm2str(s_1);
-    must_free2 = 1;
-  }
-  result = (char *)(arg1)->set_value(arg2);
-  {
-    gswig_result = scm_makfrom0str(result);
-  }
-  
-  if (must_free2 && arg2) SWIG_free(arg2);
-  
-  return gswig_result;
-#undef FUNC_NAME
-}
-
-
-static SCM
 _wrap_new_IntDatum (SCM s_0)
 {
 #define FUNC_NAME "new-IntDatum"
@@ -1917,74 +2021,6 @@ _wrap_new_IntDatum (SCM s_0)
   {
     gswig_result = SWIG_NewPointerObj (result, SWIGTYPE_p_IntDatum, 1);
   }
-  
-  return gswig_result;
-#undef FUNC_NAME
-}
-
-
-static SCM
-_wrap_IntDatum_type_name (SCM s_0)
-{
-#define FUNC_NAME "IntDatum-type-name"
-  IntDatum *arg1 = (IntDatum *) 0 ;
-  char *result = 0 ;
-  SCM gswig_result;
-  int gswig_list_p = 0;
-  
-  {
-    arg1 = (IntDatum *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_IntDatum, 1, 0);
-  }
-  result = (char *)((IntDatum const *)arg1)->type_name();
-  {
-    gswig_result = scm_makfrom0str(result);
-  }
-  
-  
-  return gswig_result;
-#undef FUNC_NAME
-}
-
-
-static SCM
-_wrap_delete_IntDatum (SCM s_0)
-{
-#define FUNC_NAME "delete-IntDatum"
-  IntDatum *arg1 = (IntDatum *) 0 ;
-  SCM gswig_result;
-  int gswig_list_p = 0;
-  
-  {
-    arg1 = (IntDatum *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_IntDatum, 1, 0);
-  }
-  delete arg1;
-  
-  gswig_result = SCM_UNSPECIFIED;
-  
-  SWIG_Guile_MarkPointerDestroyed(s_0);
-  
-  return gswig_result;
-#undef FUNC_NAME
-}
-
-
-static SCM
-_wrap_IntDatum_repr (SCM s_0)
-{
-#define FUNC_NAME "IntDatum-repr"
-  IntDatum *arg1 = (IntDatum *) 0 ;
-  char *result = 0 ;
-  SCM gswig_result;
-  int gswig_list_p = 0;
-  
-  {
-    arg1 = (IntDatum *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_IntDatum, 1, 0);
-  }
-  result = (char *)((IntDatum const *)arg1)->repr();
-  {
-    gswig_result = scm_makfrom0str(result);
-  }
-  
   
   return gswig_result;
 #undef FUNC_NAME
@@ -2015,26 +2051,21 @@ _wrap_IntDatum_value (SCM s_0)
 
 
 static SCM
-_wrap_IntDatum_set_value (SCM s_0, SCM s_1)
+_wrap_delete_IntDatum (SCM s_0)
 {
-#define FUNC_NAME "IntDatum-set-value"
+#define FUNC_NAME "delete-IntDatum"
   IntDatum *arg1 = (IntDatum *) 0 ;
-  int arg2 ;
-  int result;
   SCM gswig_result;
   int gswig_list_p = 0;
   
   {
     arg1 = (IntDatum *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_IntDatum, 1, 0);
   }
-  {
-    arg2 = scm_num2int(s_1, SCM_ARG1, FUNC_NAME);
-  }
-  result = (int)(arg1)->set_value(arg2);
-  {
-    gswig_result = scm_long2num(result);
-  }
+  delete arg1;
   
+  gswig_result = SCM_UNSPECIFIED;
+  
+  SWIG_Guile_MarkPointerDestroyed(s_0);
   
   return gswig_result;
 #undef FUNC_NAME
@@ -2311,7 +2342,36 @@ _wrap_Row_getpk (SCM s_0)
 
 
 static SCM
-_wrap_Row_set (SCM s_0, SCM s_1, SCM s_2)
+_wrap_Row_set__SWIG_0 (int argc, SCM *argv)
+{
+#define FUNC_NAME "Row-set"
+  Row *arg1 = (Row *) 0 ;
+  int arg2 ;
+  Datum *arg3 = 0 ;
+  SCM gswig_result;
+  int gswig_list_p = 0;
+  
+  {
+    arg1 = (Row *)SWIG_MustGetPtr(argv[0], SWIGTYPE_p_Row, 1, 0);
+  }
+  {
+    arg2 = scm_num2int(argv[1], SCM_ARG1, FUNC_NAME);
+  }
+  {
+    arg3 = (Datum *)SWIG_MustGetPtr(argv[2], SWIGTYPE_p_Datum, 3, 0);
+  }
+  (arg1)->set(arg2,*arg3);
+  gswig_result = SCM_UNSPECIFIED;
+  
+  
+  
+  return gswig_result;
+#undef FUNC_NAME
+}
+
+
+static SCM
+_wrap_Row_set__SWIG_1 (int argc, SCM *argv)
 {
 #define FUNC_NAME "Row-set"
   Row *arg1 = (Row *) 0 ;
@@ -2323,14 +2383,14 @@ _wrap_Row_set (SCM s_0, SCM s_1, SCM s_2)
   int gswig_list_p = 0;
   
   {
-    arg1 = (Row *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_Row, 1, 0);
+    arg1 = (Row *)SWIG_MustGetPtr(argv[0], SWIGTYPE_p_Row, 1, 0);
   }
   {
-    arg2 = SWIG_scm2str(s_1);
+    arg2 = SWIG_scm2str(argv[1]);
     must_free2 = 1;
   }
   {
-    arg3 = (Datum *)SWIG_MustGetPtr(s_2, SWIGTYPE_p_Datum, 3, 0);
+    arg3 = (Datum *)SWIG_MustGetPtr(argv[2], SWIGTYPE_p_Datum, 3, 0);
   }
   result = (bool)(arg1)->set((char const *)arg2,*arg3);
   {
@@ -2341,6 +2401,64 @@ _wrap_Row_set (SCM s_0, SCM s_1, SCM s_2)
   
   
   return gswig_result;
+#undef FUNC_NAME
+}
+
+
+static SCM
+_wrap_Row_set(SCM rest)
+{
+#define FUNC_NAME "Row-set"
+  SCM argv[3];
+  int argc = SWIG_Guile_GetArgs (argv, rest, 0, 3, "Row-set");
+  if (argc == 3) {
+    int _v;
+    {
+      void *ptr;
+      int res = SWIG_ConvertPtr(argv[0], &ptr, SWIGTYPE_p_Row, 0);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        _v = SCM_NFALSEP(scm_integer_p(argv[1])) ? 1 : 0;
+      }
+      if (_v) {
+        {
+          void *ptr;
+          int res = SWIG_ConvertPtr(argv[2], &ptr, SWIGTYPE_p_Datum, 0);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_Row_set__SWIG_0(argc,argv);
+        }
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    {
+      void *ptr;
+      int res = SWIG_ConvertPtr(argv[0], &ptr, SWIGTYPE_p_Row, 0);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        _v = SCM_STRINGP(argv[1]) ? 1 : 0;
+      }
+      if (_v) {
+        {
+          void *ptr;
+          int res = SWIG_ConvertPtr(argv[2], &ptr, SWIGTYPE_p_Datum, 0);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_Row_set__SWIG_1(argc,argv);
+        }
+      }
+    }
+  }
+  
+  scm_misc_error("Row-set", "No matching method for generic function `Row_set'", SCM_EOL);
 #undef FUNC_NAME
 }
 
@@ -2417,6 +2535,97 @@ _wrap_Row_set_string (SCM s_0, SCM s_1, SCM s_2)
 
 
 static SCM
+_wrap_Row_get_int (SCM s_0, SCM s_1)
+{
+#define FUNC_NAME "Row-get-int"
+  Row *arg1 = (Row *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int result;
+  int must_free2 = 0 ;
+  SCM gswig_result;
+  int gswig_list_p = 0;
+  
+  {
+    arg1 = (Row *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_Row, 1, 0);
+  }
+  {
+    arg2 = SWIG_scm2str(s_1);
+    must_free2 = 1;
+  }
+  result = (int)(arg1)->get_int((char const *)arg2);
+  {
+    gswig_result = scm_long2num(result);
+  }
+  
+  if (must_free2 && arg2) SWIG_free(arg2);
+  
+  return gswig_result;
+#undef FUNC_NAME
+}
+
+
+static SCM
+_wrap_Row_get_string (SCM s_0, SCM s_1)
+{
+#define FUNC_NAME "Row-get-string"
+  Row *arg1 = (Row *) 0 ;
+  char *arg2 = (char *) 0 ;
+  char *result = 0 ;
+  int must_free2 = 0 ;
+  SCM gswig_result;
+  int gswig_list_p = 0;
+  
+  {
+    arg1 = (Row *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_Row, 1, 0);
+  }
+  {
+    arg2 = SWIG_scm2str(s_1);
+    must_free2 = 1;
+  }
+  result = (char *)(arg1)->get_string((char const *)arg2);
+  {
+    gswig_result = scm_makfrom0str(result);
+  }
+  
+  if (must_free2 && arg2) SWIG_free(arg2);
+  
+  return gswig_result;
+#undef FUNC_NAME
+}
+
+
+static SCM
+_wrap_Row_from_string_n (SCM s_0, SCM s_1, SCM s_2)
+{
+#define FUNC_NAME "Row-from-string-n"
+  Row *arg1 = (Row *) 0 ;
+  int arg2 ;
+  char *arg3 = (char *) 0 ;
+  int must_free3 = 0 ;
+  SCM gswig_result;
+  int gswig_list_p = 0;
+  
+  {
+    arg1 = (Row *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_Row, 1, 0);
+  }
+  {
+    arg2 = scm_num2int(s_1, SCM_ARG1, FUNC_NAME);
+  }
+  {
+    arg3 = SWIG_scm2str(s_2);
+    must_free3 = 1;
+  }
+  (arg1)->from_string(arg2,(char const *)arg3);
+  gswig_result = SCM_UNSPECIFIED;
+  
+  if (must_free3 && arg3) SWIG_free(arg3);
+  
+  return gswig_result;
+#undef FUNC_NAME
+}
+
+
+static SCM
 _wrap_Row_from_string (SCM s_0, SCM s_1, SCM s_2)
 {
 #define FUNC_NAME "Row-from-string"
@@ -2451,6 +2660,33 @@ _wrap_Row_from_string (SCM s_0, SCM s_1, SCM s_2)
 
 
 static SCM
+_wrap_Row_to_string_n (SCM s_0, SCM s_1)
+{
+#define FUNC_NAME "Row-to-string-n"
+  Row *arg1 = (Row *) 0 ;
+  int arg2 ;
+  char *result = 0 ;
+  SCM gswig_result;
+  int gswig_list_p = 0;
+  
+  {
+    arg1 = (Row *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_Row, 1, 0);
+  }
+  {
+    arg2 = scm_num2int(s_1, SCM_ARG1, FUNC_NAME);
+  }
+  result = (char *)(arg1)->to_string(arg2);
+  {
+    gswig_result = scm_makfrom0str(result);
+  }
+  
+  
+  return gswig_result;
+#undef FUNC_NAME
+}
+
+
+static SCM
 _wrap_Row_to_string (SCM s_0, SCM s_1)
 {
 #define FUNC_NAME "Row-to-string"
@@ -2474,6 +2710,33 @@ _wrap_Row_to_string (SCM s_0, SCM s_1)
   }
   
   if (must_free2 && arg2) SWIG_free(arg2);
+  
+  return gswig_result;
+#undef FUNC_NAME
+}
+
+
+static SCM
+_wrap_Row_get_column_n (SCM s_0, SCM s_1)
+{
+#define FUNC_NAME "Row-get-column-n"
+  Row *arg1 = (Row *) 0 ;
+  int arg2 ;
+  Datum *result = 0 ;
+  SCM gswig_result;
+  int gswig_list_p = 0;
+  
+  {
+    arg1 = (Row *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_Row, 1, 0);
+  }
+  {
+    arg2 = scm_num2int(s_1, SCM_ARG1, FUNC_NAME);
+  }
+  result = (Datum *)(arg1)->get_column(arg2);
+  {
+    gswig_result = SWIG_NewPointerObj (result, SWIGTYPE_p_Datum, 0);
+  }
+  
   
   return gswig_result;
 #undef FUNC_NAME
@@ -3236,6 +3499,33 @@ _wrap_Schema_add_columns (SCM s_0, SCM s_1, SCM s_2, SCM s_3)
 
 
 static SCM
+_wrap_Schema_get_type_n (SCM s_0, SCM s_1)
+{
+#define FUNC_NAME "Schema-get-type-n"
+  Schema *arg1 = (Schema *) 0 ;
+  int arg2 ;
+  DataType result;
+  SCM gswig_result;
+  int gswig_list_p = 0;
+  
+  {
+    arg1 = (Schema *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_Schema, 1, 0);
+  }
+  {
+    arg2 = scm_num2int(s_1, SCM_ARG1, FUNC_NAME);
+  }
+  result = (DataType)(arg1)->get_type(arg2);
+  {
+    gswig_result = scm_long2num(result); 
+  }
+  
+  
+  return gswig_result;
+#undef FUNC_NAME
+}
+
+
+static SCM
 _wrap_Schema_get_type (SCM s_0, SCM s_1)
 {
 #define FUNC_NAME "Schema-get-type"
@@ -3253,7 +3543,7 @@ _wrap_Schema_get_type (SCM s_0, SCM s_1)
     arg2 = SWIG_scm2str(s_1);
     must_free2 = 1;
   }
-  result = (DataType)((Schema const *)arg1)->get_type((char const *)arg2);
+  result = (DataType)(arg1)->get_type((char const *)arg2);
   {
     gswig_result = scm_long2num(result); 
   }
@@ -3283,7 +3573,7 @@ _wrap_Schema_get_col_no (SCM s_0, SCM s_1)
     arg2 = SWIG_scm2str(s_1);
     must_free2 = 1;
   }
-  result = (int)((Schema const *)arg1)->get_col_no((char const *)arg2);
+  result = (int)(arg1)->get_col_no((char const *)arg2);
   {
     gswig_result = scm_long2num(result);
   }
@@ -3311,7 +3601,7 @@ _wrap_Schema_get_name (SCM s_0, SCM s_1)
   {
     arg2 = scm_num2int(s_1, SCM_ARG1, FUNC_NAME);
   }
-  result = (char *)((Schema const *)arg1)->get_name(arg2);
+  result = (char *)(arg1)->get_name(arg2);
   {
     gswig_result = scm_makfrom0str(result);
   }
@@ -4092,25 +4382,26 @@ SWIG_init(void)
   scm_c_define_gsubr("GreenEnv-close", 1, 0, 0, (swig_guile_proc) _wrap_GreenEnv_close);
   scm_c_define_gsubr("GreenEnv-home", 1, 0, 0, (swig_guile_proc) _wrap_GreenEnv_home);
   SWIG_TypeClientData(SWIGTYPE_p_Datum, (void *) &_swig_guile_clientdataDatum);
-  scm_c_define_gsubr("new-Datum", 0, 0, 0, (swig_guile_proc) _wrap_new_Datum);
+  scm_c_define_gsubr("new-Datum", 1, 0, 0, (swig_guile_proc) _wrap_new_Datum);
+  scm_c_define_gsubr("Datum-repr", 1, 0, 0, (swig_guile_proc) _wrap_Datum_repr);
+  scm_c_define_gsubr("Datum-set-int", 2, 0, 0, (swig_guile_proc) _wrap_Datum_set_int);
+  scm_c_define_gsubr("Datum-set-string", 2, 0, 0, (swig_guile_proc) _wrap_Datum_set_string);
+  scm_c_define_gsubr("Datum-get-int", 1, 0, 0, (swig_guile_proc) _wrap_Datum_get_int);
+  scm_c_define_gsubr("Datum-get-string", 1, 0, 0, (swig_guile_proc) _wrap_Datum_get_string);
+  scm_c_define_gsubr("Datum-from-string", 2, 0, 0, (swig_guile_proc) _wrap_Datum_from_string);
+  scm_c_define_gsubr("Datum-to-string", 1, 0, 0, (swig_guile_proc) _wrap_Datum_to_string);
   ((swig_guile_clientdata *)(SWIGTYPE_p_Datum->clientdata))->destroy = (guile_destructor) _wrap_delete_Datum;
   scm_c_define_gsubr("delete-Datum", 1, 0, 0, (swig_guile_proc) _wrap_delete_Datum);
   SWIG_TypeClientData(SWIGTYPE_p_StrDatum, (void *) &_swig_guile_clientdataStrDatum);
   scm_c_define_gsubr("new-StrDatum", 1, 0, 0, (swig_guile_proc) _wrap_new_StrDatum);
-  scm_c_define_gsubr("StrDatum-type-name", 1, 0, 0, (swig_guile_proc) _wrap_StrDatum_type_name);
   ((swig_guile_clientdata *)(SWIGTYPE_p_StrDatum->clientdata))->destroy = (guile_destructor) _wrap_delete_StrDatum;
   scm_c_define_gsubr("delete-StrDatum", 1, 0, 0, (swig_guile_proc) _wrap_delete_StrDatum);
-  scm_c_define_gsubr("StrDatum-repr", 1, 0, 0, (swig_guile_proc) _wrap_StrDatum_repr);
   scm_c_define_gsubr("StrDatum-value", 1, 0, 0, (swig_guile_proc) _wrap_StrDatum_value);
-  scm_c_define_gsubr("StrDatum-set-value", 2, 0, 0, (swig_guile_proc) _wrap_StrDatum_set_value);
   SWIG_TypeClientData(SWIGTYPE_p_IntDatum, (void *) &_swig_guile_clientdataIntDatum);
   scm_c_define_gsubr("new-IntDatum", 1, 0, 0, (swig_guile_proc) _wrap_new_IntDatum);
-  scm_c_define_gsubr("IntDatum-type-name", 1, 0, 0, (swig_guile_proc) _wrap_IntDatum_type_name);
+  scm_c_define_gsubr("IntDatum-value", 1, 0, 0, (swig_guile_proc) _wrap_IntDatum_value);
   ((swig_guile_clientdata *)(SWIGTYPE_p_IntDatum->clientdata))->destroy = (guile_destructor) _wrap_delete_IntDatum;
   scm_c_define_gsubr("delete-IntDatum", 1, 0, 0, (swig_guile_proc) _wrap_delete_IntDatum);
-  scm_c_define_gsubr("IntDatum-repr", 1, 0, 0, (swig_guile_proc) _wrap_IntDatum_repr);
-  scm_c_define_gsubr("IntDatum-value", 1, 0, 0, (swig_guile_proc) _wrap_IntDatum_value);
-  scm_c_define_gsubr("IntDatum-set-value", 2, 0, 0, (swig_guile_proc) _wrap_IntDatum_set_value);
   SWIG_TypeClientData(SWIGTYPE_p_Cursor, (void *) &_swig_guile_clientdataCursor);
   ((swig_guile_clientdata *)(SWIGTYPE_p_Cursor->clientdata))->destroy = (guile_destructor) _wrap_delete_Cursor;
   scm_c_define_gsubr("delete-Cursor", 1, 0, 0, (swig_guile_proc) _wrap_delete_Cursor);
@@ -4125,11 +4416,16 @@ SWIG_init(void)
   scm_c_define_gsubr("delete-Row", 1, 0, 0, (swig_guile_proc) _wrap_delete_Row);
   scm_c_define_gsubr("Row-close", 1, 0, 0, (swig_guile_proc) _wrap_Row_close);
   scm_c_define_gsubr("Row-getpk", 1, 0, 0, (swig_guile_proc) _wrap_Row_getpk);
-  scm_c_define_gsubr("Row-set", 3, 0, 0, (swig_guile_proc) _wrap_Row_set);
+  scm_c_define_gsubr("Row-set", 0, 0, 1, (swig_guile_proc) _wrap_Row_set);
   scm_c_define_gsubr("Row-set-int", 3, 0, 0, (swig_guile_proc) _wrap_Row_set_int);
   scm_c_define_gsubr("Row-set-string", 3, 0, 0, (swig_guile_proc) _wrap_Row_set_string);
+  scm_c_define_gsubr("Row-get-int", 2, 0, 0, (swig_guile_proc) _wrap_Row_get_int);
+  scm_c_define_gsubr("Row-get-string", 2, 0, 0, (swig_guile_proc) _wrap_Row_get_string);
+  scm_c_define_gsubr("Row-from-string-n", 3, 0, 0, (swig_guile_proc) _wrap_Row_from_string_n);
   scm_c_define_gsubr("Row-from-string", 3, 0, 0, (swig_guile_proc) _wrap_Row_from_string);
+  scm_c_define_gsubr("Row-to-string-n", 2, 0, 0, (swig_guile_proc) _wrap_Row_to_string_n);
   scm_c_define_gsubr("Row-to-string", 2, 0, 0, (swig_guile_proc) _wrap_Row_to_string);
+  scm_c_define_gsubr("Row-get-column-n", 2, 0, 0, (swig_guile_proc) _wrap_Row_get_column_n);
   scm_c_define_gsubr("Row-get-column", 2, 0, 0, (swig_guile_proc) _wrap_Row_get_column);
   scm_c_define_gsubr("Row-get-col-no", 2, 0, 0, (swig_guile_proc) _wrap_Row_get_col_no);
   scm_c_define_gsubr("Row-get-existing-column", 2, 0, 0, (swig_guile_proc) _wrap_Row_get_existing_column);
@@ -4156,6 +4452,7 @@ SWIG_init(void)
   SWIG_TypeClientData(SWIGTYPE_p_Schema, (void *) &_swig_guile_clientdataSchema);
   scm_c_define_gsubr("Schema-add-column", 4, 0, 0, (swig_guile_proc) _wrap_Schema_add_column);
   scm_c_define_gsubr("Schema-add-columns", 4, 0, 0, (swig_guile_proc) _wrap_Schema_add_columns);
+  scm_c_define_gsubr("Schema-get-type-n", 2, 0, 0, (swig_guile_proc) _wrap_Schema_get_type_n);
   scm_c_define_gsubr("Schema-get-type", 2, 0, 0, (swig_guile_proc) _wrap_Schema_get_type);
   scm_c_define_gsubr("Schema-get-col-no", 2, 0, 0, (swig_guile_proc) _wrap_Schema_get_col_no);
   scm_c_define_gsubr("Schema-get-name", 2, 0, 0, (swig_guile_proc) _wrap_Schema_get_name);

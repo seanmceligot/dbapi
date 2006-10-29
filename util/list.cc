@@ -22,25 +22,21 @@ void print_row(Row* row) {
 
 int
 main (int argc, char **argv) {
-	RLogInit( argc, argv );
-  StdioNode stdLog(2,1|4 );
-	stdLog.subscribeTo( GetGlobalChannel("") );
 	static GreenEnv ge(".");
 	char* table_name = argv[1];
 	ge.open ();
 	Table table (table_name, ge);
 	Schema* schema = table.get_schema();
-	//rDebug(table.get_name());
+	//g_message(table.get_name());
 	std::cout <<table.get_name()<<std::endl;
 	const char* pk = schema->get_name(0);
-	Datum key;
-	Datum val;
 	CursorRow * row = table.first(pk);
-	rDebug(pk);
+	g_message(" listing by pk %s", pk);
 	while(row) {
 		print_row(row);
-		row->close();
+		//row->close();
 		row = table.next(row, pk);
+
 	}
 	table.close();
 	ge.close();

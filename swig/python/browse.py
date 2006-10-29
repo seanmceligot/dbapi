@@ -6,7 +6,7 @@ class Browser:
     env = greendb.GreenEnv(".")
     env.open()
     
-    table = greendb.Table("testtable", env)
+    table = greendb.Table("people", env)
     schema = table.get_schema()
     print table.get_name()  
     i = 0
@@ -22,7 +22,7 @@ class Browser:
     env = greendb.GreenEnv(".")
     env.open()
     
-    table = greendb.Table("testtable", env)
+    table = greendb.Table("people", env)
     schema = table.get_schema()
     print table.get_name()
     pk = schema.get_name(0)

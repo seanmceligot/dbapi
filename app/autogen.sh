@@ -1,148 +1,61 @@
 #!/bin/sh
-# Run this to generate all the initial makefiles, etc.
+# generated 2006/10/24 13:32:16 EDT by sean@oak.(none)
+# using glademm V2.6.0
 
-srcdir=`dirname $0`
-PKG_NAME="the package."
+if test ! -f install-sh ; then touch install-sh ; fi
 
-DIE=0
+MAKE=`which gnumake`
+if test ! -x "$MAKE" ; then MAKE=`which gmake` ; fi
+if test ! -x "$MAKE" ; then MAKE=`which make` ; fi
+HAVE_GNU_MAKE=`$MAKE --version|grep -c "Free Software Foundation"`
 
-(autoconf --version) < /dev/null > /dev/null 2>&1 || {
-  echo
-  echo "**Error**: You must have \`autoconf' installed to."
-  echo "Download the appropriate package for your distribution,"
-  echo "or get the source tarball at ftp://ftp.gnu.org/pub/gnu/"
-  DIE=1
-}
+if test "$HAVE_GNU_MAKE" != "1"; then 
+echo Only non-GNU make found: $MAKE
+else
+echo `$MAKE --version | head -1` found
+fi
 
-(grep "^AM_PROG_LIBTOOL" $srcdir/configure.in >/dev/null) && {
-  (libtool --version) < /dev/null > /dev/null 2>&1 || {
-    echo
-    echo "**Error**: You must have \`libtool' installed."
-    echo "Get ftp://ftp.gnu.org/pub/gnu/libtool-1.2d.tar.gz"
-    echo "(or a newer version if it is available)"
-    DIE=1
-  }
-}
-
-grep "^AM_GNU_GETTEXT" $srcdir/configure.in >/dev/null && {
-  grep "sed.*POTFILES" $srcdir/configure.in >/dev/null || \
-  (gettext --version) < /dev/null > /dev/null 2>&1 || {
-    echo
-    echo "**Error**: You must have \`gettext' installed."
-    echo "Get ftp://alpha.gnu.org/gnu/gettext-0.10.35.tar.gz"
-    echo "(or a newer version if it is available)"
-    DIE=1
-  }
-}
-
-grep "^AM_GNOME_GETTEXT" $srcdir/configure.in >/dev/null && {
-  grep "sed.*POTFILES" $srcdir/configure.in >/dev/null || \
-  (gettext --version) < /dev/null > /dev/null 2>&1 || {
-    echo
-    echo "**Error**: You must have \`gettext' installed."
-    echo "Get ftp://alpha.gnu.org/gnu/gettext-0.10.35.tar.gz"
-    echo "(or a newer version if it is available)"
-    DIE=1
-  }
-}
-
-(automake --version) < /dev/null > /dev/null 2>&1 || {
-  echo
-  echo "**Error**: You must have \`automake' installed."
-  echo "Get ftp://ftp.gnu.org/pub/gnu/automake-1.3.tar.gz"
-  echo "(or a newer version if it is available)"
-  DIE=1
-  NO_AUTOMAKE=yes
-}
-
-
-# if no automake, don't bother testing for aclocal
-test -n "$NO_AUTOMAKE" || (aclocal --version) < /dev/null > /dev/null 2>&1 || {
-  echo
-  echo "**Error**: Missing \`aclocal'.  The version of \`automake'"
-  echo "installed doesn't appear recent enough."
-  echo "Get ftp://ftp.gnu.org/pub/gnu/automake-1.3.tar.gz"
-  echo "(or a newer version if it is available)"
-  DIE=1
-}
-
-if test "$DIE" -eq 1; then
+if which autoconf2.50 >/dev/null 2>&1
+then AC_POSTFIX=2.50
+elif which autoconf >/dev/null 2>&1
+then AC_POSTFIX=""
+else 
+  echo 'you need autoconfig (2.58+ recommended) to generate the Makefile'
   exit 1
 fi
+echo `autoconf$AC_POSTFIX --version | head -1` found
 
-if test -z "$*"; then
-  echo "**Warning**: I am going to run \`configure' with no arguments."
-  echo "If you wish to pass any to it, please specify them on the"
-  echo \`$0\'" command line."
-  echo
-fi
-
-case $CC in
-xlc )
-  am_opt=--include-deps;;
-esac
-
-for coin in `find $srcdir -name configure.in -print`
-do 
-  dr=`dirname $coin`
-  if test -f $dr/NO-AUTO-GEN; then
-    echo skipping $dr -- flagged as no auto-gen
-  else
-    echo processing $dr
-    macrodirs=`sed -n -e 's,AM_ACLOCAL_INCLUDE(\(.*\)),\1,gp' < $coin`
-    ( cd $dr
-      aclocalinclude="$ACLOCAL_FLAGS"
-      for k in $macrodirs; do
-  	if test -d $k; then
-          aclocalinclude="$aclocalinclude -I $k"
-  	##else 
-	##  echo "**Warning**: No such directory \`$k'.  Ignored."
-        fi
-      done
-      if grep "^AM_GNU_GETTEXT" configure.in >/dev/null; then
-	if grep "sed.*POTFILES" configure.in >/dev/null; then
-	  : do nothing -- we still have an old unmodified configure.in
-	else
-	  echo "Creating $dr/aclocal.m4 ..."
-	  test -r $dr/aclocal.m4 || touch $dr/aclocal.m4
-	  echo "Running gettextize...  Ignore non-fatal messages."
-	  echo "no" | gettextize --force --copy
-	  echo "Making $dr/aclocal.m4 writable ..."
-	  test -r $dr/aclocal.m4 && chmod u+w $dr/aclocal.m4
-        fi
-      fi
-      if grep "^AM_GNOME_GETTEXT" configure.in >/dev/null; then
-	echo "Creating $dr/aclocal.m4 ..."
-	test -r $dr/aclocal.m4 || touch $dr/aclocal.m4
-	echo "Running gettextize...  Ignore non-fatal messages."
-	echo "no" | gettextize --force --copy
-	echo "Making $dr/aclocal.m4 writable ..."
-	test -r $dr/aclocal.m4 && chmod u+w $dr/aclocal.m4
-      fi
-      if grep "^AM_PROG_LIBTOOL" configure.in >/dev/null; then
-	echo "Running libtoolize..."
-	libtoolize --force --copy
-      fi
-      echo "Running aclocal $aclocalinclude ..."
-      aclocal $aclocalinclude
-      if grep "^AM_CONFIG_HEADER" configure.in >/dev/null; then
-	echo "Running autoheader..."
-	autoheader
-      fi
-      echo "Running automake --gnu $am_opt ..."
-      automake --add-missing --gnu $am_opt
-      echo "Running autoconf ..."
-      autoconf
-    )
-  fi
-done
-
-#conf_flags="--enable-maintainer-mode --enable-compile-warnings" #--enable-iso-c
-
-if test x$NOCONFIGURE = x; then
-  echo Running $srcdir/configure $conf_flags "$@" ...
-  $srcdir/configure $conf_flags "$@" \
-  && echo Now type \`make\' to compile $PKG_NAME
+if which automake-1.9 >/dev/null 2>&1
+then AM_POSTFIX=-1.9
+elif which automake-1.8 >/dev/null 2>&1
+then AM_POSTFIX=-1.8
+elif which automake-1.7 >/dev/null 2>&1
+then AM_POSTFIX=-1.7
+elif which automake-1.6 >/dev/null 2>&1
+then AM_POSTFIX=-1.6
+elif which automake >/dev/null 2>&1
+then AM_POSTFIX=""
 else
-  echo Skipping configure process.
+  echo 'you need automake (1.8.3+ recommended) to generate the Makefile'
+  exit 1
 fi
+echo `automake$AM_POSTFIX --version | head -1` found
+
+echo This script runs configure and make...
+echo You did remember necessary arguments for configure, right?
+
+# autoreconf$AC_POSTFIX -fim _might_ do the trick, too.
+#  chose to your taste
+aclocal$AM_POSTFIX
+libtoolize --force --copy
+gettextize
+if test ! -e po/Makevars
+then cp po/Makevars.template po/Makevars
+fi
+if test ! -e po/LINGUAS
+then touch po/LINGUAS
+fi
+autoheader$AC_POSTFIX
+automake$AM_POSTFIX --add-missing --copy --gnu
+autoconf$AC_POSTFIX
+./configure $* && $MAKE

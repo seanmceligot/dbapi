@@ -15,8 +15,9 @@ def mktable(args):
 		return
 	args = args[1:]	
 	i = 0
+	typemap = greendb.TypeMap.get_type_map()
 	while i < len(args):
-		type = int(args[i])
+		type = typemap.get_type_id(args[i])
 		i = i + 1
 		name = args[i]
 		i = i + 1

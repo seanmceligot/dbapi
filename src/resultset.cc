@@ -33,7 +33,7 @@ bool ResultSet::next() {
 		return true;
 	} else {
 		if (dberr != DB_NOTFOUND) {
-						rError("next_dup %d", dberr);
+						g_error("next_dup %d", dberr);
 		}
 		return false;
 	}

@@ -3,7 +3,7 @@ compile: libgreendb.la
 
 include ../config.mak
 
-INCLUDES=-I.. -I../greendb ${DB_INCLUDE}
+INCLUDES=-I.. -I../greendb ${DB_INCLUDE} ${ALL_INCLUDES}
 
 OBJECTS=debug.lo typemap.lo datum.lo greenenv.lo greendb.lo cursor.lo row.lo table.lo schema.lo memory.lo xml.lo resultset.lo
 

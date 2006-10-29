@@ -16,12 +16,12 @@ class Datum:protected Dbt {
   friend class GreenDb;
   friend class Cursor;
   bool _internal_allocated;
+  DataType _type;
 public:
-  Datum (u_int32_t size);
-  Datum ();
-  Datum (void *ptr, u_int32_t size, u_int32_t allocated);
+  Datum (DataType type, u_int32_t size);
+  Datum (DataType type);
+  Datum (DataType type, void *ptr, u_int32_t size, u_int32_t allocated);
   virtual ~Datum();
-  const void *const_ptr() const;
   void *get_ptr();
   void set_ptr(void* ptr);
   u_int32_t get_size () const;
@@ -31,15 +31,28 @@ public:
   //virtual const char * type_name () const = 0;
   //virtual const char * repr () const = 0;
   //virtual const char * str() const = 0;
-  virtual const char * repr() const {
-					return "Datum";
-	}
-  virtual const char * str() const {
-					return "Datum";
-	}
-  virtual const char * c_str() const {
-					return str();
-	}
+/**
+ * caller must free pointer
+ */
+  char * repr() const;
+/**
+ * caller must free pointer
+ */
+  char * str() const;
+/**
+ * caller must free pointer
+ */
+  char * c_str() const;
+  Datum* set_int(int value);
+  Datum* set_string(const char* value);
+  int get_int() const;
+  const char* get_string() const;
+  void from_string(const char* value);
+/**
+ * caller must free pointer
+ */
+  char* to_string() const;
+	bool isset() const { return const_ptr() != NULL;};
 protected:
   void set_internal_allocated();
   u_int32_t get_internal_allocated();
@@ -47,9 +60,10 @@ protected:
   void set_allocated (u_int32_t allocated);
   void set_db_flags(u_int32_t flags);
   void free_ptr();
+  const void *const_ptr() const;
 };
 
-template < typename T, typename Mem,typename DatumTraits = DatumTraits<T> >
+/*template < typename T, typename Mem,typename DatumTraits = DatumTraits<T> >
 class DatumT: public Datum {
   friend class GreenDb;
   friend class Cursor;
@@ -112,24 +126,44 @@ class DatumT: public Datum {
     }
     return strdup(os.str ().c_str ());
   }
-//protected:
-    /*
-  size_t size_of(const T& ptr) const {
-    return DatumTraits::size_of(ptr);
-  }
-     * void fromstr (const char *str) { std::basic_istrstream<const char*> 
-     * in (str); _ptr = Mem::newbuf (sizeof (T)); in >> *_ptr; } 
-     */ 
-    /*
-    void copy (T * ptr, size_t size) {
-      atleast (size);
-      memcpy (_ptr, ptr, size);
-      _size = size;
-    }*/
   };
+*/
+class StrDatum: public Datum {
+public:
+	StrDatum():Datum(TYPE_STRING) {
+	}
+	StrDatum(const char* value):Datum(TYPE_STRING) {
+		set_string(value);
+		g_message("StrDatum(%s)", to_string());
+	}
+	const char* value() const {
+		return get_string();
+	}
+};
+class IntDatum: public Datum {
+public:
+	IntDatum():Datum(TYPE_INT) {
+	}
+	IntDatum(int value):Datum(TYPE_INT) {
+		set_int(value);
+	}
+	int value() const {
+		return get_int();
+	}
+};
+class DataTypeDatum: public Datum {
+public:
+	DataTypeDatum():Datum(TYPE_INT) {
+	}
+	DataTypeDatum(DataType value):Datum(TYPE_INT) {
+		set_int(value);
+	}
+	DataType value() const {
+		return (DataType)get_int();
+	}
+};
+//typedef DatumT < int, Malloc> IntDatum;
+//typedef DatumT < DataType, Malloc> DataTypeDatum;
 
-typedef DatumT < int, Malloc> IntDatum;
-typedef DatumT < DataType, Malloc> DataTypeDatum;
-
-std::ostream & operator << (std::ostream & os, const Datum & datum);
+//std::ostream & operator << (std::ostream & os, const Datum & datum);
 #endif

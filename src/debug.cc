@@ -4,9 +4,10 @@
 
 //std::ofstream<char> debugf("greendb.log");
 void initLogging(int argc, char** argv) {
-	RLogInit( argc, argv );
-  StdioNode stdLog(2,1|2|4|8 );
-	stdLog.subscribeTo( GetGlobalChannel("") );
+	//RLogInit( argc, argv );
+//  StdioNode stdLog(2,1|2|4|8 );
+//:w
+//stdLog.subscribeTo( GetGlobalChannel("") );
 
     //stdLog.subscribeTo( RLOG_CHANNEL("debug") );
     //stdLog.subscribeTo( GetGlobalChannel("warning") );

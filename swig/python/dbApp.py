@@ -13,7 +13,7 @@ class BoaApp(wxApp):
         self.main = dbFrame.create(None)
         # needed when running from Boa under Windows 9X
         self.SetTopWindow(self.main)
-        self.main.browse("testtable")
+        self.main.browse("people")
         self.main.Show(1)
         #self.main.Show();self.main.Hide();self.main.Show()
         return 1
@@ -21,7 +21,7 @@ class BoaApp(wxApp):
 def main():
     application = BoaApp(0)
     application.MainLoop()
-    #application.browse("testtable")
+    #application.browse("people")
 
 if __name__ == '__main__':
     main()

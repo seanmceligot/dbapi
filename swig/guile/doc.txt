@@ -94,9 +94,45 @@ SELF is of type <GreenEnv *>.
 
 Returns <string>.
 
-(new-Datum)
+(new-Datum type)
+TYPE is of type <DataType>.
 
 Returns <Datum *>.
+
+(Datum-repr self)
+SELF is of type <Datum *>.
+
+Returns <string>.
+
+(Datum-set-int self value)
+SELF is of type <Datum *>, VALUE is of type <integer>.
+
+Returns <Datum *>.
+
+(Datum-set-string self value)
+SELF is of type <Datum *>, VALUE is a string.
+
+Returns <Datum *>.
+
+(Datum-get-int self)
+SELF is of type <Datum *>.
+
+Returns <integer>.
+
+(Datum-get-string self)
+SELF is of type <Datum *>.
+
+Returns <string>.
+
+(Datum-from-string self value)
+SELF is of type <Datum *>, VALUE is a string.
+
+Returns unspecified.
+
+(Datum-to-string self)
+SELF is of type <Datum *>.
+
+Returns <string>.
 
 (delete-Datum self)
 SELF is of type <Datum *>.
@@ -108,60 +144,30 @@ PTR is a string.
 
 Returns <StrDatum *>.
 
-(StrDatum-type-name self)
-SELF is of type <StrDatum const *>.
-
-Returns <string>.
-
 (delete-StrDatum self)
 SELF is of type <StrDatum *>.
 
 Returns unspecified.
-
-(StrDatum-repr self)
-SELF is of type <StrDatum const *>.
-
-Returns <string>.
 
 (StrDatum-value self)
 SELF is of type <StrDatum *>.
 
 Returns <string>.
 
-(StrDatum-set-value self newvalue)
-SELF is of type <StrDatum *>, NEWVALUE is a string.
-
-Returns <string>.
-
-(new-IntDatum ptr)
-PTR is of type <integer>.
+(new-IntDatum value)
+VALUE is of type <integer>.
 
 Returns <IntDatum *>.
-
-(IntDatum-type-name self)
-SELF is of type <IntDatum const *>.
-
-Returns <string>.
-
-(delete-IntDatum self)
-SELF is of type <IntDatum *>.
-
-Returns unspecified.
-
-(IntDatum-repr self)
-SELF is of type <IntDatum const *>.
-
-Returns <string>.
 
 (IntDatum-value self)
 SELF is of type <IntDatum *>.
 
 Returns <integer>.
 
-(IntDatum-set-value self newvalue)
-SELF is of type <IntDatum *>, NEWVALUE is of type <integer>.
+(delete-IntDatum self)
+SELF is of type <IntDatum *>.
 
-Returns <integer>.
+Returns unspecified.
 
 (delete-Cursor self)
 SELF is of type <Cursor *>.
@@ -213,6 +219,11 @@ SELF is of type <Row *>.
 
 Returns <Datum &>.
 
+(Row-set self %arg2 %arg3)
+SELF is of type <Row *>, %ARG2 is of type <integer>, %ARG3 is of type <Datum &>.
+
+Returns unspecified.
+
 (Row-set self colname newDatum)
 SELF is of type <Row *>, COLNAME is a string, NEWDATUM is of type <Datum &>.
 
@@ -228,15 +239,40 @@ SELF is of type <Row *>, COLNAME is a string, VALUE is a string.
 
 Returns <boolean>.
 
+(Row-get-int self colname)
+SELF is of type <Row *>, COLNAME is a string.
+
+Returns <integer>.
+
+(Row-get-string self colname)
+SELF is of type <Row *>, COLNAME is a string.
+
+Returns <string>.
+
+(Row-from-string-n self index s)
+SELF is of type <Row *>, INDEX is of type <integer>, S is a string.
+
+Returns unspecified.
+
 (Row-from-string self colname s)
 SELF is of type <Row *>, COLNAME is a string, S is a string.
 
 Returns unspecified.
 
+(Row-to-string-n self %arg2)
+SELF is of type <Row *>, %ARG2 is of type <integer>.
+
+Returns <string>.
+
 (Row-to-string self colname)
 SELF is of type <Row *>, COLNAME is a string.
 
 Returns <string>.
+
+(Row-get-column-n self idx)
+SELF is of type <Row *>, IDX is of type <integer>.
+
+Returns <Datum *>.
 
 (Row-get-column self colname)
 SELF is of type <Row *>, COLNAME is a string.
@@ -358,18 +394,23 @@ SELF is of type <Schema *>, COLS is of type <char const *[]>, TYPES is of type <
 
 Returns unspecified.
 
+(Schema-get-type-n self n)
+SELF is of type <Schema *>, N is of type <integer>.
+
+Returns <DataType>.
+
 (Schema-get-type self colname)
-SELF is of type <Schema const *>, COLNAME is a string.
+SELF is of type <Schema *>, COLNAME is a string.
 
 Returns <DataType>.
 
 (Schema-get-col-no self colname)
-SELF is of type <Schema const *>, COLNAME is a string.
+SELF is of type <Schema *>, COLNAME is a string.
 
 Returns <integer>.
 
 (Schema-get-name self n)
-SELF is of type <Schema const *>, N is of type <integer>.
+SELF is of type <Schema *>, N is of type <integer>.
 
 Returns <string>.
 

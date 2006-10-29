@@ -1,59 +1,46 @@
-dnl Process this file with autoconf to produce a configure script.
+# generated 2006/10/24 13:32:16 EDT by sean@oak.(none)
+# using glademm V2.6.0
 
-AC_INIT(configure.in)
-AM_INIT_AUTOMAKE(greenapp, 0.1)
-AM_CONFIG_HEADER(config.h)
+AC_PREREQ(2.50)
+AC_INIT(greenapp, 0.0,[sean@oak.(none)])
+AM_INIT_AUTOMAKE
+AC_CONFIG_HEADERS(config.h)
 
 AC_ISC_POSIX
 AC_PROG_CC
 AM_PROG_CC_STDC
-AC_PROG_CXX
 AC_HEADER_STDC
+AC_PROG_CPP
+AC_PROG_CXX
+AC_PROG_CXXCPP
+AM_PROG_LIBTOOL
 
-AM_PATH_GTK(1.2.0, ,
-            AC_MSG_ERROR(Cannot find GTK: Is gtk-config in path?))
+dnl *************************************************
+dnl gettext support
+dnl *************************************************
+
+GETTEXT_PACKAGE=greenapp
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE",
+		[the gettext domain])
 
 dnl Add the languages which your application supports here.
 ALL_LINGUAS=""
-AM_GNU_GETTEXT
+AM_GNU_GETTEXT_VERSION(0.15.0)
+AM_GNU_GETTEXT([external])
 
 dnl Set PACKAGE_LOCALE_DIR in config.h.
 if test "x${prefix}" = "xNONE"; then
-  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${ac_default_prefix}/${DATADIRNAME}/locale")
+  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${ac_default_prefix}/${DATADIRNAME}/locale",
+		[the location of locale files])
 else
-  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${prefix}/${DATADIRNAME}/locale")
+  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${prefix}/${DATADIRNAME}/locale",
+		[the location of locale files])
 fi
 
-dnl Set PACKAGE_DATA_DIR in config.h.
-if test "x${datadir}" = 'x${prefix}/share'; then
-  if test "x${prefix}" = "xNONE"; then
-    AC_DEFINE_UNQUOTED(PACKAGE_DATA_DIR, "${ac_default_prefix}/share/${PACKAGE}")
-  else
-    AC_DEFINE_UNQUOTED(PACKAGE_DATA_DIR, "${prefix}/share/${PACKAGE}")
-  fi
-else
-  AC_DEFINE_UNQUOTED(PACKAGE_DATA_DIR, "${datadir}/${PACKAGE}")
-fi
+AC_LANG_CPLUSPLUS
 
-dnl Set PACKAGE_SOURCE_DIR in config.h.
-packagesrcdir=`cd $srcdir && pwd`
-AC_DEFINE_UNQUOTED(PACKAGE_SOURCE_DIR, "${packagesrcdir}")
+AM_PATH_GTKMM(0.0.0,,
+	AC_MSG_ERROR(Cannot find a matching GTK-- library: Please install version 0.0.0 or newer))
 
-dnl Use -Wall if we have gcc.
-changequote(,)dnl
-if test "x$GCC" = "xyes"; then
-  case " $CFLAGS " in
-  *[\ \	]-Wall[\ \	]*) ;;
-  *) CFLAGS="$CFLAGS -Wall" ;;
-  esac
-fi
-changequote([,])dnl
-
-AC_OUTPUT([
-Makefile
-src/Makefile
-intl/Makefile
-po/Makefile.in
-po/Makefile
-])
-
+AC_OUTPUT(Makefile src/Makefile )

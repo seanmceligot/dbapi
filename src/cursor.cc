@@ -63,24 +63,24 @@ retry:
   try {
     dberr = _dbc->get (&key, &val, flags);
   } catch (DbMemoryException & ex) {
-    	//rDebug( "DbMemoryException" );
+    	//g_message( "DbMemoryException" );
 			key.atleast_size();
       val.atleast_size();
       goto retry;
   } catch (DbException & ex) {
     if (ex.get_errno () == DB_BUFFER_SMALL) {
-    	//rDebug( "DB_BUFFER_SMALL reallocating: " );
+    	//g_message( "DB_BUFFER_SMALL reallocating: " );
 			key.atleast_size();
       val.atleast_size();
       goto retry;
     } else {
-     rDebug( "Unhandled DbException : %s " , ex.what () );
+     g_message( "Unhandled DbException : %s " , ex.what () );
       throw;
     }
   }
-	//rDebug("%d dbc->get %s ",dberr, key.str(),val.str());
+	//g_message("%d dbc->get %s ",dberr, key.str(),val.str());
 	if (dberr && (dberr != DB_NOTFOUND)) {
-		rDebug( "unknown error %d" , dberr );
+		g_message( "unknown error %d" , dberr );
 	}
   return dberr;
 }

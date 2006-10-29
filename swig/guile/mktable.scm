@@ -3,13 +3,13 @@
 (dynamic-call "SWIG_init" my-so)
 
 (define mkcol
- (lambda (schema tnpair)
+ (lambda (schema typemap tnpair)
   (let ( 
-   (type (car tnpair))
+   (type (TypeMap-get-type-id typemap (car tnpair)))
    (name (car (cdr tnpair))))
     (format #t "add-column name: ~A type: ~A" name type)
     (newline)
-    (Schema-add-column schema name (string->number type) 0))))
+    (Schema-add-column schema name type 0))))
 
 (define for-each-pair 
  (lambda (fn pair-list)
@@ -18,9 +18,9 @@
         (fn (list-head pair-list 2))
         (for-each-pair fn (list-tail pair-list 2))))))
 
-(define (bound-mkcol schema)
+(define (bound-mkcol schema typemap)
  (lambda (p)
-  (mkcol schema p)))
+  (mkcol schema typemap p)))
     
  (begin 
     (let (
@@ -39,7 +39,7 @@
      (format #t "mktable: ~A" (Table-get-name table))
      (newline)
      (let (
-           (fn (bound-mkcol schema))) 
+           (fn (bound-mkcol schema (TypeMap-get-type-map)))) 
       (for-each-pair fn (cdr (cdr (command-line)))))
      (Table-close table)
      (GreenEnv-close env)))

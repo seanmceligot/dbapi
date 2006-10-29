@@ -97,6 +97,13 @@ class Datum(_object):
         this = _greendb.new_Datum(*args)
         try: self.this.append(this)
         except: self.this = this
+    def repr(*args): return _greendb.Datum_repr(*args)
+    def set_int(*args): return _greendb.Datum_set_int(*args)
+    def set_string(*args): return _greendb.Datum_set_string(*args)
+    def get_int(*args): return _greendb.Datum_get_int(*args)
+    def get_string(*args): return _greendb.Datum_get_string(*args)
+    def from_string(*args): return _greendb.Datum_from_string(*args)
+    def to_string(*args): return _greendb.Datum_to_string(*args)
     __swig_destroy__ = _greendb.delete_Datum
     __del__ = lambda self : None;
 Datum_swigregister = _greendb.Datum_swigregister
@@ -114,12 +121,9 @@ class StrDatum(Datum):
         this = _greendb.new_StrDatum(*args)
         try: self.this.append(this)
         except: self.this = this
-    def type_name(*args): return _greendb.StrDatum_type_name(*args)
     __swig_destroy__ = _greendb.delete_StrDatum
     __del__ = lambda self : None;
-    def repr(*args): return _greendb.StrDatum_repr(*args)
     def value(*args): return _greendb.StrDatum_value(*args)
-    def set_value(*args): return _greendb.StrDatum_set_value(*args)
 StrDatum_swigregister = _greendb.StrDatum_swigregister
 StrDatum_swigregister(StrDatum)
 
@@ -135,12 +139,9 @@ class IntDatum(Datum):
         this = _greendb.new_IntDatum(*args)
         try: self.this.append(this)
         except: self.this = this
-    def type_name(*args): return _greendb.IntDatum_type_name(*args)
+    def value(*args): return _greendb.IntDatum_value(*args)
     __swig_destroy__ = _greendb.delete_IntDatum
     __del__ = lambda self : None;
-    def repr(*args): return _greendb.IntDatum_repr(*args)
-    def value(*args): return _greendb.IntDatum_value(*args)
-    def set_value(*args): return _greendb.IntDatum_set_value(*args)
 IntDatum_swigregister = _greendb.IntDatum_swigregister
 IntDatum_swigregister(IntDatum)
 
@@ -178,8 +179,13 @@ class Row(_object):
     def set(*args): return _greendb.Row_set(*args)
     def set_int(*args): return _greendb.Row_set_int(*args)
     def set_string(*args): return _greendb.Row_set_string(*args)
+    def get_int(*args): return _greendb.Row_get_int(*args)
+    def get_string(*args): return _greendb.Row_get_string(*args)
+    def from_string_n(*args): return _greendb.Row_from_string_n(*args)
     def from_string(*args): return _greendb.Row_from_string(*args)
+    def to_string_n(*args): return _greendb.Row_to_string_n(*args)
     def to_string(*args): return _greendb.Row_to_string(*args)
+    def get_column_n(*args): return _greendb.Row_get_column_n(*args)
     def get_column(*args): return _greendb.Row_get_column(*args)
     def get_col_no(*args): return _greendb.Row_get_col_no(*args)
     def get_existing_column(*args): return _greendb.Row_get_existing_column(*args)
@@ -226,6 +232,7 @@ class Schema(_object):
     __repr__ = _swig_repr
     def add_column(*args): return _greendb.Schema_add_column(*args)
     def add_columns(*args): return _greendb.Schema_add_columns(*args)
+    def get_type_n(*args): return _greendb.Schema_get_type_n(*args)
     def get_type(*args): return _greendb.Schema_get_type(*args)
     def get_col_no(*args): return _greendb.Schema_get_col_no(*args)
     def get_name(*args): return _greendb.Schema_get_name(*args)

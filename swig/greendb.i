@@ -46,32 +46,28 @@ public:
 
 class Datum {
   public:
+  Datum (DataType type);
   const char * repr();
-  const char * str();
+  Datum* set_int(int value);
+  Datum* set_string(const char* value);
+  int get_int();
+  const char* get_string();
+  void from_string(const char* value);
+  char* to_string();
 };
 
 class StrDatum: public Datum {
   public:
   	StrDatum (char*ptr);
-    const char * type_name () const;
 		~StrDatum ();
-	  const char * repr () const;
 	  const char* value();
-		char* set_value(char* newvalue);
-  const char * repr();
-  const char * str();
 };
 class IntDatum: public Datum {
   public:
-  	IntDatum (int ptr);
-    const char * type_name () const;
-		~IntDatum ();
-	  const char * repr () const;
-	  const int value();
-		int set_value(int newvalue);
-  const char * repr();
-  const char * str();
+  	IntDatum (int value);
+	  int value();
 };
+
 class Cursor {
   Cursor ();
 public:
@@ -82,10 +78,12 @@ public:
   int next (Datum & key, Datum & val);
   void close ();
 };
+
 %rename(to_string_n) to_string(int);
 %rename(set_n) set(int, Datum*);
 %rename(from_string_n) from_string(int, const char*);
 %rename(get_column_n) get_column(int);
+
 class Row {
 public:
   Row (Table * table, size_t size);
@@ -96,6 +94,8 @@ public:
   bool set (const char *colname, Datum & newDatum);
   bool set_int (const char *colname, int value);
   bool set_string (const char *colname, const char* value);
+  int get_int (const char *colname);
+  const char* get_string (const char *colname);
 	void from_string(int index, const char* s);
 	void from_string(const char* colname, const char* s);
 	char* to_string(int);
@@ -106,6 +106,7 @@ public:
   Datum * get_existing_column (int index);
 	int size();
 };
+
 class Table {
 public:
   Table (const char* name, GreenEnv & ge);
@@ -128,16 +129,18 @@ public:
 	const char* get_name() const;
   bool exists();
 };
+
+%rename(get_type_n) get_type(int);
 class Schema {
 private:
 	Schema();
 public:
 	void add_column(const char* colname, DataType type, bool index);
 	void add_columns(const char *cols[], DataType types[], unsigned int length);
-	%rename(get_type_n) get_type(int n) const;
-	DataType get_type(const char* colname) const;
-	int get_col_no(const char* colname) const;
-	const char* get_name(int n) const;
+  DataType get_type(int n);
+	DataType get_type(const char* colname);
+	int get_col_no(const char* colname);
+	const char* get_name(int n);
 	size_t size() const;
 };
 

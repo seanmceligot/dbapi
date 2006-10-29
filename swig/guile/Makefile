@@ -2,11 +2,11 @@ compile: libguilegreendb.la
 include ../../config.mak
 
 BASEDIR=../..
-INCLUDES=-I../.. ${GUILE_INCLUDE} ${DB_INCLUDE}
+INCLUDES=-I../.. ${GUILE_INCLUDE} ${ALL_INCLUDES}
 DEFINES=-DSWIG
 
 libguilegreendb.la: greendb_wrap.lo
-	${LIBTOOL_LINK} -o $@ $< -rpath ${prefix}/lib -lm -ldb_cxx -lrlog ../../src/libgreendb.la 
+	${LIBTOOL_LINK} -o $@ $< -rpath ${prefix}/lib ${LIBS} ../../src/libgreendb.la 
 
 install:
 	${LIBTOOL_INSTALL} -c libguilegreendb.la ${prefix}/lib/

@@ -1,30 +1,16 @@
 #include "greendb/datum.hh"
 #include "greendb/debug.hh"
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
 
-static void print_void(std::ostream & os, const void* ptr, const size_t len) {
-  size_t count = len > 74?74:len;
-  char* p = (char*)ptr;
-  for (size_t i = 0; i < count;i++) {
-    int ch = p[i];
-    if ( isalnum(ch) ) {
-      os << (char)ch;
-    } else {
-      os << '<'<<ch<<'>';
-    }
-  }
-  if ( len > 74 ) {
-      os << "...";
-  }
+
+Datum::Datum (DataType type):Dbt (),_type(type), _internal_allocated(false) {
 }
-
-
-Datum::Datum ():Dbt (),_internal_allocated(false) {
-}
-Datum::Datum (u_int32_t size):Dbt (),_internal_allocated(false) {
+Datum::Datum (DataType type, u_int32_t size):Dbt (),_type(type), _internal_allocated(false) {
   atleast(size);
 }
-Datum::Datum (void *ptr, u_int32_t size, u_int32_t allocated):Dbt (ptr, size),_internal_allocated(false) {
-  print_void(std::cerr, ptr, size);
+Datum::Datum (DataType type, void *ptr, u_int32_t size, u_int32_t allocated):Dbt (ptr, size),_type(type), _internal_allocated(false) {
  set_ulen (allocated);
 }
 Datum::~Datum() {
@@ -86,9 +72,79 @@ void Datum::atleast (size_t newsize) {
       set_size( newsize);
     }
 }
-std::ostream & operator << (std::ostream & os, const Datum & datum) {
-  os <<"Datum(";
-  print_void(os, datum.const_ptr(), datum.get_size());
-  os<<")"; 
-  return os;
+char * Datum::repr() const{
+   return this->to_string();
+}
+char * Datum::str() const{
+   return to_string();
+}
+char * Datum::c_str() const{
+   return to_string();
+}
+Datum* Datum::set_int(int newvalue){
+      size_t size = sizeof(int);
+      if (get_ptr()) {
+        int* ptr = (int*)get_ptr();
+        std::_Destroy<int>(ptr);
+        atleast(size);
+				set_size(size);
+        std::_Construct<int>(ptr, newvalue);
+      } else {
+        atleast(size);
+        set_ptr( new int(newvalue) );
+      }
+      return this;
+}
+Datum* Datum::set_string(const char* newvalue){
+    g_return_val_if_fail(newvalue != NULL, NULL);
+		size_t length = strlen(newvalue);
+		size_t size= (length+1)*(sizeof(char));
+		if (get_ptr()) {
+			atleast(size);
+			set_size(size);
+      char* ptr = (char*)get_ptr();
+			strncpy(ptr, newvalue, length+1);
+		} else {
+			set_ptr(strdup(newvalue));
+			set_internal_allocated();
+			set_size(size);
+			set_allocated(size);
+		}
+    return this;
+}
+int Datum::get_int() const {
+  return *((int*)const_ptr());
+}
+const char* Datum::get_string() const{
+  return (const char*)const_ptr();
+}
+void Datum::from_string(const char* value){
+			switch(_type) {
+							case TYPE_STRING:
+											set_string(value);
+                      break;
+							case TYPE_INT:
+											set_int(atoi(value));
+                      break;
+							default:
+										g_message("unknown type, cannot set from string");
+			}
+}
+/**
+ * caller must free pointer
+ */
+char* Datum::to_string() const {
+			if (const_ptr() == NULL) {
+				return NULL;
+			}
+			switch(_type) {
+							case TYPE_STRING:
+											return strdup(get_string());
+							case TYPE_INT:
+                      char* str = new char[15];
+                      sprintf(str, "%d", get_int());
+											return str;
+			}
+    g_message("unknown type, cannot get to string");
+    return NULL;
 }

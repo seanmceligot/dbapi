@@ -9,9 +9,6 @@
 
 int
 main (int argc, char **argv) {
-	RLogInit( argc, argv );
-  StdioNode stdLog(2,1|4 );
-	stdLog.subscribeTo( GetGlobalChannel("") );
 	static GreenEnv ge(".");
 	char* table_name = argv[1];
 	ge.open ();
@@ -22,7 +19,7 @@ main (int argc, char **argv) {
     int colno = i-2;
 		const char* colname = table.get_col_name(colno);
 		assert(colname != NULL);
-		rDebug("adding %s %s", colname, val);
+		g_message("adding %s %s", colname, val);
 		row->from_string(colname, val);
 	}
 	table.save(row);

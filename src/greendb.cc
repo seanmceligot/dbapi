@@ -16,7 +16,7 @@ GreenDb::GreenDb (DbEnv * env, const char *dbfile):Db (env, 0), _dbfile (dbfile)
 	*/
 GreenDb::GreenDb (GreenEnv * env, const char *dbfile, const char *name):Db ((DbEnv*)env, 0),
     _name (name), _dbfile (dbfile), _txn (NULL) {
-		//rDebug("new GreenDb: %s %s",_name.c_str(),_dbfile.c_str());
+		//g_message("new GreenDb: %s %s",_name.c_str(),_dbfile.c_str());
   };
 GreenDb::~GreenDb () {
   };
@@ -92,7 +92,7 @@ GreenDb::open (int type,u_int32_t flags, u_int32_t open_flags, int mode)
 			mode = 0644;
 	}
 	int dberr = -1;
-  //rDebug( "opening %s %s" , _dbfile.c_str() , _name.c_str() );
+  //g_message( "opening %s %s" , _dbfile.c_str() , _name.c_str() );
 	try {	
     DbTxn* txn = NULL;
 #if DB_VERSION_MAJOR > 3
@@ -101,11 +101,11 @@ GreenDb::open (int type,u_int32_t flags, u_int32_t open_flags, int mode)
   	dberr = Db::open (_dbfile.c_str(), _name.c_str(), ltype, l_open_flags, mode);
 #endif
   } catch (DbException & ex) {
-    rDebug( "Unhandled DbException : %s " , ex.what () );
+    g_message( "Unhandled DbException : %s " , ex.what () );
 		throw;
 	}
 	if (dberr) {
-		rDebug("Db::open dberr: %d", dberr);
+		g_message("Db::open dberr: %d", dberr);
 	}
 }
 
@@ -116,7 +116,7 @@ void
   val.set_db_flags (0);
   int dberr = Db::put (_txn, &key, &val, 0);
   if (dberr) {
-		rError("dberr: %s", strerror(dberr));
+		g_error("dberr: %s", strerror(dberr));
 	}
   Db::sync (0);
 }
@@ -147,25 +147,26 @@ retry:
   try {
     dberr = Db::get (_txn, &key, &val, 0);
   } catch (DbMemoryException & ex) {
-    	//rDebug( "DbMemoryException: " );
+    	//g_message( "DbMemoryException: " );
 			key.atleast_size();
       val.atleast_size();
       goto retry;
   } catch (DbException & ex) {
     if (ex.get_errno () == DB_BUFFER_SMALL) {
-    	//rDebug( "DB_BUFFER_SMALL reallocating: " );
+    	//g_message( "DB_BUFFER_SMALL reallocating: " );
 			key.atleast_size();
       val.atleast_size();
       goto retry;
     } else {
-    	rDebug( "Unhandled DbException : %s " , ex.what () );
+    	g_message( "Unhandled DbException : %s " , ex.what () );
       throw;
     }
   }
-	//rDebug("%d Db->get %s %s ",dberr, key.str(),val.str());
+	//g_message("%d Db->get %s %s ",dberr, key.str(),val.str());
 	if (dberr && (dberr != DB_NOTFOUND)) {
 	  Db::err(dberr, "dberr: ");
   }
+  g_message("%d fetch %s %s = %s", dberr, name(), key.to_string(), val.to_string());
   return dberr;
 }
 
