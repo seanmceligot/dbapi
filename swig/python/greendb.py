@@ -248,21 +248,17 @@ class TypeMap(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, TypeMap, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, TypeMap, name)
-    def __init__(self): raise AttributeError, "No constructor defined"
     __repr__ = _swig_repr
-    __swig_getmethods__["get_type_map"] = lambda x: _greendb.TypeMap_get_type_map
-    if _newclass:get_type_map = staticmethod(_greendb.TypeMap_get_type_map)
-    def add_string_convert(*args): return _greendb.TypeMap_add_string_convert(*args)
-    def to_string(*args): return _greendb.TypeMap_to_string(*args)
-    def from_string(*args): return _greendb.TypeMap_from_string(*args)
-    def from_string_size(*args): return _greendb.TypeMap_from_string_size(*args)
+    def __init__(self, *args): 
+        this = _greendb.new_TypeMap(*args)
+        try: self.this.append(this)
+        except: self.this = this
     def get_type_id(*args): return _greendb.TypeMap_get_type_id(*args)
     def get_type_name(*args): return _greendb.TypeMap_get_type_name(*args)
     __swig_destroy__ = _greendb.delete_TypeMap
     __del__ = lambda self : None;
 TypeMap_swigregister = _greendb.TypeMap_swigregister
 TypeMap_swigregister(TypeMap)
-TypeMap_get_type_map = _greendb.TypeMap_get_type_map
 
 TYPE_UNDEFINED = _greendb.TYPE_UNDEFINED
 TYPE_USER = _greendb.TYPE_USER

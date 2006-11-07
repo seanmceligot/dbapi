@@ -8,8 +8,8 @@
 class Datum:protected Dbt {
   bool _internal_allocated;
   DataType _type;
-  //friend class GreenDb;
-  //friend class Cursor;
+  friend class GreenDb;
+  friend class Cursor;
 public:
   Datum (DataType type, u_int32_t size);
   Datum (DataType type);

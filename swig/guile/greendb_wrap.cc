@@ -1228,14 +1228,12 @@ static swig_guile_clientdata _swig_guile_clientdataCursorRow = { NULL, SCM_EOL }
 #define SWIGTYPE_p_Row swig_types[8]
 #define SWIGTYPE_p_Schema swig_types[9]
 #define SWIGTYPE_p_StrDatum swig_types[10]
-#define SWIGTYPE_p_StringConvert swig_types[11]
-#define SWIGTYPE_p_Table swig_types[12]
-#define SWIGTYPE_p_TypeMap swig_types[13]
-#define SWIGTYPE_p_p_char swig_types[14]
-#define SWIGTYPE_p_std__type_info swig_types[15]
-#define SWIGTYPE_p_unsigned_long swig_types[16]
-static swig_type_info *swig_types[18];
-static swig_module_info swig_module = {swig_types, 17, 0, 0, 0, 0};
+#define SWIGTYPE_p_Table swig_types[11]
+#define SWIGTYPE_p_TypeMap swig_types[12]
+#define SWIGTYPE_p_p_char swig_types[13]
+#define SWIGTYPE_p_unsigned_long swig_types[14]
+static swig_type_info *swig_types[16];
+static swig_module_info swig_module = {swig_types, 15, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -3681,152 +3679,17 @@ _wrap_delete_Schema (SCM s_0)
 
 
 static SCM
-_wrap_TypeMap_get_type_map ()
+_wrap_new_TypeMap ()
 {
-#define FUNC_NAME "TypeMap-get-type-map"
+#define FUNC_NAME "new-TypeMap"
   TypeMap *result = 0 ;
   SCM gswig_result;
   int gswig_list_p = 0;
   
-  result = (TypeMap *)TypeMap::get_type_map();
+  result = (TypeMap *)new TypeMap();
   {
-    gswig_result = SWIG_NewPointerObj (result, SWIGTYPE_p_TypeMap, 0);
+    gswig_result = SWIG_NewPointerObj (result, SWIGTYPE_p_TypeMap, 1);
   }
-  
-  return gswig_result;
-#undef FUNC_NAME
-}
-
-
-static SCM
-_wrap_TypeMap_add_string_convert (SCM s_0, SCM s_1, SCM s_2)
-{
-#define FUNC_NAME "TypeMap-add-string-convert"
-  TypeMap *arg1 = (TypeMap *) 0 ;
-  std::type_info *arg2 = (std::type_info *) 0 ;
-  StringConvert *arg3 = (StringConvert *) 0 ;
-  SCM gswig_result;
-  int gswig_list_p = 0;
-  
-  {
-    arg1 = (TypeMap *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_TypeMap, 1, 0);
-  }
-  {
-    arg2 = (std::type_info *)SWIG_MustGetPtr(s_1, SWIGTYPE_p_std__type_info, 2, 0);
-  }
-  {
-    arg3 = (StringConvert *)SWIG_MustGetPtr(s_2, SWIGTYPE_p_StringConvert, 3, 0);
-  }
-  (arg1)->add_string_convert((std::type_info const *)arg2,arg3);
-  gswig_result = SCM_UNSPECIFIED;
-  
-  
-  
-  
-  return gswig_result;
-#undef FUNC_NAME
-}
-
-
-static SCM
-_wrap_TypeMap_to_string (SCM s_0, SCM s_1, SCM s_2)
-{
-#define FUNC_NAME "TypeMap-to-string"
-  TypeMap *arg1 = (TypeMap *) 0 ;
-  std::type_info *arg2 = (std::type_info *) 0 ;
-  Datum *arg3 = (Datum *) 0 ;
-  char *result = 0 ;
-  SCM gswig_result;
-  int gswig_list_p = 0;
-  
-  {
-    arg1 = (TypeMap *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_TypeMap, 1, 0);
-  }
-  {
-    arg2 = (std::type_info *)SWIG_MustGetPtr(s_1, SWIGTYPE_p_std__type_info, 2, 0);
-  }
-  {
-    arg3 = (Datum *)SWIG_MustGetPtr(s_2, SWIGTYPE_p_Datum, 3, 0);
-  }
-  result = (char *)(arg1)->to_string((std::type_info const *)arg2,arg3);
-  {
-    gswig_result = scm_makfrom0str(result);
-  }
-  
-  
-  
-  
-  return gswig_result;
-#undef FUNC_NAME
-}
-
-
-static SCM
-_wrap_TypeMap_from_string (SCM s_0, SCM s_1, SCM s_2, SCM s_3)
-{
-#define FUNC_NAME "TypeMap-from-string"
-  TypeMap *arg1 = (TypeMap *) 0 ;
-  std::type_info *arg2 = (std::type_info *) 0 ;
-  Datum *arg3 = (Datum *) 0 ;
-  char *arg4 = (char *) 0 ;
-  int must_free4 = 0 ;
-  SCM gswig_result;
-  int gswig_list_p = 0;
-  
-  {
-    arg1 = (TypeMap *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_TypeMap, 1, 0);
-  }
-  {
-    arg2 = (std::type_info *)SWIG_MustGetPtr(s_1, SWIGTYPE_p_std__type_info, 2, 0);
-  }
-  {
-    arg3 = (Datum *)SWIG_MustGetPtr(s_2, SWIGTYPE_p_Datum, 3, 0);
-  }
-  {
-    arg4 = SWIG_scm2str(s_3);
-    must_free4 = 1;
-  }
-  (arg1)->from_string((std::type_info const *)arg2,arg3,(char const *)arg4);
-  gswig_result = SCM_UNSPECIFIED;
-  
-  
-  
-  if (must_free4 && arg4) SWIG_free(arg4);
-  
-  return gswig_result;
-#undef FUNC_NAME
-}
-
-
-static SCM
-_wrap_TypeMap_from_string_size (SCM s_0, SCM s_1, SCM s_2)
-{
-#define FUNC_NAME "TypeMap-from-string-size"
-  TypeMap *arg1 = (TypeMap *) 0 ;
-  std::type_info *arg2 = (std::type_info *) 0 ;
-  char *arg3 = (char *) 0 ;
-  size_t result;
-  int must_free3 = 0 ;
-  SCM gswig_result;
-  int gswig_list_p = 0;
-  
-  {
-    arg1 = (TypeMap *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_TypeMap, 1, 0);
-  }
-  {
-    arg2 = (std::type_info *)SWIG_MustGetPtr(s_1, SWIGTYPE_p_std__type_info, 2, 0);
-  }
-  {
-    arg3 = SWIG_scm2str(s_2);
-    must_free3 = 1;
-  }
-  result = (arg1)->from_string_size((std::type_info const *)arg2,(char const *)arg3);
-  {
-    gswig_result = scm_ulong2num(result);
-  }
-  
-  
-  if (must_free3 && arg3) SWIG_free(arg3);
   
   return gswig_result;
 #undef FUNC_NAME
@@ -4095,11 +3958,9 @@ static swig_type_info _swigt__p_ResultSet = {"_p_ResultSet", "ResultSet *", 0, 0
 static swig_type_info _swigt__p_Row = {"_p_Row", "Row *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Schema = {"_p_Schema", "Schema *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_StrDatum = {"_p_StrDatum", "StrDatum *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_StringConvert = {"_p_StringConvert", "StringConvert *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Table = {"_p_Table", "Table *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_TypeMap = {"_p_TypeMap", "TypeMap *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_p_char = {"_p_p_char", "char **", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__type_info = {"_p_std__type_info", "std::type_info *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_long = {"_p_unsigned_long", "unsigned long *|SCM *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
@@ -4114,11 +3975,9 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Row,
   &_swigt__p_Schema,
   &_swigt__p_StrDatum,
-  &_swigt__p_StringConvert,
   &_swigt__p_Table,
   &_swigt__p_TypeMap,
   &_swigt__p_p_char,
-  &_swigt__p_std__type_info,
   &_swigt__p_unsigned_long,
 };
 
@@ -4133,11 +3992,9 @@ static swig_cast_info _swigc__p_ResultSet[] = {  {&_swigt__p_ResultSet, 0, 0, 0}
 static swig_cast_info _swigc__p_Row[] = {  {&_swigt__p_CursorRow, _p_CursorRowTo_p_Row, 0, 0},  {&_swigt__p_Row, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Schema[] = {  {&_swigt__p_Schema, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_StrDatum[] = {  {&_swigt__p_StrDatum, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_StringConvert[] = {  {&_swigt__p_StringConvert, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Table[] = {  {&_swigt__p_Table, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_TypeMap[] = {  {&_swigt__p_TypeMap, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_p_char[] = {  {&_swigt__p_p_char, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__type_info[] = {  {&_swigt__p_std__type_info, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_unsigned_long[] = {  {&_swigt__p_unsigned_long, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
@@ -4152,11 +4009,9 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Row,
   _swigc__p_Schema,
   _swigc__p_StrDatum,
-  _swigc__p_StringConvert,
   _swigc__p_Table,
   _swigc__p_TypeMap,
   _swigc__p_p_char,
-  _swigc__p_std__type_info,
   _swigc__p_unsigned_long,
 };
 
@@ -4484,11 +4339,7 @@ SWIG_init(void)
   ((swig_guile_clientdata *)(SWIGTYPE_p_Schema->clientdata))->destroy = (guile_destructor) _wrap_delete_Schema;
   scm_c_define_gsubr("delete-Schema", 1, 0, 0, (swig_guile_proc) _wrap_delete_Schema);
   SWIG_TypeClientData(SWIGTYPE_p_TypeMap, (void *) &_swig_guile_clientdataTypeMap);
-  scm_c_define_gsubr("TypeMap-get-type-map", 0, 0, 0, (swig_guile_proc) _wrap_TypeMap_get_type_map);
-  scm_c_define_gsubr("TypeMap-add-string-convert", 3, 0, 0, (swig_guile_proc) _wrap_TypeMap_add_string_convert);
-  scm_c_define_gsubr("TypeMap-to-string", 3, 0, 0, (swig_guile_proc) _wrap_TypeMap_to_string);
-  scm_c_define_gsubr("TypeMap-from-string", 4, 0, 0, (swig_guile_proc) _wrap_TypeMap_from_string);
-  scm_c_define_gsubr("TypeMap-from-string-size", 3, 0, 0, (swig_guile_proc) _wrap_TypeMap_from_string_size);
+  scm_c_define_gsubr("new-TypeMap", 0, 0, 0, (swig_guile_proc) _wrap_new_TypeMap);
   scm_c_define_gsubr("TypeMap-get-type-id", 2, 0, 0, (swig_guile_proc) _wrap_TypeMap_get_type_id);
   scm_c_define_gsubr("TypeMap-get-type-name", 2, 0, 0, (swig_guile_proc) _wrap_TypeMap_get_type_name);
   ((swig_guile_clientdata *)(SWIGTYPE_p_TypeMap->clientdata))->destroy = (guile_destructor) _wrap_delete_TypeMap;

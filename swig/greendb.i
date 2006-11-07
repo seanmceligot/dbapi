@@ -153,15 +153,8 @@ public:
 };
 
 class TypeMap {
-private:
-	TypeMap();
 public:
-	static TypeMap* get_type_map();
-	void add_string_convert(const std::type_info* ti, StringConvert* sc);
-	char* to_string(const std::type_info* ti, Datum* datum);
-	void from_string(const std::type_info*, Datum* datum, const char* str);
-	size_t from_string_size(const std::type_info* ti, const char* str);
-
+	TypeMap();
 	// convert typename to type id. 
 	// ex: string -> STRING
 	DataType get_type_id(const char* type);

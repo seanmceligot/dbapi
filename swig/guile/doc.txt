@@ -429,29 +429,9 @@ SELF is of type <Schema *>.
 
 Returns unspecified.
 
-(TypeMap-get-type-map)
+(new-TypeMap)
 
 Returns <TypeMap *>.
-
-(TypeMap-add-string-convert self ti sc)
-SELF is of type <TypeMap *>, TI is of type <std::type_info const *>, SC is of type <StringConvert *>.
-
-Returns unspecified.
-
-(TypeMap-to-string self ti datum)
-SELF is of type <TypeMap *>, TI is of type <std::type_info const *>, DATUM is of type <Datum *>.
-
-Returns <string>.
-
-(TypeMap-from-string self %arg2 datum str)
-SELF is of type <TypeMap *>, %ARG2 is of type <std::type_info const *>, DATUM is of type <Datum *>, STR is a string.
-
-Returns unspecified.
-
-(TypeMap-from-string-size self ti str)
-SELF is of type <TypeMap *>, TI is of type <std::type_info const *>, STR is a string.
-
-Returns <integer>.
 
 (TypeMap-get-type-id self type)
 SELF is of type <TypeMap *>, TYPE is a string.

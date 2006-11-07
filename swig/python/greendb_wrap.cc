@@ -2470,14 +2470,12 @@ SWIG_Python_MustGetPtr(PyObject *obj, swig_type_info *ty, int argnum, int flags)
 #define SWIGTYPE_p_Row swig_types[8]
 #define SWIGTYPE_p_Schema swig_types[9]
 #define SWIGTYPE_p_StrDatum swig_types[10]
-#define SWIGTYPE_p_StringConvert swig_types[11]
-#define SWIGTYPE_p_Table swig_types[12]
-#define SWIGTYPE_p_TypeMap swig_types[13]
-#define SWIGTYPE_p_char swig_types[14]
-#define SWIGTYPE_p_p_char swig_types[15]
-#define SWIGTYPE_p_std__type_info swig_types[16]
-static swig_type_info *swig_types[18];
-static swig_module_info swig_module = {swig_types, 17, 0, 0, 0, 0};
+#define SWIGTYPE_p_Table swig_types[11]
+#define SWIGTYPE_p_TypeMap swig_types[12]
+#define SWIGTYPE_p_char swig_types[13]
+#define SWIGTYPE_p_p_char swig_types[14]
+static swig_type_info *swig_types[16];
+static swig_module_info swig_module = {swig_types, 15, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -5753,188 +5751,15 @@ SWIGINTERN PyObject *Schema_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObjec
   return SWIG_Py_Void();
 }
 
-SWIGINTERN PyObject *_wrap_TypeMap_get_type_map(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_new_TypeMap(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   TypeMap *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)":TypeMap_get_type_map")) SWIG_fail;
-  result = (TypeMap *)TypeMap::get_type_map();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_TypeMap, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)":new_TypeMap")) SWIG_fail;
+  result = (TypeMap *)new TypeMap();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_TypeMap, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_TypeMap_add_string_convert(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  TypeMap *arg1 = (TypeMap *) 0 ;
-  std::type_info *arg2 = (std::type_info *) 0 ;
-  StringConvert *arg3 = (StringConvert *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOO:TypeMap_add_string_convert",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TypeMap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TypeMap_add_string_convert" "', argument " "1"" of type '" "TypeMap *""'"); 
-  }
-  arg1 = reinterpret_cast< TypeMap * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_std__type_info, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "TypeMap_add_string_convert" "', argument " "2"" of type '" "std::type_info const *""'"); 
-  }
-  arg2 = reinterpret_cast< std::type_info * >(argp2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_StringConvert, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "TypeMap_add_string_convert" "', argument " "3"" of type '" "StringConvert *""'"); 
-  }
-  arg3 = reinterpret_cast< StringConvert * >(argp3);
-  (arg1)->add_string_convert((std::type_info const *)arg2,arg3);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_TypeMap_to_string(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  TypeMap *arg1 = (TypeMap *) 0 ;
-  std::type_info *arg2 = (std::type_info *) 0 ;
-  Datum *arg3 = (Datum *) 0 ;
-  char *result = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOO:TypeMap_to_string",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TypeMap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TypeMap_to_string" "', argument " "1"" of type '" "TypeMap *""'"); 
-  }
-  arg1 = reinterpret_cast< TypeMap * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_std__type_info, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "TypeMap_to_string" "', argument " "2"" of type '" "std::type_info const *""'"); 
-  }
-  arg2 = reinterpret_cast< std::type_info * >(argp2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_Datum, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "TypeMap_to_string" "', argument " "3"" of type '" "Datum *""'"); 
-  }
-  arg3 = reinterpret_cast< Datum * >(argp3);
-  result = (char *)(arg1)->to_string((std::type_info const *)arg2,arg3);
-  resultobj = SWIG_FromCharPtr(result);
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_TypeMap_from_string(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  TypeMap *arg1 = (TypeMap *) 0 ;
-  std::type_info *arg2 = (std::type_info *) 0 ;
-  Datum *arg3 = (Datum *) 0 ;
-  char *arg4 = (char *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  int res4 ;
-  char *buf4 = 0 ;
-  int alloc4 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  PyObject * obj3 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOOO:TypeMap_from_string",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TypeMap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TypeMap_from_string" "', argument " "1"" of type '" "TypeMap *""'"); 
-  }
-  arg1 = reinterpret_cast< TypeMap * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_std__type_info, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "TypeMap_from_string" "', argument " "2"" of type '" "std::type_info const *""'"); 
-  }
-  arg2 = reinterpret_cast< std::type_info * >(argp2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_Datum, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "TypeMap_from_string" "', argument " "3"" of type '" "Datum *""'"); 
-  }
-  arg3 = reinterpret_cast< Datum * >(argp3);
-  res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
-  if (!SWIG_IsOK(res4)) {
-    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "TypeMap_from_string" "', argument " "4"" of type '" "char const *""'");
-  }
-  arg4 = buf4;
-  (arg1)->from_string((std::type_info const *)arg2,arg3,(char const *)arg4);
-  resultobj = SWIG_Py_Void();
-  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
-  return resultobj;
-fail:
-  if (alloc4 == SWIG_NEWOBJ) delete[] buf4;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_TypeMap_from_string_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  TypeMap *arg1 = (TypeMap *) 0 ;
-  std::type_info *arg2 = (std::type_info *) 0 ;
-  char *arg3 = (char *) 0 ;
-  size_t result;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  int res3 ;
-  char *buf3 = 0 ;
-  int alloc3 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOO:TypeMap_from_string_size",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TypeMap, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TypeMap_from_string_size" "', argument " "1"" of type '" "TypeMap *""'"); 
-  }
-  arg1 = reinterpret_cast< TypeMap * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_std__type_info, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "TypeMap_from_string_size" "', argument " "2"" of type '" "std::type_info const *""'"); 
-  }
-  arg2 = reinterpret_cast< std::type_info * >(argp2);
-  res3 = SWIG_AsCharPtrAndSize(obj2, &buf3, NULL, &alloc3);
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "TypeMap_from_string_size" "', argument " "3"" of type '" "char const *""'");
-  }
-  arg3 = buf3;
-  result = (arg1)->from_string_size((std::type_info const *)arg2,(char const *)arg3);
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
-  return resultobj;
-fail:
-  if (alloc3 == SWIG_NEWOBJ) delete[] buf3;
   return NULL;
 }
 
@@ -6227,11 +6052,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"Schema_size", _wrap_Schema_size, METH_VARARGS, NULL},
 	 { (char *)"delete_Schema", _wrap_delete_Schema, METH_VARARGS, NULL},
 	 { (char *)"Schema_swigregister", Schema_swigregister, METH_VARARGS, NULL},
-	 { (char *)"TypeMap_get_type_map", _wrap_TypeMap_get_type_map, METH_VARARGS, NULL},
-	 { (char *)"TypeMap_add_string_convert", _wrap_TypeMap_add_string_convert, METH_VARARGS, NULL},
-	 { (char *)"TypeMap_to_string", _wrap_TypeMap_to_string, METH_VARARGS, NULL},
-	 { (char *)"TypeMap_from_string", _wrap_TypeMap_from_string, METH_VARARGS, NULL},
-	 { (char *)"TypeMap_from_string_size", _wrap_TypeMap_from_string_size, METH_VARARGS, NULL},
+	 { (char *)"new_TypeMap", _wrap_new_TypeMap, METH_VARARGS, NULL},
 	 { (char *)"TypeMap_get_type_id", _wrap_TypeMap_get_type_id, METH_VARARGS, NULL},
 	 { (char *)"TypeMap_get_type_name", _wrap_TypeMap_get_type_name, METH_VARARGS, NULL},
 	 { (char *)"delete_TypeMap", _wrap_delete_TypeMap, METH_VARARGS, NULL},
@@ -6266,12 +6087,10 @@ static swig_type_info _swigt__p_ResultSet = {"_p_ResultSet", "ResultSet *", 0, 0
 static swig_type_info _swigt__p_Row = {"_p_Row", "Row *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Schema = {"_p_Schema", "Schema *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_StrDatum = {"_p_StrDatum", "StrDatum *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_StringConvert = {"_p_StringConvert", "StringConvert *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Table = {"_p_Table", "Table *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_TypeMap = {"_p_TypeMap", "TypeMap *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_p_char = {"_p_p_char", "char **", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__type_info = {"_p_std__type_info", "std::type_info *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Cursor,
@@ -6285,12 +6104,10 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Row,
   &_swigt__p_Schema,
   &_swigt__p_StrDatum,
-  &_swigt__p_StringConvert,
   &_swigt__p_Table,
   &_swigt__p_TypeMap,
   &_swigt__p_char,
   &_swigt__p_p_char,
-  &_swigt__p_std__type_info,
 };
 
 static swig_cast_info _swigc__p_Cursor[] = {  {&_swigt__p_Cursor, 0, 0, 0},{0, 0, 0, 0}};
@@ -6304,12 +6121,10 @@ static swig_cast_info _swigc__p_ResultSet[] = {  {&_swigt__p_ResultSet, 0, 0, 0}
 static swig_cast_info _swigc__p_Row[] = {  {&_swigt__p_CursorRow, _p_CursorRowTo_p_Row, 0, 0},  {&_swigt__p_Row, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Schema[] = {  {&_swigt__p_Schema, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_StrDatum[] = {  {&_swigt__p_StrDatum, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_StringConvert[] = {  {&_swigt__p_StringConvert, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Table[] = {  {&_swigt__p_Table, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_TypeMap[] = {  {&_swigt__p_TypeMap, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_p_char[] = {  {&_swigt__p_p_char, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__type_info[] = {  {&_swigt__p_std__type_info, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Cursor,
@@ -6323,12 +6138,10 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Row,
   _swigc__p_Schema,
   _swigc__p_StrDatum,
-  _swigc__p_StringConvert,
   _swigc__p_Table,
   _swigc__p_TypeMap,
   _swigc__p_char,
   _swigc__p_p_char,
-  _swigc__p_std__type_info,
 };
 
 

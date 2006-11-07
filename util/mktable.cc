@@ -13,13 +13,13 @@ main (int argc, char **argv) {
 	ge.open ();
 	Table table (table_name, ge);
 	Schema* schema = table.get_schema();
-	TypeMap* typemap = TypeMap::get_type_map();
+	TypeMap typemap;
 	if (table.exists()) {
 		g_message("table already created");
 	} else {
 		for (int i = 2; i < argc;i++) {
 			char* type = argv[i];
-			DataType datatype = typemap->get_type_id(type);
+			DataType datatype = typemap.get_type_id(type);
 			char* name = argv[++i];
 			g_message("adding %d %s %s", datatype, type, name);
 			assert(datatype > TYPE_UNDEFINED);
