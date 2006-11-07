@@ -1,22 +1,15 @@
 #ifndef __DATUM_HH
 #define __DATUM_HH
 
-#include <sstream>
-#include <iostream>
-#include <string>
-#include <exception>
-#include <ext/memory>
-#include <typeinfo>
-#include "traits.hh"
 #include <db_cxx.h>
 #include "greendb/memory.hh"
 #include "greendb/typemap.hh"
 
 class Datum:protected Dbt {
-  friend class GreenDb;
-  friend class Cursor;
   bool _internal_allocated;
   DataType _type;
+  //friend class GreenDb;
+  //friend class Cursor;
 public:
   Datum (DataType type, u_int32_t size);
   Datum (DataType type);

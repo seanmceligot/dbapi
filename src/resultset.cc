@@ -4,7 +4,7 @@
 #include "greendb/debug.hh"
 #include "greendb/schema.hh"
 #include "greendb/resultset.hh"
-#include <string>
+//#include <string>
 
 ResultSet::ResultSet (Table * table, CursorRow* row, Datum* fk, Datum* pk,size_t column_count): _table(table), _row(row),_fk(fk),_pk(pk),_column_count(column_count) {
 } 

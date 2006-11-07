@@ -6,13 +6,13 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <string.h>
-#include "mcheck.h"
+//#include "mcheck.h"
 
 GreenEnv::GreenEnv (const char *home):DbEnv (0),_home(home)
 {
   //g_message( "Env %s" , _home.c_str());
 	// TODO: only run once
-  mtrace();
+  //mtrace();
 }
 
 #define DEFAULT_OPEN_FLAGS DB_CREATE|DB_INIT_MPOOL

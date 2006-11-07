@@ -72,7 +72,8 @@ void Datum::atleast (size_t newsize) {
     }
 }
 char * Datum::repr() const{
-   return g_strdup_printf("Datum::new_%s(%s)", TypeMap::get_type_map()->get_type_name(_type), this->to_string());
+	TypeMap tm;
+   return g_strdup_printf("Datum::new_%s(%s)", tm.get_type_name(_type), this->to_string());
 }
 char * Datum::str() const{
    return to_string();

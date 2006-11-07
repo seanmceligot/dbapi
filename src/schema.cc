@@ -29,7 +29,8 @@
 	}
 	const char* Schema::get_type_name(int n) const {
 		DataType type = get_type(n);
-		return TypeMap::get_type_map()->get_type_name(type);
+		TypeMap tm;
+		return tm.get_type_name(type);
 	}
 	DataType Schema::get_type(int n) const {
 		assert(n >= 0);
@@ -48,7 +49,8 @@
 	}
 	const char* Schema::get_type_name(const char* colname) const {
 		DataType type = get_type(colname);
-		return TypeMap::get_type_map()->get_type_name(type);
+		TypeMap tm;
+		return tm.get_type_name(type);
 	}
 	Datum* Schema::create_datum_for_type(int type) const {
 			switch(type) {

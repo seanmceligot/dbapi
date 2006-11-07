@@ -11,7 +11,7 @@ class GreenDbIterator {
 		virtual bool hasmore()=0;
 		virtual Datum* next();
 		virtual Datum* current();
-}
+};
 class Schema {
 	int _size;
 	Table* _table;
@@ -34,7 +34,6 @@ public:
 	char** get_names() const;
 	bool indexed(int colno) const;
 	size_t size() const;
-  friend std::ostream & operator << (std::ostream & os, const Schema & schema);
 protected:
 	const std::type_info* get_typeid(int colno);
 	const std::type_info* get_typeid(const char* colname);
@@ -43,6 +42,5 @@ private:
 	const std::type_info* get_typeid_from_type(int coltype);
 };
 
-std::ostream & operator << (std::ostream & os, const Schema & schema);
 
 #endif

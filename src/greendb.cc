@@ -1,8 +1,8 @@
 #include "greendb/greendb.hh"
 #include "greendb/debug.hh"
 #include <errno.h>
-#include <ctype.h>
-#include <iostream>
+//#include <ctype.h>
+//#include <iostream>
 
 #if !defined(DB_BUFFER_SMALL)
 #define DB_BUFFER_SMALL ENOMEM

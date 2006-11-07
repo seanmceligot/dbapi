@@ -9,7 +9,7 @@
 Row::Row (Table * table, size_t size):_size (size), _table (table)  {
 	g_message("new Row(%s,size=%d)", table->get_name(), size);
 	_colDatum = new Datum*[size];
-  Schema* schema = table->get_schema();
+  //Schema* schema = table->get_schema();
 	for (size_t i = 0; i < size;i++) {
 		_colDatum[i] = NULL;
 	}
@@ -113,14 +113,15 @@ void Row::from_string(const char* colname, const char* s) {
 }
 void Row::from_string(int idx, const char* s) {
 	Schema* schema = _table->get_schema();
-	const std::type_info* ti = schema->get_typeid(idx);
+	//const std::type_info* ti = schema->get_typeid(idx);
 	Datum* datum = get_existing_column(idx);
 	if (!datum) {
 		datum = schema->create_datum(idx);
 		set(idx, *datum);
 	}
-	datum->atleast(TypeMap::get_type_map()->from_string_size(ti, s));
-	TypeMap::get_type_map()->from_string(ti, datum, s);
+	datum->from_string(s);
+	//datum->atleast(TypeMap::get_type_map()->from_string_size(ti, s));
+	//TypeMap::get_type_map()->from_string(datum, s);
 }
 /**
  * caller must free
