@@ -55,6 +55,10 @@ main (int argc, char **argv) {
       schema->add_column("name", TYPE_STRING , 1);
       schema->add_column("age", TYPE_INT , 1);
 
+			char** colnames = schema->get_names();
+			for(int i=0; colnames[i];i++) {
+				g_message("colnames[%d]=%s", i, colnames[i]);
+			}
       // create datums for columns -- these are reusable
       int n=1;
       {

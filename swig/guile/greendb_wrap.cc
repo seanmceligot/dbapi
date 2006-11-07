@@ -3613,6 +3613,29 @@ _wrap_Schema_get_name (SCM s_0, SCM s_1)
 
 
 static SCM
+_wrap_Schema_get_names (SCM s_0)
+{
+#define FUNC_NAME "Schema-get-names"
+  Schema *arg1 = (Schema *) 0 ;
+  char **result = 0 ;
+  SCM gswig_result;
+  int gswig_list_p = 0;
+  
+  {
+    arg1 = (Schema *)SWIG_MustGetPtr(s_0, SWIGTYPE_p_Schema, 1, 0);
+  }
+  result = (char **)((Schema const *)arg1)->get_names();
+  {
+    gswig_result = SWIG_NewPointerObj (result, SWIGTYPE_p_p_char, 0);
+  }
+  
+  
+  return gswig_result;
+#undef FUNC_NAME
+}
+
+
+static SCM
 _wrap_Schema_size (SCM s_0)
 {
 #define FUNC_NAME "Schema-size"
@@ -4456,6 +4479,7 @@ SWIG_init(void)
   scm_c_define_gsubr("Schema-get-type", 2, 0, 0, (swig_guile_proc) _wrap_Schema_get_type);
   scm_c_define_gsubr("Schema-get-col-no", 2, 0, 0, (swig_guile_proc) _wrap_Schema_get_col_no);
   scm_c_define_gsubr("Schema-get-name", 2, 0, 0, (swig_guile_proc) _wrap_Schema_get_name);
+  scm_c_define_gsubr("Schema-get-names", 1, 0, 0, (swig_guile_proc) _wrap_Schema_get_names);
   scm_c_define_gsubr("Schema-size", 1, 0, 0, (swig_guile_proc) _wrap_Schema_size);
   ((swig_guile_clientdata *)(SWIGTYPE_p_Schema->clientdata))->destroy = (guile_destructor) _wrap_delete_Schema;
   scm_c_define_gsubr("delete-Schema", 1, 0, 0, (swig_guile_proc) _wrap_delete_Schema);

@@ -7,6 +7,11 @@
 #include "greendb/debug.hh"
 #include "greendb/table.hh"
 
+class GreenDbIterator {
+		virtual bool hasmore()=0;
+		virtual Datum* next();
+		virtual Datum* current();
+}
 class Schema {
 	int _size;
 	Table* _table;
@@ -26,6 +31,7 @@ public:
 	Datum* create_datum_for_type(int type) const;
 	int get_col_no(const char* colname) const;
 	const char* get_name(int n) const;
+	char** get_names() const;
 	bool indexed(int colno) const;
 	size_t size() const;
   friend std::ostream & operator << (std::ostream & os, const Schema & schema);

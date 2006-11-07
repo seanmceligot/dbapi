@@ -414,6 +414,11 @@ SELF is of type <Schema *>, N is of type <integer>.
 
 Returns <string>.
 
+(Schema-get-names self)
+SELF is of type <Schema const *>.
+
+Returns <char **>.
+
 (Schema-size self)
 SELF is of type <Schema const *>.
 

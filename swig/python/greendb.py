@@ -236,6 +236,7 @@ class Schema(_object):
     def get_type(*args): return _greendb.Schema_get_type(*args)
     def get_col_no(*args): return _greendb.Schema_get_col_no(*args)
     def get_name(*args): return _greendb.Schema_get_name(*args)
+    def get_names(*args): return _greendb.Schema_get_names(*args)
     def size(*args): return _greendb.Schema_size(*args)
     __swig_destroy__ = _greendb.delete_Schema
     __del__ = lambda self : None;

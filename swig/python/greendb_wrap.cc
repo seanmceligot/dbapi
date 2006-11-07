@@ -5680,6 +5680,28 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Schema_get_names(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Schema *arg1 = (Schema *) 0 ;
+  char **result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Schema_get_names",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Schema, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Schema_get_names" "', argument " "1"" of type '" "Schema const *""'"); 
+  }
+  arg1 = reinterpret_cast< Schema * >(argp1);
+  result = (char **)((Schema const *)arg1)->get_names();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_p_char, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_Schema_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Schema *arg1 = (Schema *) 0 ;
@@ -6201,6 +6223,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"Schema_get_type", _wrap_Schema_get_type, METH_VARARGS, NULL},
 	 { (char *)"Schema_get_col_no", _wrap_Schema_get_col_no, METH_VARARGS, NULL},
 	 { (char *)"Schema_get_name", _wrap_Schema_get_name, METH_VARARGS, NULL},
+	 { (char *)"Schema_get_names", _wrap_Schema_get_names, METH_VARARGS, NULL},
 	 { (char *)"Schema_size", _wrap_Schema_size, METH_VARARGS, NULL},
 	 { (char *)"delete_Schema", _wrap_delete_Schema, METH_VARARGS, NULL},
 	 { (char *)"Schema_swigregister", Schema_swigregister, METH_VARARGS, NULL},

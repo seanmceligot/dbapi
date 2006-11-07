@@ -13,6 +13,13 @@
 #include "greendb/schema.hh"
 %}
 
+#ifdef SWIGPYTHON
+#endif
+#ifdef SWIGRUBY
+#endif
+#ifdef SWIGGUILE
+#endif
+
 %newobject Row::to_string();
 %newobject Table::fetch ();
 %newobject Table::cursor();
@@ -141,6 +148,7 @@ public:
 	DataType get_type(const char* colname);
 	int get_col_no(const char* colname);
 	const char* get_name(int n);
+	char** get_names() const;
 	size_t size() const;
 };
 
@@ -173,3 +181,4 @@ public:
 	CursorRow(Table* table, size_t size, Cursor* cursor, Datum* pk);
 	Cursor* get_cursor();
 };
+

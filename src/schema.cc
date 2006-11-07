@@ -76,6 +76,24 @@
 		}
 		return -1;
 	}
+/**
+ * caller must free
+ */
+	char** Schema::get_names() const {
+		StrDatum name;
+		IntDatum pk;
+		char** names = new char*[_size+1];
+
+		GreenDb* db = _table->get_database("$schema_ix_name");
+		Cursor* cur = db->cursor();
+		for (int i = 0;i < _size;i++) {
+			cur->next(pk,name);
+			char* n = name.to_string();
+			names[i] = n;
+		}
+		names[_size] = NULL;
+		return names;
+	}
 	const char* Schema::get_name(int colno) const {
 		StrDatum name;
 		IntDatum pk(colno);
