@@ -29,7 +29,7 @@ public:
 //  void open (DBTYPE type = DB_BTREE, u_int32_t flags = DB_CREATE, int mode = 0644);
   const char *dbfile () const;
   const char *name () const;
-  void put (Datum & key, Datum & val);
+  int put (Datum & key, Datum & val);
   int fetch (Datum & key, Datum & val);
 	void err(int dberr) { Db::err(dberr, "GreenDb");};
   void close ();

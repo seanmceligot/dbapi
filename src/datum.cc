@@ -3,8 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include <glib.h>
-
 
 Datum::Datum (DataType type):Dbt (),_type(type), _internal_allocated(false) {
 }

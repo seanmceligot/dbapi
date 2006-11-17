@@ -126,7 +126,6 @@ public:
 	}
 	StrDatum(const char* value):Datum(TYPE_STRING) {
 		set_string(value);
-		g_message("StrDatum(%s)", to_string());
 	}
 	const char* value() const {
 		return get_string();

@@ -7,7 +7,6 @@
 //#include <sys/stat.h>
 #include <string.h>
 //#include "mcheck.h"
-//#include <glib.h>
 
 GreenEnv::GreenEnv (const char *home):DbEnv (0),_home(home)
 {

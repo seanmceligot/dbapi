@@ -19,7 +19,7 @@ main (int argc, char **argv) {
     int colno = i-2;
 		const char* colname = table.get_col_name(colno);
 		assert(colname != NULL);
-		g_message("adding %s %s", colname, val);
+		fprintf(stderr, "adding %s %s\n", colname, val);
 		row->from_string(colname, val);
 	}
 	table.save(row);

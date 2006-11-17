@@ -5,7 +5,6 @@
 #include "greendb/datum.hh"
 #include "greendb/strdatum.hh"
 #include <assert.h>
-#include <glib.h>
 
 Row::Row (Table * table, size_t size):_size (size), _table (table)  {
 	//g_message("new Row(%s,size=%d)", table->get_name(), size);

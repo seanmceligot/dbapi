@@ -15,13 +15,13 @@ main (int argc, char **argv) {
 	Schema* schema = table.get_schema();
 	TypeMap typemap;
 	if (table.exists()) {
-		g_message("table already created");
+		fprintf(stderr, "table already created\n");
 	} else {
 		for (int i = 2; i < argc;i++) {
 			char* type = argv[i];
 			DataType datatype = typemap.get_type_id(type);
 			char* name = argv[++i];
-			g_message("adding %d %s %s", datatype, type, name);
+			fprintf(stderr, "adding %d %s %s\n", datatype, type, name);
 			assert(datatype > TYPE_UNDEFINED);
 			assert(datatype < TYPE_END);
 			schema->add_column(name, datatype, 1);

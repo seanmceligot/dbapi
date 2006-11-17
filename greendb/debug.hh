@@ -1,6 +1,5 @@
 #ifndef __DEBUG_HH
 #define __DEBUG_HH
-#include <glib.h>
 
 #include <iostream>
 

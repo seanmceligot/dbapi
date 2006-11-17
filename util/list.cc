@@ -31,7 +31,7 @@ main (int argc, char **argv) {
 	std::cout <<table.get_name()<<std::endl;
 	const char* pk = schema->get_name(0);
 	CursorRow * row = table.first(pk);
-	g_message(" listing by pk %s", pk);
+	fprintf(stderr, " listing by pk %s\n", pk);
 	while(row) {
 		print_row(row);
 		//row->close();

@@ -5,7 +5,6 @@
 #include "greendb/schema.hh"
 #include "greendb/resultset.hh"
 #include <string>
-#include <glib.h>
 
 Table::Table (const char* name, GreenEnv & ge): _name(name), _ge (ge) {
 		_schema = new Schema(this);
