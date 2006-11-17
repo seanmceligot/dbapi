@@ -3,10 +3,11 @@
 #include "greendb/memory.hh"
 #include <stdlib.h>
 //#include <stdint.h>
-#include <dirent.h>
-#include <sys/stat.h>
+//#include <dirent.h>
+//#include <sys/stat.h>
 #include <string.h>
 //#include "mcheck.h"
+//#include <glib.h>
 
 GreenEnv::GreenEnv (const char *home):DbEnv (0),_home(home)
 {
@@ -32,20 +33,20 @@ void
       minor;
     int
       patch;
-    version (&major, &minor, &patch);
-    g_message( "db version: %d %d %d" , major, minor , patch );
+    //version (&major, &minor, &patch);
+    //g_message( "db version: %d %d %d" , major, minor , patch );
   }
   if (home) {
 		// create home
-    DIR * dir = opendir (home);
-    if (dir) {
-      closedir (dir);
-    } else {
-      mkdir (home, 0x600);
-    }
+    //DIR * dir = opendir (home);
+    //if (dir) {
+    //  closedir (dir);
+    //} else {
+    //  mkdir (home, 0x600);
+    //}
   	set_data_dir (home);
 
-  	set_lg_dir (home);
+  	//set_lg_dir (home);
   }
   //dberr =env->set_cachesize (env, 0, 4 * 1024, 0644);
   //dbcheck_return(dberr);
@@ -61,9 +62,9 @@ void
   // we'll do without for now
   // DbEnv::set_alloc(greendb_malloc,greendb_realloc,greendb_free);
   dberr = DbEnv::open (home, flags, 0);
-  set_errfile (stderr);
+  //set_errfile (stderr);
 
-  set_errpfx ("dberr:");
+  //set_errpfx ("dberr:");
 
 }
 
@@ -71,13 +72,4 @@ void
   GreenEnv::close ()
 {
   DbEnv::close (0);
-}
-std::ostream & operator << (std::ostream & os, const GreenEnv & env)
-{
-  return os << "Env(" << env.home () << ')';
-}
-
-std::ostream & operator << (std::ostream & os, const GreenEnv * env)
-{
-  return os << "Env(" << env->home () << ')';
 }

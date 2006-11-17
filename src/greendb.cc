@@ -1,13 +1,11 @@
 #include "greendb/greendb.hh"
 #include "greendb/debug.hh"
 #include <errno.h>
-//#include <ctype.h>
-//#include <iostream>
+#include <glib.h>
 
 #if !defined(DB_BUFFER_SMALL)
 #define DB_BUFFER_SMALL ENOMEM
 #endif
-//#include <exception>
 
 /*
 GreenDb::GreenDb (DbEnv * env, const char *dbfile):Db (env, 0), _dbfile (dbfile),
@@ -101,23 +99,21 @@ GreenDb::open (int type,u_int32_t flags, u_int32_t open_flags, int mode)
   	dberr = Db::open (_dbfile.c_str(), _name.c_str(), ltype, l_open_flags, mode);
 #endif
   } catch (DbException & ex) {
-    g_message( "Unhandled DbException : %s " , ex.what () );
+    //g_message( "Unhandled DbException : %s " , ex.what () );
 		throw;
 	}
 	if (dberr) {
-		g_message("Db::open dberr: %d", dberr);
+		//g_message("Db::open dberr: %d", dberr);
 	}
 }
 
-void
+int
   GreenDb::put (Datum & key, Datum & val)
 {
   key.set_db_flags (0);
   val.set_db_flags (0);
   int dberr = Db::put (_txn, &key, &val, 0);
-  if (dberr) {
-		g_error("dberr: %s", strerror(dberr));
-	}
+  return dberr;
   Db::sync (0);
 }
 
@@ -158,7 +154,7 @@ retry:
       val.atleast_size();
       goto retry;
     } else {
-    	g_message( "Unhandled DbException : %s " , ex.what () );
+    	//g_message( "Unhandled DbException : %s " , ex.what () );
       throw;
     }
   }
@@ -169,10 +165,10 @@ retry:
 	  Db::err(dberr, "dberr: ");
   }
 	if (dberr && (dberr != DB_NOTFOUND)) {
-     g_message("fetch %s %s = DB_NOTFOUND", dberr, name(), key.to_string());
+     //g_message("fetch %s %s = DB_NOTFOUND", dberr, name(), key.to_string());
   }
   if (dberr == 0) {
-     g_message("%d fetch %s %s = %s", dberr, name(), key.to_string(), val.to_string());
+     //g_message("%d fetch %s %s = %s", dberr, name(), key.to_string(), val.to_string());
   }
   return dberr;
 }

@@ -4,7 +4,6 @@
 #include "greendb/debug.hh"
 #include "greendb/schema.hh"
 #include "greendb/resultset.hh"
-//#include <string>
 
 ResultSet::ResultSet (Table * table, CursorRow* row, Datum* fk, Datum* pk,size_t column_count): _table(table), _row(row),_fk(fk),_pk(pk),_column_count(column_count) {
 } 
@@ -33,7 +32,7 @@ bool ResultSet::next() {
 		return true;
 	} else {
 		if (dberr != DB_NOTFOUND) {
-						g_error("next_dup %d", dberr);
+			fprintf(stderr, "next_dup %d", dberr);
 		}
 		return false;
 	}

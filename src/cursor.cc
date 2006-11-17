@@ -74,13 +74,13 @@ retry:
       val.atleast_size();
       goto retry;
     } else {
-     g_message( "Unhandled DbException : %s " , ex.what () );
+     //g_message( "Unhandled DbException : %s " , ex.what () );
       throw;
     }
   }
 	//g_message("%d dbc->get %s ",dberr, key.str(),val.str());
 	if (dberr && (dberr != DB_NOTFOUND)) {
-		g_message( "unknown error %d" , dberr );
+		fprintf(stderr, "unknown error %d" , dberr );
 	}
   return dberr;
 }

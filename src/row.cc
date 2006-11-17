@@ -5,9 +5,10 @@
 #include "greendb/datum.hh"
 #include "greendb/strdatum.hh"
 #include <assert.h>
+#include <glib.h>
 
 Row::Row (Table * table, size_t size):_size (size), _table (table)  {
-	g_message("new Row(%s,size=%d)", table->get_name(), size);
+	//g_message("new Row(%s,size=%d)", table->get_name(), size);
 	_colDatum = new Datum*[size];
   //Schema* schema = table->get_schema();
 	for (size_t i = 0; i < size;i++) {
@@ -29,7 +30,7 @@ size_t Row::size() {
 void
 Row::close ()
 {
-	g_message("Row.close");
+	//g_message("Row.close");
 	/*for (size_t i = 0; i < _size;i++) {
 		free(_colDatum[i]);
 	}
@@ -84,7 +85,7 @@ Datum *
 Row::get_column (const char *colname)
 {
 	int idx = get_col_no(colname);
-	g_message("get_column[%s %d]", colname, idx);
+	//g_message("get_column[%s %d]", colname, idx);
 	if (idx < 0) {
 			return NULL;
 	}
@@ -94,11 +95,11 @@ Row::get_column (const char *colname)
 	}
   GreenDb *db = _table->get_database (colname);
 	Datum* pk = _colDatum[0];
-	g_message("pk %s", pk->to_string());
+	//g_message("pk %s", pk->to_string());
 	if (pk != NULL) {
    	db->fetch (*pk, *val);
 	}
-	g_message("fetched colum %s", val->repr());
+	//g_message("fetched colum %s", val->repr());
   return val;
 }
 
@@ -163,7 +164,7 @@ const char* Row::get_string (const char *colname) {
 
 CursorRow::CursorRow(Table* table, size_t size, Cursor* cursor, Datum* pk) :
 	Row(table, size), _cursor(cursor) {
-	g_message("CursorRow table %p, size %d, cursor %p, ok %s", table, size, cursor, pk->repr());
+	//g_message("CursorRow table %p, size %d, cursor %p, ok %s", table, size, cursor, pk->repr());
 	set(0, *pk);
 }
 

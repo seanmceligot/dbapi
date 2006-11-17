@@ -2,7 +2,7 @@
 #include "greendb/schema.hh"
 #include "greendb/strdatum.hh"
 #include "greendb/typemap.hh"
-#include <iostream>
+//#include <iostream>
 #include <assert.h>
 /*
  * schema
@@ -146,6 +146,7 @@
 			i++;
   	}
 	}
+	/*
 const std::type_info* Schema::get_typeid(int colno) {
 	int coltype = get_type(colno);
 	return get_typeid_from_type(coltype);
@@ -173,3 +174,4 @@ std::ostream & operator << (std::ostream & os, const Schema & schema)
   return os;
 }
 
+*/

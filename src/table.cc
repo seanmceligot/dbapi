@@ -5,6 +5,7 @@
 #include "greendb/schema.hh"
 #include "greendb/resultset.hh"
 #include <string>
+#include <glib.h>
 
 Table::Table (const char* name, GreenEnv & ge): _name(name), _ge (ge) {
 		_schema = new Schema(this);
@@ -53,8 +54,8 @@ CursorRow* Table::first(const char* colname) {
 	Cursor* cur = cursor(colname);
 	CursorRow* row = NULL;
 	if (cur->next(*pkkey,*pkval) == 0) {
-		g_message("first pk=%s", pkkey->to_string());
-		g_message("next by %s got pk=%s", colname, pkkey->to_string());
+		//g_message("first pk=%s", pkkey->to_string());
+		//g_message("next by %s got pk=%s", colname, pkkey->to_string());
 		row = new CursorRow(this, _schema->size(), cur, pkkey); 
 	}
   free(pkval);
@@ -64,9 +65,9 @@ CursorRow* Table::next(CursorRow* row, const char* colname) {
 	Datum* pkkey = row->get_column(0);
   Datum* pkval = _schema->create_datum(colname);
 	Cursor* cur = row->get_cursor();
-	g_message("before first by %s pk=%s", colname, pkkey->to_string());
+	//g_message("before first by %s pk=%s", colname, pkkey->to_string());
 	if (cur->next(*pkkey,*pkval) == 0) {
-		g_message("first by %s got pk=%s", colname, pkkey->to_string());
+		//g_message("first by %s got pk=%s", colname, pkkey->to_string());
 		row = new CursorRow(this, _schema->size(), cur, pkkey); 
 	} else {
 		row = NULL;
@@ -78,13 +79,13 @@ CursorRow* Table::next(CursorRow* row, const char* colname) {
 Row*
 Table::fetch(const char *colname, Datum& ikey) {
   GreenDb *db = get_index(colname);
-	g_message("fetch %s %s", db->name(), ikey.to_string());
+	//g_message("fetch %s %s", db->name(), ikey.to_string());
   Datum* pk = _schema->create_datum(0);
   if (db->fetch (ikey, *pk) != 0) {
 		free(pk);
     return NULL;
   }
-	g_message("found pk %s", pk->to_string());
+	//g_message("found pk %s", pk->to_string());
 	Row* row = new Row(this, _schema->size());
 	row->set(0,*pk);
   return row;
@@ -123,11 +124,11 @@ Table::save (Row * row) {
     GreenDb *db = get_database (colname);
 		//char* str = row->to_string(colname);
 		//free(str);
-     g_message("saving... %s %s %s", colname, pk.to_string(), datum->to_string());
+    // g_message("saving... %s %s %s", colname, pk.to_string(), datum->to_string());
     db->put (pk, *datum);
      if (indexed) {
        GreenDb* idb = get_index(colname, true);
-       g_message("indexing... %s %s %s", colname, datum->to_string(), pk.to_string());
+       //g_message("indexing... %s %s %s", colname, datum->to_string(), pk.to_string());
        idb->put (*datum, pk);
      }
   }

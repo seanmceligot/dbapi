@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <glib.h>
+
 
 Datum::Datum (DataType type):Dbt (),_type(type), _internal_allocated(false) {
 }
@@ -73,7 +75,8 @@ void Datum::atleast (size_t newsize) {
 }
 char * Datum::repr() const{
 	TypeMap tm;
-   return g_strdup_printf("Datum::new_%s(%s)", tm.get_type_name(_type), this->to_string());
+   //return g_strdup_printf("Datum::new_%s(%s)", tm.get_type_name(_type), this->to_string());
+   return to_string();
 }
 char * Datum::str() const{
    return to_string();
@@ -96,7 +99,10 @@ Datum* Datum::set_int(int newvalue){
       return this;
 }
 Datum* Datum::set_string(const char* newvalue){
-    g_return_val_if_fail(newvalue != NULL, NULL);
+    if (newvalue == NULL) {
+    	return NULL;
+    }
+     
 		size_t length = strlen(newvalue);
 		size_t size= (length+1)*(sizeof(char));
 		if (get_ptr()) {
@@ -113,14 +119,19 @@ Datum* Datum::set_string(const char* newvalue){
     return this;
 }
 int Datum::get_int() const {
-  g_return_val_if_fail(const_ptr() != NULL, 0);
+	if (const_ptr() == NULL) {
+		return 0;
+	}
+  //g_return_val_if_fail(const_ptr() != NULL, 0);
   return *((int*)const_ptr());
 }
 const char* Datum::get_string() const{
   return (const char*)const_ptr();
 }
 void Datum::from_string(const char* value){
-  g_return_if_fail(value != NULL);
+  if(value != NULL) {
+  	return;
+  }
   switch(_type) {
     case TYPE_STRING:
        set_string(value);
@@ -128,21 +139,29 @@ void Datum::from_string(const char* value){
     case TYPE_INT:
        set_int(atoi(value));
        break;
-    default:
-      g_message("unknown type, cannot set from string");
+    //default:
+      //g_message("unknown type, cannot set from string");
   }
 }
 /**
  * caller must free pointer
  */
+#define MAX_INT_DIGITS 64
 char* Datum::to_string() const {
-  g_return_val_if_fail(const_ptr() != NULL, 0);
+	if (const_ptr() == NULL) {
+		return "";
+	}
+  //g_return_val_if_fail(const_ptr() != NULL, 0);
   switch(_type) {
     case TYPE_STRING:
       return strdup(get_string());
     case TYPE_INT:
-      return g_strdup_printf("%d", get_int());
+      char* str = new char[MAX_INT_DIGITS];
+      //fprintf(stderr,"MAX_INT %d\n", MAX_INT);
+      snprintf(str,MAX_INT_DIGITS,"%d",get_int());
+      return str;
+      //return g_strdup_printf("%d", get_int());
   }
-  g_message("unknown type, cannot get to string");
+  //g_message("unknown type, cannot get to string");
   return NULL;
 }
