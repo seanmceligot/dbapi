@@ -1,0 +1,11 @@
+.libs
+__db.*
+*.lo
+*.db
+desc
+test
+list
+toxml
+addrow
+*.swp
+mktable

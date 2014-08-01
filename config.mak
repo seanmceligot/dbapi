@@ -17,14 +17,14 @@ GLIB_INCLUDE=-I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include/
 ALL_INCLUDES=${DB_INCLUDE} ${GLIB_INCLUDE}
 
 AR=ar
+CXXFLAGS=-ggdb -std=c++11 -Wall -pedantic ${DEFINES}
 CXXCOMPILE=${CXX} ${CXXFLAGS}
-CXXFLAGS=-ggdb ${DEFINES}
 #CXXFLAGS=-ggdb -Wall
 CXX=g++
 DEFINES=-DGC_OPERATOR_NEW_ARRAY -DRLOG_COMPONENT=greendb
 EXE=
 EXTRA_DIST=debian
-LIBS=-ldb_cxx -lrlog -lglib-2.0 -lm -lsupc++  -ldl -lcrypt -lpthread  -lc
+LIBS=-ldb_cxx -lglog -lglib-2.0 -lm -lsupc++  -ldl -lcrypt -lpthread  -lc
 RANLIB=ranlib
 
 LIBTOOL_CLEAN=libtool --mode=clean rm -vf

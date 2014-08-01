@@ -11,7 +11,7 @@ void print_row(Row* row) {
 		for (size_t i = 0; i < row->size(); i++) {
 			Datum* val = row->get_column(i);
 			assert(val);
-			//std::cout<<i<<") "<<*val<<std::endl;
+			//std::cout<<i<<") "<<val->to_string() <<std::endl;
 			std::cout<<row->to_string(i);
 			if (i+1 < row->size()) {
 				std::cout<<", ";

@@ -4,13 +4,18 @@
 //#include <vector>
 //#include <map>
 //#include <string>
+#include <typeinfo>
 #include "greendb/debug.hh"
 #include "greendb/table.hh"
+
+using namespace std;
 
 class GreenDbIterator {
 		virtual bool hasmore()=0;
 		virtual Datum* next();
 		virtual Datum* current();
+		virtual ~GreenDbIterator();
+
 };
 class Schema {
 	int _size;
@@ -31,7 +36,7 @@ public:
 	Datum* create_datum_for_type(int type) const;
 	int get_col_no(const char* colname) const;
 	const char* get_name(int n) const;
-	char** get_names() const;
+	const char** get_names() const;
 	bool indexed(int colno) const;
 	size_t size() const;
 protected:

@@ -28,12 +28,12 @@ public:
  * caller must free
  * see Datum.to_string
  */
-	char* to_string(int index);
+const char* to_string(int index);
 /**
  * caller must free
  * see Datum.to_string
  */
-	char* to_string(const char* colname);
+	const char* to_string(const char* colname);
 	Datum * get_column (int idx);
   Datum *get_column (const char *colname);
 	int get_col_no(const char* colname);
@@ -44,6 +44,7 @@ class CursorRow : public Row {
 public:
 	CursorRow(Table* table, size_t size, Cursor* cursor, Datum* pk);
 	Cursor* get_cursor();
+	void close();
 };
 
 #endif

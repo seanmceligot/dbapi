@@ -2,6 +2,7 @@
 #include "greendb/memory.hh"
 #include "greendb/datum.hh"
 #include <assert.h>
+#include <cstring>
 
 TypeMap::TypeMap() {
 }	

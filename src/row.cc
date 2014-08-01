@@ -26,23 +26,24 @@ size_t Row::size() {
 	return _size;
 }
 
-void
-Row::close ()
-{
+void Row::close () {
 	//g_message("Row.close");
-	/*for (size_t i = 0; i < _size;i++) {
-		free(_colDatum[i]);
+	for (size_t i = 0; i < _size;i++) {
+		Datum* datum = _colDatum[i];
+		if (datum != NULL) {
+			free(_colDatum[i]);
+		}
 	}
-  delete[] _colDatum;*/
+  delete[] _colDatum;
 }
 
 void
 Row::set (int idx, Datum & newDatum)
 {
   Datum *datum = _colDatum[idx];
-  /*if (datum) {
+  if (datum) {
     free (datum);
-  }*/
+  }
   _colDatum[idx] = &newDatum;
 }
 int Row::get_col_no(const char* colname) {
@@ -127,7 +128,7 @@ void Row::from_string(int idx, const char* s) {
  * caller must free
  * see Datum.to_string
  */
-char* Row::to_string(int idx) {
+const char* Row::to_string(int idx) {
 	Datum* datum = get_column(idx);
 	if (datum == NULL) {
     return NULL;
@@ -138,7 +139,7 @@ char* Row::to_string(int idx) {
  * caller must free
  * see Datum.to_string
  */
-char* Row::to_string(const char* colname) {
+const char* Row::to_string(const char* colname) {
 	Datum* datum = get_column(colname);
 	if (datum == NULL) {
     return NULL;

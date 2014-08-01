@@ -92,7 +92,7 @@ Table::fetch(const char *colname, Datum& ikey) {
 void
 Table::close () {
   for (StringDbMap::iterator it = _dbhash.begin (); it != _dbhash.end (); it++) {
-    const char *colname = it->first;
+    //const char *colname = it->first;
     GreenDb *db = it->second;
     db->close ();
     free (db);

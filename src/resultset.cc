@@ -13,7 +13,7 @@ ResultSet::~ResultSet () {
 }
 void ResultSet::close() {
 	if (_row) {
-  	_row->close ();
+  	//_row->close ();
 		_row = NULL;
 	}
 }

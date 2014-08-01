@@ -22,7 +22,7 @@ main (int argc, char **argv) {
 		for (size_t i = 0; i < row->size(); i++) {
 			to_xml(schema, row, std::cout);
 		}
-		row->close();
+		//row->close();
 		row = table.next(row, pk);
 	}
 	table.close();

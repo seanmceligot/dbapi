@@ -3,13 +3,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <memory>
+#include <cstring>
 
-Datum::Datum (DataType type):Dbt (),_type(type), _internal_allocated(false) {
+Datum::Datum (DataType type):Dbt (),_internal_allocated(false),_type(type)  {
 }
-Datum::Datum (DataType type, u_int32_t size):Dbt (),_type(type), _internal_allocated(false) {
+Datum::Datum (DataType type, u_int32_t size):Dbt (), _internal_allocated(false),_type(type) {
   atleast(size);
 }
-Datum::Datum (DataType type, void *ptr, u_int32_t size, u_int32_t allocated):Dbt (ptr, size),_type(type), _internal_allocated(false) {
+Datum::Datum (DataType type, void *ptr, u_int32_t size, u_int32_t allocated):Dbt (ptr, size)
+, _internal_allocated(false)
+	,_type(type) {
  set_ulen (allocated);
 }
 Datum::~Datum() {
@@ -26,32 +30,32 @@ void Datum::free_ptr() {
 }
 const void *Datum::const_ptr() const {
   return Dbt::get_data ();
-};
+}
 void *Datum::get_ptr() {
   return Dbt::get_data ();
-};
+}
 u_int32_t Datum::get_size () const {
   return Dbt::get_size ();
-};
+}
 u_int32_t Datum::get_allocated () const {
   return Dbt::get_ulen ();
-};
+}
 
 void Datum::atleast_size() {
   atleast(get_size());
-};
+}
 void Datum::set_ptr(void* ptr) {
   return Dbt::set_data (ptr);
-};
+}
 void Datum::set_db_flags(u_int32_t flags) {
   Dbt::set_flags(flags);
-};
+}
 void Datum::set_size (u_int32_t size) {
   Dbt::set_size (size);
-};
+}
 void Datum::set_allocated (u_int32_t allocated) {
   Dbt::set_ulen (allocated);
-};
+}
 u_int32_t Datum::get_internal_allocated() {
   return _internal_allocated;
 }
@@ -71,25 +75,28 @@ void Datum::atleast (size_t newsize) {
       set_size( newsize);
     }
 }
-char * Datum::repr() const{
+const char * Datum::repr() const{
 	TypeMap tm;
    //return g_strdup_printf("Datum::new_%s(%s)", tm.get_type_name(_type), this->to_string());
    return to_string();
 }
-char * Datum::str() const{
+const char * Datum::str() const{
    return to_string();
 }
-char * Datum::c_str() const{
+const char * Datum::c_str() const {
    return to_string();
 }
 Datum* Datum::set_int(int newvalue){
       size_t size = sizeof(int);
       if (get_ptr()) {
         int* ptr = (int*)get_ptr();
-        std::_Destroy<int>(ptr);
+        delete ptr;
+        //std::allocator::destroy<int>(ptr);
         atleast(size);
-				set_size(size);
-        std::_Construct<int>(ptr, newvalue);
+		set_size(size);
+		ptr = new int;
+		*ptr = newvalue;
+		//std::allocator::contruct<int>(ptr, newvalue);
       } else {
         atleast(size);
         set_ptr( new int(newvalue) );
@@ -127,9 +134,9 @@ const char* Datum::get_string() const{
   return (const char*)const_ptr();
 }
 void Datum::from_string(const char* value){
-  if(value != NULL) {
-  	return;
-  }
+  //if(value != NULL) {
+  //	return;
+  //}
   switch(_type) {
     case TYPE_STRING:
        set_string(value);
@@ -137,28 +144,32 @@ void Datum::from_string(const char* value){
     case TYPE_INT:
        set_int(atoi(value));
        break;
-    //default:
-      //g_message("unknown type, cannot set from string");
+    default:
+      throw std::range_error("unsupport column type");
   }
 }
 /**
  * caller must free pointer
  */
 #define MAX_INT_DIGITS 64
-char* Datum::to_string() const {
+const char* Datum::to_string() const {
 	if (const_ptr() == NULL) {
 		return "";
 	}
   //g_return_val_if_fail(const_ptr() != NULL, 0);
   switch(_type) {
-    case TYPE_STRING:
+    case TYPE_STRING: {
       return strdup(get_string());
-    case TYPE_INT:
+    }
+    case TYPE_INT: {
       char* str = new char[MAX_INT_DIGITS];
       //fprintf(stderr,"MAX_INT %d\n", MAX_INT);
       snprintf(str,MAX_INT_DIGITS,"%d",get_int());
       return str;
-      //return g_strdup_printf("%d", get_int());
+    }
+    default: {
+         throw std::range_error("unsupport column type");
+    }
   }
   //g_message("unknown type, cannot get to string");
   return NULL;

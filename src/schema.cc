@@ -81,16 +81,16 @@
 /**
  * caller must free
  */
-	char** Schema::get_names() const {
+	const char** Schema::get_names() const {
 		StrDatum name;
 		IntDatum pk;
-		char** names = new char*[_size+1];
+		const char** names = new const char*[_size+1];
 
 		GreenDb* db = _table->get_database("$schema_ix_name");
 		Cursor* cur = db->cursor();
 		for (int i = 0;i < _size;i++) {
 			cur->next(pk,name);
-			char* n = name.to_string();
+			const char* n = name.to_string();
 			names[i] = n;
 		}
 		names[_size] = NULL;

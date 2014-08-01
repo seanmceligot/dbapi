@@ -18,8 +18,10 @@ mktable${EXE}: mktable.lo ../src/libgreendb.la
 desc${EXE}: desc.lo ../src/libgreendb.la
 	${LIBTOOL_LINK} -o $@ ${LIBS} desc.o  ../src/libgreendb.la 
 
-test${EXE}: test.lo ../src/libgreendb.la
-	${LIBTOOL_LINK} -o $@ ${LIBS} test.o  ../src/libgreendb.la 
+test: compile
+	./test.sh
+#test${EXE}: test.lo ../src/libgreendb.la
+#	${LIBTOOL_LINK} -o $@ ${LIBS} test.o  ../src/libgreendb.la 
 
 %.lo: %.cc
 	$(LIBTOOL_CXX) ${INCLUDES}  -c $<

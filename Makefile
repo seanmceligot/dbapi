@@ -2,9 +2,11 @@ all: compile
 
 include config.mak
 
-subdirs=src util swig
+subdirs=src util #testsuite
 
-compile:
+all: compile
+
+compile: config.h
 	for d in ${subdirs};do make -C $$d $@;done
 
 install: 

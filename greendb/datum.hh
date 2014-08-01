@@ -26,15 +26,15 @@ public:
 /**
  * caller must free pointer
  */
-  char * repr() const;
+  const char * repr() const;
 /**
  * caller must free pointer
  */
-  char * str() const;
+  const char * str() const;
 /**
  * caller must free pointer
  */
-  char * c_str() const;
+  const char * c_str() const;
   Datum* set_int(int value);
   Datum* set_string(const char* value);
   int get_int() const;
@@ -43,7 +43,7 @@ public:
 /**
  * caller must free pointer
  */
-  char* to_string() const;
+  const char* to_string() const;
 	bool isset() const { return const_ptr() != NULL;};
 protected:
   void set_internal_allocated();

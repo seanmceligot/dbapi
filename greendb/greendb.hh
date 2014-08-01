@@ -32,7 +32,7 @@ public:
   int put (Datum & key, Datum & val);
   int fetch (Datum & key, Datum & val);
 	void err(int dberr) { Db::err(dberr, "GreenDb");};
-  void close ();
+  virtual void close ();
 };
 
 std::ostream & operator << (std::ostream & os, const GreenDb & db);
