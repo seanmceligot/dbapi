@@ -17,7 +17,7 @@ ii  libgtk1.2-dev  1.2.10-16      Development files for the GIMP Toolkit
 
 Sample in c++
 
-```c++
+```cpp
 #include "greendb/greenenv.hh"
 #include "greendb/debug.hh"
 #include "greendb/table.hh"
