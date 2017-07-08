@@ -170,3 +170,97 @@ main (int argc, char **argv) {
   return 0;
 }
 ```
+
+Ruby Sample
+
+```
+require 'greendb'
+
+def main
+  table_name ="people"
+  ge = Greendb::GreenEnv.new(".")
+  begin
+    ge.open();
+    table  = Greendb::Table.new(table_name, ge);
+    begin
+    schema = table.get_schema();
+    if not table.exists()
+      schema.add_column("id", Greendb::TYPE_INT , 1);
+      schema.add_column("name", Greendb::TYPE_STRING , 1);
+      schema.add_column("age", Greendb::TYPE_INT , 1);
+      id = 1;
+      names = ["Mathew", "Mary", "Luke", "James"]
+      ages = [18,23,18,34]
+      for index in (0..(names.length-1))
+        row = table.new_row();
+        row.set_int("id", id );
+        row.set_string("name", names[index]);
+        row.set_int("age", ages[index]);
+        table.save(row);
+        id=id+1
+      end
+    end
+      id2 = Greendb::IntDatum.new(2)
+      row= table.fetch("id", id2)
+      print_row(schema, row)
+      print_person(row)
+    ensure
+      table.close()
+    end
+  ensure
+    ge.close()
+  end
+end
+
+def each_colname(schema)
+  for i in (0..(schema.size()-1))
+    yield schema.get_name(i)
+  end
+end
+def each_column(row)
+  for index in (0..(row.size-1))
+    yield row.get_column_n(index)
+  end
+end
+def print_header(schema)
+  ll=[]
+  each_colname(schema) do |name|
+    ll.push name
+  end
+  print ll.join(", "), "\n"
+end
+def print_row(schema, row)
+  print "\n"
+  ll=[]
+  each_column(row) do |datum|
+    ll.push datum.to_string
+  end
+  print ll.join(", "), "\n"
+end
+def print_person(row)
+  print "id: ", row.get_column("id").to_string, "\n"
+  print "name: ", row.get_column("name").to_string, "\n"
+  print "age: ", row.get_column("age").to_string, "\n"
+end
+main
+Command line Utilities
+
+Here's an example of how these might be run.
+./mktable people int id string name int age
+./desc people
+people
+0) int	id
+1) string	name
+2) int	age
+
+./addrow people 1 John 30
+./addrow people 4 Eric 18
+./addrow people 2 Bob 42
+./addrow people 3 Steve 18
+./list people
+people
+1, John, 30
+2, Bob, 42
+3, Steve, 18
+4, Eric, 18
+```
